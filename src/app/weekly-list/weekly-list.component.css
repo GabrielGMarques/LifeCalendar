@@ -1,0 +1,24 @@
+.week-list-wrapper{
+    margin: 40px;
+    /* border:1px solid #bdbdbd; */
+    display: table;
+    overflow-x: scroll;
+    
+}
+
+.year-index{
+    padding: 10px;
+    background-color: #ff6d00;
+    color:#fff;
+    border-radius: 100%;
+}
+
+.week-list-row{
+    display: table-row;
+}
+.week-list-item{
+    display: table-cell;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #bdbdbd;
+}
