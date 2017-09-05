@@ -23,7 +23,9 @@
         "styles.css"
       ],
       "scripts": [
+        // "../node_modules/jquery/dist/jquery.min.js",
         "app/scripts/weekly-list.js"
+        
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

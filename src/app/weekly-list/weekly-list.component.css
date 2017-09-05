@@ -22,3 +22,7 @@
     height: 40px;
     border: 1px solid #bdbdbd;
 }
+.currentWeek{
+    background-color: #ff6d00;
+    color:#fff;
+}

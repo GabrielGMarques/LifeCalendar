@@ -13,7 +13,7 @@
     <div class="week-list-row" *ngFor="let year of years">
       <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
       
-      <div class="week-list-item" *ngFor="let week of year.weeks">
+      <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek}" *ngFor="let week of year.weeks">
         {{week.index}}
       </div>
     </div>

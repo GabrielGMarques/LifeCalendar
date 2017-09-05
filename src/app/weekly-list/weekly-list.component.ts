@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-// declare var jquery:any;
-// declare var $ :any;
+
 
 @Component({
   selector: 'app-weekly-list',
@@ -22,7 +21,7 @@ export class WeeklyListComponent implements OnInit {
     var dateBegin = new Date(this.yearBirth,this.monthBirth,this.dayBirth);
     var dateEnd = new Date(this.yearBirth+80,this.monthBirth,this.dayBirth);
     
-    var indexYear = 1;
+    var indexYear = 0;
 
 
     while(dateBegin < dateEnd){
@@ -35,15 +34,28 @@ export class WeeklyListComponent implements OnInit {
         var dayRange = dateBegin.getDate() < this.dayBirth 
                       && dateBegin.getMonth() == this.monthBirth? 
                         Math.abs(dateBegin.getDate() - this.dayBirth):  7;
+
+        var dateBeginYear = dateBegin.getFullYear();
+        var dateBeginMonth = dateBegin.getMonth();
+        var dateBeginDay = dateBegin.getDay();
+
+        var currentDate = new Date();
+        
+        currentDate = new Date(currentDate.getFullYear()-1,currentDate.getMonth(),currentDate.getDate(),0,0,0,0);
+
+        var dateLimit =  new Date(dateBeginYear,dateBeginMonth,dateBeginDay+dayRange,0,0,0,0);
+        
+
+        var isCurrentWeek = dateBegin <= currentDate && dateLimit >= currentDate;
+
         dateBegin.setDate(dateBegin.getDate()+dayRange);
-        weeks.push({date:dateBegin,index:indexWeek})
+
+        weeks.push({date:dateBegin,index:indexWeek,isCurrentWeek:isCurrentWeek});
         indexWeek++;
       }
-      this.years.push({date:dateBegin,index:indexYear<10?"0"+indexYear:indexYear.toString() ,weeks:weeks,isTheCurrentYear:dateBegin.getFullYear() == (new Date().getFullYear()-1)});
+      this.years.push({date:dateBegin,index:indexYear<10?"0"+indexYear:indexYear.toString() ,weeks:weeks,isTheCurrentYear:dateBegin.getFullYear() == (new Date().getFullYear()-2)});
       indexYear++;
     }
-
-    // $('.currentYear').scrollIntoView(true)
   }
 
 }
