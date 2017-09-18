@@ -26,3 +26,78 @@
     background-color: #ff6d00;
     color:#fff;
 }
+.btn-add{
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+     text-align: center; 
+    font-size: 50px;
+     /* padding: 11px;  */
+     box-shadow: 2px 2px 10px #222;
+     position: fixed;
+     right:20px;
+     bottom:20px;
+     color:white;
+     background-color: #2979FF;
+}
+.btn-add:link{
+ text-decoration: none;
+}
+.great-divider{
+    margin-bottom: 60px;
+}
+.input-group-addon{
+    width: 50px;
+}
+select.list1 option.option2
+{
+    background-color: #007700;
+}
+.color-item-1{
+    background-color: #F44336;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: inline-block;
+}
+.color-item-2{
+    background-color: #F44336;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: inline-block;
+}
+.color-item-3{
+    background-color: #F44336;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: inline-block;
+}
+.color-item-4{
+    background-color: #F44336;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: inline-block;
+}
+.color-item-5{
+    background-color: #F44336;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: inline-block;
+}
+.color-item-6{
+    background-color: #F44336;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    display: inline-block;
+}
+.color-item{
+    display: inline-block;
+}
+.second-level{
+    margin-top: 10px;
+}

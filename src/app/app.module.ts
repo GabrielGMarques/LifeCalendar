@@ -7,6 +7,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { WeeklyListComponent } from './weekly-list/weekly-list.component';
 import { DayListComponent } from './day-list/day-list.component';
+// import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule} from '@angular/forms';
+
 
 export const environment = {
   production: false,
@@ -28,6 +32,8 @@ export const environment = {
   ],
   imports: [
     BrowserModule,
+    NgbModule.forRoot(),
+    FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
 	  AngularFireDatabaseModule
   ],

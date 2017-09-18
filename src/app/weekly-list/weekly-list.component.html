@@ -12,9 +12,92 @@
   <div class="week-list-wrapper">
     <div class="week-list-row" *ngFor="let year of years">
       <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
-      
-      <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek}" *ngFor="let week of year.weeks">
+      <div class="week-list-item"[ngClass]="{currentWeek:week.isCurrentWeek}" *ngFor="let week of year.weeks" data-toggle="tooltip"  title="{{week.dateFrom}} - {{week.dateTo}}" data-placement="right" >
         {{week.index}}
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="exampleModal" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Periodo</h5>
+        
+      </div>
+      
+      <div class="modal-body">
+        <form class="form-inline">
+          <div class="form-group">
+            <div class="input-group-date-from col-sm-6">
+              <input class="form-control col-sm-2" placeholder="data inicial"
+                    name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" >
+              <button class="input-group-addon col-sm-1" (click)="d.toggle(); " type="button">
+                <img src="../../assets/icon-calendar.svg" style="width: 2.4rem; height: 2rem; cursor: pointer;"/>
+              </button>
+            </div>
+            <div class="input-group-date-from col-sm-6">
+              <input class="form-control col-sm-2" placeholder="data final"
+                    name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" >
+              <button class="input-group-addon col-sm-1" (click)="d.toggle(); " type="button">
+                <img src="../../assets/icon-calendar.svg" style="width: 2.4rem; height: 2rem; cursor: pointer;"/>
+              </button>
+            </div>
+            <div class="col-sm-6 second-level">
+              <label for="periodLevel">Nivel do Periodo</label>
+              
+              <select class="form-control" id="periodLevel">
+                <option value="1">Uma semana</option>
+                <option value="2">Varias semana</option>
+                <option value="3">Um ano</option>
+                <option value="4">Vários anos</option>
+              </select>
+          </div>
+          <div class="col-sm-6 second-level">
+              <div>
+                <div class="colors-wrapper">
+                  <div class="color-picker">
+                    <div class="color-item custom-control custom-radio">
+                      <input type="radio" class="custom-control-input">
+                      <div class="custom-control-description color-item-1"></div>
+                    </div>
+                    <div class="color-item custom-control custom-radio">
+                      <input type="radio" class="custom-control-input">
+                      <span class="custom-control-description color-item-2"></span>
+                    </div>
+                    <div class="color-item custom-control custom-radio">
+                      <input type="radio" class="custom-control-input">
+                      <span class="custom-control-description color-item-3"></span>
+                    </div>
+                    <div class="color-item custom-control custom-radio">
+                      <input type="radio" class="custom-control-input">
+                      <span class="custom-control-description color-item-4"></span>
+                    </div>
+                    <div class="color-item custom-control custom-radio">
+                      <input type="radio" class="custom-control-input">
+                      <span class="custom-control-description color-item-5"></span>
+                    </div>
+                    <div class="color-item custom-control custom-radio">
+                      <input type="radio" class="custom-control-input">
+                      <span class="custom-control-description color-item-6" ></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Salvar Periodo</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="great-divider" >  
+  <a href="#" class=" btn-add" data-toggle="modal" data-target="#exampleModal">+</a>

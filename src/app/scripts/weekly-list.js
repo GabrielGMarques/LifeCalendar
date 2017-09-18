@@ -9,5 +9,7 @@
 $(document).ready(function(){
     console.log($('.currentYear'));
     $('.currentYear')[0].scrollIntoView();
-
+    $('.input-group-addon').on('click',function(){
+        $('ngb-datepicker').toggle();
+    });
 });
