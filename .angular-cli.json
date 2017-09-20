@@ -20,11 +20,13 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "assets/jquery-ui-1.12.1.custom/jquery-ui.min.css",
         "styles.css"
       ],
       "scripts": [
         "app/scripts/weekly-list.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "assets/jquery-ui-1.12.1.custom/jquery-ui.min.js"
         
       ],
       "environmentSource": "environments/environment.ts",

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { NgModule } from '@angular/core';
+// import { NgModule } from '@angular/core';
 
 const now = new Date();
 
@@ -13,18 +12,21 @@ const now = new Date();
   
 })
 
-@NgModule({
-  imports:[NgbModule]
-})
+// @NgModule({
+//   imports:[NgbModule]
+// })
 
 export class WeeklyListComponent implements OnInit {
   years = []
   yearBirth = 1997;
   monthBirth = 10;
   dayBirth = 12;
-  model;
   date: {year: number, month: number};
-  
+  rangeDateStart;
+  rangeDateEnd ="";
+  rangeColor;
+  rangeNivel;
+
   constructor() { }
 
   ngOnInit() {
@@ -71,6 +73,18 @@ export class WeeklyListComponent implements OnInit {
       this.years.push({date:dateBegin,index:indexYear<10?"0"+indexYear:indexYear.toString() ,weeks:weeks,isTheCurrentYear:dateBegin.getFullYear() == (new Date().getFullYear()-2)});
       indexYear++;
     }
+  }
+  setValue(key,value){
+    this[key] = value;
+  }
+ 
+  createRange(){
+  
+    console.log(this.rangeDateEnd);
+    this.rangeDateStart = null;
+    this.rangeDateEnd = null;
+    this.rangeColor = null;
+    this.rangeNivel = null;
   }
 
 }

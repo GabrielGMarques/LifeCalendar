@@ -7,6 +7,7 @@
       LifeCalendar
     </a>
   </div>
+  
 </div>
 
   <div class="week-list-wrapper">
@@ -33,16 +34,14 @@
         <form class="form-inline">
           <div class="form-group">
             <div class="input-group-date-from col-sm-6">
-              <input class="form-control col-sm-2" placeholder="data inicial"
-                    name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" >
+              <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="data final">
               <button class="input-group-addon col-sm-1" (click)="d.toggle(); " type="button">
                 <img src="../../assets/icon-calendar.svg" style="width: 2.4rem; height: 2rem; cursor: pointer;"/>
               </button>
             </div>
             <div class="input-group-date-from col-sm-6">
-              <input class="form-control col-sm-2" placeholder="data final"
-                    name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" >
-              <button class="input-group-addon col-sm-1" (click)="d.toggle(); " type="button">
+              <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="data final" [(ngModel)]="rangeDateEnd" name="rangeDateEnd" id="rangeDateEnd">
+              <button class="input-group-addon col-sm-1" >
                 <img src="../../assets/icon-calendar.svg" style="width: 2.4rem; height: 2rem; cursor: pointer;"/>
               </button>
             </div>
@@ -93,7 +92,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Salvar Periodo</button>
+        <button type="button" class="btn btn-primary" (click)="createRange()">Salvar Periodo</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

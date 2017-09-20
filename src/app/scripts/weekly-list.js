@@ -7,9 +7,8 @@
 })();
 
 $(document).ready(function(){
-    console.log($('.currentYear'));
+    $('[data-toggle="datepicker"]').on('change',function(){
+        $(this).val(this.value)})
     $('.currentYear')[0].scrollIntoView();
-    $('.input-group-addon').on('click',function(){
-        $('ngb-datepicker').toggle();
-    });
+    $('[data-toggle="datepicker"]').datepicker();
 });
