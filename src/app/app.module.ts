@@ -10,6 +10,7 @@ import { DayListComponent } from './day-list/day-list.component';
 // import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
+import { PeriodEditComponent } from './period-edit/period-edit.component';
 
 
 export const environment = {
@@ -28,7 +29,8 @@ export const environment = {
   declarations: [
     AppComponent,
     WeeklyListComponent,
-    DayListComponent
+    DayListComponent,
+    PeriodEditComponent
   ],
   imports: [
     BrowserModule,
