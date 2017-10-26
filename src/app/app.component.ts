@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  tabSelected:{id:Number,name:string,selected:true};
+
+  selectTab(event){
+    this.tabSelected = event;
+  }
 }

@@ -11,6 +11,7 @@ import { DayListComponent } from './day-list/day-list.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import { PeriodEditComponent } from './period-edit/period-edit.component';
+import { HeaderNavbarComponent } from './header-navbar/header-navbar.component';
 
 
 export const environment = {
@@ -30,7 +31,8 @@ export const environment = {
     AppComponent,
     WeeklyListComponent,
     DayListComponent,
-    PeriodEditComponent
+    PeriodEditComponent,
+    HeaderNavbarComponent,
   ],
   imports: [
     BrowserModule,

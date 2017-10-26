@@ -1,23 +1,12 @@
-<div class="header">
-  <div class="navbar navbar-light bg-faded">
-    <a href="#" class="navbar-brand">
-      <img src="../../assets/calendar.svg" width="40px" height="40px" alt="">
-    </a>
-    <a href="#" class="navbar-brand">
-      LifeCalendar
-    </a>
-  </div>
-  
-</div>
 
   <div class="week-list-wrapper">
     <div class="week-list-row" *ngFor="let year of years">
       <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
-      <div class="week-list-item"[ngClass]="{currentWeek:week.isCurrentWeek}" *ngFor="let week of year.weeks" data-toggle="tooltip"  title="{{week.dateFrom}} - {{week.dateTo}}" data-placement="right" >
+      <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek}" [ngStyle]="{'background-color': week.periodColor}" *ngFor="let week of year.weeks" data-toggle="tooltip"  title="{{week.dateFromSt}} - {{week.dateToSt}}" data-placement="right" >
         {{week.index}}
       </div>
     </div>
   </div>
-  <app-period-edit></app-period-edit>
+  <app-period-edit [periods]="periodList"></app-period-edit>
 <hr class="great-divider" >  
   <a href="#" class=" btn-add" data-toggle="modal" data-target="#exampleModal">+</a>

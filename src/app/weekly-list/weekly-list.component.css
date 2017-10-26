@@ -23,8 +23,11 @@
     border: 1px solid #bdbdbd;
 }
 .currentWeek{
-    background-color: #ff6d00;
-    color:#fff;
+     width: 32px;
+     height: 32px;
+     border: 4px solid gray;
+    /* background-color: #ff6d00; */
+    /* color:#fff; */
 }
 .btn-add{
     width: 70px;

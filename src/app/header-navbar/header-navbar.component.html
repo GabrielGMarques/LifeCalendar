@@ -1,0 +1,22 @@
+<div class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header"> 
+            <a href="#" class="navbar-brand">Life Calendar</a>
+        </div>
+        <div class="navbar-default">
+            <ul class="nav navbar-nav">
+              <li  *ngFor="let tab of tabsOptions" [ngClass]="{'active':tab.selected}"><a href="#" (click)="onSelectMenu(tab)">{{tab.name}}</a></li>
+              <!-- <li><a href="#">Shopping List</a></li> -->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Save Data</a></li>
+                        <li><a href="#">Fech Data</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

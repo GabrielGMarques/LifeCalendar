@@ -6,9 +6,7 @@
 
 })();
 
-$(document).ready(function(){
-    $('[data-toggle="datepicker"]').on('change',function(){
-        $(this).val(this.value)})
-    $('.currentYear')[0].scrollIntoView();
+$(document).ready(function(){  
+    ($('.currentYear')[0] || $('.week-list-item')[0]).scrollIntoView();
     $('[data-toggle="datepicker"]').datepicker();
 });
