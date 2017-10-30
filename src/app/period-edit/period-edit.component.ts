@@ -27,8 +27,9 @@ export class PeriodEditComponent implements OnInit {
     }
   }
   
-  savePeriod(dateFrom:string,dateTo:string,level:number,color:string){
-    var period = new Period(new Date(dateFrom),new Date(dateTo),new Date(dateFrom).getTime(),new Date(dateTo).getTime(),color,level);
+  savePeriod(name,dateFrom:string,dateTo:string,color:string,level:number){
+    var period = new Period(name,new Date(dateFrom),new Date(dateTo),new Date(dateFrom).getTime(),new Date(dateTo).getTime(),color,level);
+    console.log(period);
     this.periods.push(period);
     location.reload();
   }

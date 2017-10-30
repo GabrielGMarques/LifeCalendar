@@ -1,4 +1,4 @@
- <div class="modal fade" id="exampleModal" >
+<div class="modal fade" id="exampleModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -6,59 +6,72 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h5 class="modal-title" id="exampleModalLabel">Cadastrar Periodo</h5>
-        
+
       </div>
-      
+
       <div class="modal-body">
         <form class="form-inline">
           <div class="form-group">
-            <div class="input-group-date-from col-sm-6">
-              <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="data inicial" #dateFromInput >
-              <button class="input-group-addon col-sm-1" (click)="d.toggle(); " type="button">
-                <img src="../../assets/icon-calendar.svg" style="width: 2.4rem; height: 2rem; cursor: pointer;"/>
-              </button>
-            </div>
-            <div class="input-group-date-from col-sm-6">
-              <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="data final" #dateToInput name="dateToInput" id="dateToInput">
-              <button class="input-group-addon col-sm-1" >
-                <img src="../../assets/icon-calendar.svg" style="width: 2.4rem; height: 2rem; cursor: pointer;"/>
-              </button>
-            </div>
-            <div class="col-sm-6 second-level">
-              <label for="periodLevel">Nivel do Periodo</label>
-              
-              <select class="form-control" id="periodLevel" #levelInput>
-                <option value="1">Uma semana</option>
-                <option value="2">Varias semanas</option>
-                <option value="3">Um ano</option>
-                <option value="4">Vários anos</option>
-              </select>
-          </div>
-          <div class="col-sm-6 second-level">
-              <div>
-                <div class="colors-wrapper">
-                  <div class="color-picker">
-                    <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodLevel" #colorInput>
-                      <option class="color-item" style="background-color:#e91e63"  value="#e91e63"></option>
-                      <option class="color-item" style="background-color:#9c27b0"  value="#9c27b0"></option>
-                      <option class="color-item" style="background-color:#7e57c2"  value="#7e57c2"></option>
-                      <option class="color-item" style="background-color:#3f51b5"  value="#3f51b5"></option>
-                      <option class="color-item" style="background-color:#2196f3"  value="#2196f3"></option>
-                      <option class="color-item" style="background-color:#009688"  value="#009688"></option>
-                    </select>
-                  </div>
+            <div class="col-xs-5">
+              <div class="input-group-custom">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
                 </div>
+                <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="data inicial" #dateFromInput>
               </div>
+            </div>
+            <div class="col-xs-5">
+              <div class="input-group-custom">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </div>
+                <input class="form-control" data-toggle="datepicker" placeholder="data final" #dateToInput name="dateToInput" id="dateToInput">
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="input-group-custom">
+                <div class="input-group-addon">
+                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                </div>
+                <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodLevel" #colorInput>
+                  <option class="color-item" style="background-color:#e91e63"  value="#e91e63"></option>
+                  <option class="color-item" style="background-color:#9c27b0"  value="#9c27b0"></option>
+                  <option class="color-item" style="background-color:#7e57c2"  value="#7e57c2"></option>
+                  <option class="color-item" style="background-color:#3f51b5"  value="#3f51b5"></option>
+                  <option class="color-item" style="background-color:#2196f3"  value="#2196f3"></option>
+                  <option class="color-item" style="background-color:#009688"  value="#009688"></option>
+                </select>
+              </div>
+            </div>
 
+            <!--<div style="height:10px;"></div>-->
+            <div class="col-xs-6">
+              <div class="input-group">
+                <label for="periodLevel">Nome do Periodo</label>
+                <input class="form-control" placeholder="Nome do Período" #namePeriod>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <div class="input-group">
+                <label for="periodLevel">Nivel do Periodo</label>
+
+                <select class="form-control" id="periodLevel" #levelInput>
+                  <option value="1">Uma semana</option>
+                  <option value="2">Varias semanas</option>
+                  <option value="3">Um ano</option>
+                  <option value="4">Vários anos</option>
+                </select>
+              </div>
             </div>
           </div>
+          <div style="height:10px;"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(dateFromInput.value,dateToInput.value,levelInput.value,colorInput.value)">Salvar Periodo</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Salvar Periodo</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           </div>
         </form>
       </div>
-     
+
     </div>
   </div>
 </div>
