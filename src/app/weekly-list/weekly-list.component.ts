@@ -44,8 +44,9 @@ export class WeeklyListComponent implements OnInit {
       this.years.forEach((year) => {
         year.weeks.forEach((week) => {
           if(period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()){
-              week.periodColor= period.color;
-          } 
+              week.period= period;
+              console.log(week.period);
+          }
         });
       });
     });
@@ -100,7 +101,7 @@ export class WeeklyListComponent implements OnInit {
         var dateFrom = new Date(dateInitialYear.getTime());
         var dateTo = new Date(dateLimit.getTime());
 
-        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.formatDate(dateFrom), dateToSt: this.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek });
+        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.formatDate(dateFrom), dateToSt: this.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek,period:null });
         
         dateInitialYear.setDate(dateInitialYear.getDate() + dayRange);
 
@@ -116,13 +117,21 @@ export class WeeklyListComponent implements OnInit {
 
   getChatData() {
     this.periodList = this.db.list('periods');
+    
     this.periodList.forEach((item) => {
+      
+      this.periods = [];
+      
       item.forEach((period) => {
         this.periods.push(period)
       });
+
       this.updatePeriods();
+
     });
   }
+
+  
   setValue(key, value) {
     this[key] = value;
   }

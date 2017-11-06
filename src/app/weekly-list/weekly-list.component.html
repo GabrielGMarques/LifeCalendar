@@ -2,7 +2,10 @@
   <div class="week-list-wrapper">
     <div class="week-list-row" *ngFor="let year of years">
       <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
-      <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek}" [ngStyle]="{'background-color': week.periodColor}" *ngFor="let week of year.weeks" data-toggle="tooltip"  title="{{week.dateFromSt}} - {{week.dateToSt}}" data-placement="right" >
+      <div class="week-list-item" 
+        [ngClass]="{currentWeek:week.isCurrentWeek}" 
+        [ngStyle]="{'background-color': week.period?.color}" 
+        *ngFor="let week of year.weeks" data-toggle="tooltip"  title="{{week.dateFromSt}} - {{week.dateToSt}}({{week.period?.name}})" data-placement="right" >
         {{week.index}}
       </div>
     </div>
