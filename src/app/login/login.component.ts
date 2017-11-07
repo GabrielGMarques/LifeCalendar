@@ -20,7 +20,15 @@ export class LoginComponent implements OnInit {
   loginGoogle() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .catch(function (error){
-      alert('${error.message} Please try again')
+      alert( error.message + ' Please try again')
     })
+  }
+  loginEmail(email,password){
+     this.afAuth.auth.createUserWithEmailAndPassword(email,password).catch(function (error){
+      alert( error.message + ' Please try again')
+    });
+  }
+  logout(){
+    this.afAuth.auth.signOut();
   }
 }
