@@ -40,8 +40,15 @@ export class WeeklyListComponent implements OnInit {
     this.getChatData();
   }
   updatePeriods() {
+    this.years.forEach((year) => {
+        year.weeks.forEach((week) => {
+          week.period = null;
+        });       
+    });
     this.periods.sort((period)=>period.dateToLong).forEach((period) => {
+
       this.years.forEach((year) => {
+       
         year.weeks.forEach((week) => {
           if(period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()){
               week.period= period;
