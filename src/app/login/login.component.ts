@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -23,12 +23,21 @@ export class LoginComponent implements OnInit {
       alert( error.message + ' Please try again')
     })
   }
-  loginEmail(email,password){
+  registerEmail(email,password){
      this.afAuth.auth.createUserWithEmailAndPassword(email,password).catch(function (error){
+      alert( error.message + ' Please try again')
+    });
+  }
+  loginEmail(email,password){
+     this.afAuth.auth.signInWithEmailAndPassword(email,password).catch(function (error){
       alert( error.message + ' Please try again')
     });
   }
   logout(){
     this.afAuth.auth.signOut();
+  }
+  changeType(password:ElementRef){
+    // password.nativeElement.type = "text";
+     password['type'] = password['type'] == 'text'?'password':'text';
   }
 }

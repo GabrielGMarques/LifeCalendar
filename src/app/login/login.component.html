@@ -1,15 +1,25 @@
 
 <form>
-  <div class="col-xs-4">
+  <div class="col-md-4 col-md-offset-4 form-login">
     <h2>Login</h2>
-     <div class="g-signin2" (click)="loginGoogle()"></div>
-    <div class="form-group">
-      <label for="email">Email</label>
+    <div class="form-groupcol-sx-12">
+      <label for="email" class=" col-form-label">Email</label>
       <input type="text" id="email" type="email" class="form-control" #email></div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="text" class="form-control" type="password" id="password" #password></div>
-      <div class="btn btn-primary" (click)="loginEmail(email.value,password.value)">Sign In or Register</div>
+     <div class="form-group col-sx-12">
+      <label for="password" class=" col-form-label">Password</label>
+        <div class="input-group-custom">
+          <div class="input-group-addon btn-show-password" (click)='changeType(password)'>
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </div>
+        <input type="text" class="form-control" type="password" id="password" #password>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div class="btn btn-success inline-block-btn"   id="loginByPassword" (click)="loginEmail(email.value,password.value)">Sign In</div>
+      <div class="btn btn-primary inline-block-btn"   id="registerByPassword" (click)="registerEmail(email.value,password.value)">Register</div>
+      <div class="g-signin2 inline-block-btn"  id="loginByGoogle" (click)="loginGoogle()"></div>
+    </div>
   </div>
+    
 </form>
 
