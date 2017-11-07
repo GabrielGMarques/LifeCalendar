@@ -1,0 +1,8 @@
+.g-signin2{
+    background-image: url('../../assets/btn_google_signin_light_normal_web.png');
+    background-repeat: 0;
+    background-size: 230px;
+    width: 230px;
+    height: 60px;
+    cursor:pointer;
+}

@@ -7,7 +7,12 @@
     "target": "es5",
     "types": [
       "jasmine",
+      "node",
+      "firebase",
       "node"
+    ],
+    "typeRoots": [
+      "../node_modules/@types"
     ]
   },
   "files": [

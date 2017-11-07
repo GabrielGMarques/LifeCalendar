@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { WeeklyListComponent } from './weekly-list/weekly-list.component';
 import { DayListComponent } from './day-list/day-list.component';
 // import { NKDatetimeModule } from 'ng2-datetime/ng2-datetime';
@@ -12,6 +13,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import { PeriodEditComponent } from './period-edit/period-edit.component';
 import { HeaderNavbarComponent } from './header-navbar/header-navbar.component';
+import { LoginComponent } from './login/login.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 export const environment = {
@@ -33,12 +36,15 @@ export const environment = {
     DayListComponent,
     PeriodEditComponent,
     HeaderNavbarComponent,
+    LoginComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
 	  AngularFireDatabaseModule
   ],
   providers: [],
