@@ -1,11 +1,11 @@
-<div class="modal fade" id="exampleModal">
+<div class="modal fade" id="periodModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h5 class="modal-title" id="exampleModalLabel">Cadastrar Periodo</h5>
+        <h5 class="modal-title" id="periodModalLabel">Manage Periods</h5>
 
       </div>
 
@@ -17,7 +17,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
                 </div>
-                <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="data inicial" #dateFromInput>
+                <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="initial date" #dateFromInput>
               </div>
             </div>
             <div class="col-xs-5">
@@ -25,7 +25,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
                 </div>
-                <input class="form-control" data-toggle="datepicker" placeholder="data final" #dateToInput name="dateToInput" id="dateToInput">
+                <input class="form-control" data-toggle="datepicker" placeholder="final date" #dateToInput name="dateToInput" id="dateToInput">
               </div>
             </div>
             <div class="col-xs-2">
@@ -47,7 +47,7 @@
             <!--<div style="height:10px;"></div>-->
             <div class="col-xs-6">
               <div class="input-group">
-                <label for="periodLevel">Nome do Periodo</label>
+                <label for="periodLevel">Periodo Name</label>
                 <input class="form-control" placeholder="Nome do Período" #namePeriod>
               </div>
             </div>
@@ -75,7 +75,3 @@
     </div>
   </div>
 </div>
-
-<script >
-    $('[data-toggle="datepicker"]').datepicker();
-</script>

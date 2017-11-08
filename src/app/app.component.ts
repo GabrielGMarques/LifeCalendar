@@ -21,13 +21,22 @@ export class AppComponent  implements OnInit{
   user: Observable<firebase.User>
   userObj:firebase.User = null;
   userVerified = false;
+  progressIconShown = true;
 
   ngOnInit() {
     this.user.forEach(item=>{
       this.userObj = item;
       this.userVerified = true;
+      this.hideProgressIcon();
     });
     
+  }
+
+  showProgressIcon(){
+    this.progressIconShown = true;
+  } 
+  hideProgressIcon(){
+    this.progressIconShown = false;
   }
   logout(){
     this.afAuth.auth.signOut();
