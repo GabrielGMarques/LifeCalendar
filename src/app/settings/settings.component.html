@@ -10,7 +10,28 @@
       </div>
 
       <div class="modal-body">
-        <form class="form-inline">
+        <form>
+          <div class="form-inline">
+            <div class="form-group input-group-custom">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </div>
+              <input class="form-control" data-toggle="datepicker" placeholder="birth date" #dateFromInput>
+            </div>
+
+            <div class="form-group ">
+              <input class="form-control" type="number" placeholder="final age" maxlength="3" #lastAgeInput name="lastAgeInput" id="lastAgeInput">
+            </div>
+          </div>
+          <div class="form-group ">
+            <span for="userNameInput">Name:</span>
+            <input class="form-control" type="text" placeholder="your name" #userNameInput name="userNameInput" id="userNameInput">
+          </div>
+
+          <div style="height:10px;"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Ok</button>
+          </div>
         </form>
       </div>
 

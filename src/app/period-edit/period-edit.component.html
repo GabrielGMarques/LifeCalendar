@@ -48,26 +48,26 @@
             <div class="col-xs-6">
               <div class="input-group">
                 <label for="periodLevel">Periodo Name</label>
-                <input class="form-control" placeholder="Nome do Período" #namePeriod>
+                <input class="form-control" placeholder="Period Name" #namePeriod>
               </div>
             </div>
             <div class="col-xs-4">
               <div class="input-group">
-                <label for="periodLevel">Nivel do Periodo</label>
+                <label for="periodLevel">Period Time Level</label>
 
                 <select class="form-control" id="periodLevel" #levelInput>
-                  <option value="1">Uma semana</option>
-                  <option value="2">Varias semanas</option>
-                  <option value="3">Um ano</option>
-                  <option value="4">Vários anos</option>
+                  <option value="1">One Week</option>
+                  <option value="2">More than one week</option>
+                  <option value="3">One year</option>
+                  <option value="4">More than one year</option>
                 </select>
               </div>
             </div>
           </div>
           <div style="height:10px;"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Salvar Periodo</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Save Period</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </form>
       </div>
