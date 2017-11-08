@@ -15,6 +15,8 @@ import { PeriodEditComponent } from './period-edit/period-edit.component';
 import { HeaderNavbarComponent } from './header-navbar/header-navbar.component';
 import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
+import { WarningMessageComponent } from './warning-message/warning-message.component';
+import { ProgressIconComponent } from './progress-icon/progress-icon.component';
 
 
 export const environment = {
@@ -38,6 +40,8 @@ export const environment = {
     HeaderNavbarComponent,
     LoginComponent,
     SettingsComponent,
+    WarningMessageComponent,
+    ProgressIconComponent,
   ],
   imports: [
     BrowserModule,

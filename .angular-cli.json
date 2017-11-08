@@ -25,7 +25,7 @@
         "styles.css"
       ],
       "scripts": [
-        "app/scripts/weekly-list.js",
+        "app/scripts/main.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "assets/jquery-ui-1.12.1.custom/jquery-ui.min.js"
         

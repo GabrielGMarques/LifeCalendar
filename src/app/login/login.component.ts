@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit,EventEmitter,Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
@@ -11,9 +11,11 @@ import * as firebase from 'firebase/app';
 export class LoginComponent implements OnInit {
 
   constructor(public afAuth: AngularFireAuth){
-    this.user = this.afAuth.authState
   }
-  user: Observable<firebase.User>
+
+  @Output() errorEmmiter = new EventEmitter<string>();
+  @Output() successEmmiter = new EventEmitter<string>();
+  
 
   ngOnInit() {
   }
@@ -24,13 +26,16 @@ export class LoginComponent implements OnInit {
     })
   }
   registerEmail(email,password){
-     this.afAuth.auth.createUserWithEmailAndPassword(email,password).catch(function (error){
-      alert( error.message + ' Please try again')
+     this.afAuth.auth.createUserWithEmailAndPassword(email,password).then((item)=>{
+       this.loginEmail(email,password);
+     }).catch((error)=>{
+       this.errorEmmiter.emit(error.message);
     });
   }
   loginEmail(email,password){
-     this.afAuth.auth.signInWithEmailAndPassword(email,password).catch(function (error){
-      alert( error.message + ' Please try again')
+     this.afAuth.auth.signInWithEmailAndPassword(email,password).then((item)=>{
+     }).catch((error)=>{
+       this.errorEmmiter.emit(error.message);
     });
   }
   logout(){

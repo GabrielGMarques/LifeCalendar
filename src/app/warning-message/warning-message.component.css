@@ -1,0 +1,6 @@
+.alert-message{
+    position: absolute;
+    min-width:430px;
+    margin-top:30px;
+    text-align: center;
+}

@@ -1,6 +1,14 @@
- <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>  -->
- <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script> -->
-<!--<app-header-navbar (tabSelector)="selectTab($event)"></app-header-navbar>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>  -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script> -->
 
-<app-weekly-list *ngIf="tabSelected?.id == 1">  </app-weekly-list>-->
-<app-login></app-login>
+<div *ngIf="userVerified">
+    <div *ngIf="userObj">
+        <app-header-navbar (tabSelector)="selectTab($event)"></app-header-navbar>
+
+        <app-weekly-list *ngIf="tabSelected?.id == 1" [firebaseUser]="userObj"> </app-weekly-list>
+    </div>
+    <app-login *ngIf="!userObj" (errorEmmiter)="showErrorMessage($event)" (successEmmiter)="showSuccessMessage($event)"></app-login>
+    <app-warning-message #WarningMessageComponent></app-warning-message>
+</div>
+
+<app-progress-icon *ngIf="!userVerified"></app-progress-icon>

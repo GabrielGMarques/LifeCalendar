@@ -1,9 +1,11 @@
 import { Week } from '../shared/week.model';
 import { Year } from '../shared/year.model';
 import { Period } from '../shared/period.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
-
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
+declare var $: any;
 // import { NgModule } from '@angular/core';
 
 const now = new Date();
@@ -32,12 +34,21 @@ export class WeeklyListComponent implements OnInit {
   periods: Period[] = [];
 
   periodList: FirebaseListObservable<Period[]>;
+  @Input('firebaseUser') user: firebase.User
 
   constructor(public db: AngularFireDatabase) { }
 
   ngOnInit() {
     this.buildWeeks();
-    this.getChatData();
+    this.getPeriodsData();
+  
+  }
+
+
+  ngAfterViewInit(){
+    $('[data-toggle="datepicker"]').datepicker();
+    ($('.currentWeek')[0]).scrollIntoView();
+
   }
   updatePeriods() {
     this.years.forEach((year) => {
@@ -52,7 +63,6 @@ export class WeeklyListComponent implements OnInit {
         year.weeks.forEach((week) => {
           if(period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()){
               week.period= period;
-              console.log(week.period);
           }
         });
       });
@@ -122,8 +132,8 @@ export class WeeklyListComponent implements OnInit {
     }
   }
 
-  getChatData() {
-    this.periodList = this.db.list('periods');
+  getPeriodsData() {
+    this.periodList = this.db.list('periods_user_'+this.user.uid+"/");
     
     this.periodList.forEach((item) => {
       
