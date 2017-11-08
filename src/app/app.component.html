@@ -2,7 +2,7 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script> -->
 
 <div *ngIf="userVerified">
-    <div *ngIf="userObj">
+    <div *ngIf="userObj" class="content-wrapper">
         <app-header-navbar (logoutEmmiter)="logout()" (tabSelector)="selectTab($event)"></app-header-navbar>
 
         <app-weekly-list *ngIf="tabSelected?.id == 1" [firebaseUser]="userObj"> </app-weekly-list>

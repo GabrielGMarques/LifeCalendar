@@ -1,22 +1,32 @@
-<div class="navbar navbar-default">
+<div class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <div class="navbar-header"> 
+        <div class="navbar-header">
             <a href="#" class="navbar-brand">Life Calendar</a>
         </div>
         <div class="navbar-default">
             <ul class="nav navbar-nav">
-              <li  *ngFor="let tab of tabsOptions" [ngClass]="{'active':tab.selected}"><a href="#" (click)="onSelectMenu(tab)">{{tab.name}}</a></li>
-              <!-- <li><a href="#">Shopping List</a></li> -->
+                <li *ngFor="let tab of tabsOptions" [ngClass]="{'active':tab.selected}"><a href="#" (click)="onSelectMenu(tab)">{{tab.name}}</a></li>
+                <!-- <li><a href="#">Shopping List</a></li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" role="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-cog"></i> 
+                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bars"></i> 
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#" (click)="showSettings()">Settings</a></li>
-                        <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+                        <li>
+                            <a class="dropdown-item" href="#" (click)="showSettings()">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                                <span>Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" (click)="logout()">
+                                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>

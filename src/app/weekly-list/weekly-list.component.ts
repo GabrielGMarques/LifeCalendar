@@ -49,7 +49,12 @@ export class WeeklyListComponent implements OnInit {
 
   ngAfterViewInit(){
     $('[data-toggle="datepicker"]').datepicker();
-    ($('.currentWeek')[0]).scrollIntoView();
+    ($('.currentWeek')[0]).scrollIntoView('100');
+    var offset = ($('.currentWeek')).offset();
+    offset.top -= 100;
+    $('html, body').animate({
+      scrollTop: offset.top,
+    },1000);
 
   }
   updatePeriods() {
