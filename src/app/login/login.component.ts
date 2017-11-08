@@ -38,9 +38,7 @@ export class LoginComponent implements OnInit {
        this.errorEmmiter.emit(error.message);
     });
   }
-  logout(){
-    this.afAuth.auth.signOut();
-  }
+  
   changeType(password:ElementRef){
     // password.nativeElement.type = "text";
      password['type'] = password['type'] == 'text'?'password':'text';

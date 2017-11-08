@@ -1,6 +1,7 @@
 import { Week } from '../shared/week.model';
 import { Year } from '../shared/year.model';
 import { Period } from '../shared/period.model';
+import { User } from '../shared/user.model';
 import { Component, OnInit,Input } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
@@ -22,16 +23,17 @@ const now = new Date();
 // })
 
 export class WeeklyListComponent implements OnInit {
-  years: Year[] = [];
-  yearBirth = 1997;
-  monthBirth =9;
-  dayBirth = 12;
+  
   date: { year: number, month: number };
   rangeDateStart;
   rangeDateEnd = "";
   rangeColor;
   rangeNivel;
+
   periods: Period[] = [];
+  years: Year[] = [];
+  userModel:User = new User();
+  
 
   periodList: FirebaseListObservable<Period[]>;
   @Input('firebaseUser') user: firebase.User
@@ -78,15 +80,15 @@ export class WeeklyListComponent implements OnInit {
   }
 
   buildWeeks() {
-    var dateBegin = new Date(this.yearBirth, this.monthBirth, this.dayBirth);
-    var dateEnd = new Date(this.yearBirth + 80, this.monthBirth, this.dayBirth);
+    var dateBegin = new Date(this.userModel.yearBirth, this.userModel.monthBirth, this.userModel.dayBirth);
+    var dateEnd = new Date(this.userModel.yearBirth + this.userModel.ageOfDeath, this.userModel.monthBirth, this.userModel.dayBirth);
     this.years = [];
     var indexYear = 0;
 
     // while(dateBegin < dateEnd){
-    for (var i = 0; i <= 80; i++) {
-      var dateFinalYear = new Date(this.yearBirth + (i + 1), this.monthBirth, this.dayBirth);
-      var dateInitialYear = new Date(this.yearBirth + i, this.monthBirth, this.dayBirth);
+    for (var i = 0; i <= this.userModel.ageOfDeath; i++) {
+      var dateFinalYear = new Date(this.userModel.yearBirth + (i + 1), this.userModel.monthBirth, this.userModel.dayBirth);
+      var dateInitialYear = new Date(this.userModel.yearBirth + i, this.userModel.monthBirth, this.userModel.dayBirth);
       var weeks: Week[] = [];
       var indexWeek = 1;
 
@@ -107,9 +109,9 @@ export class WeeklyListComponent implements OnInit {
 
         var dateLimit = new Date(dateInitialYear.getFullYear(), dateInitialYear.getMonth(), dateInitialYear.getDate() + 7, 0, 0, 0, 0);
       
-        var dayRange = dateInitialYear.getDate() < this.dayBirth 
-                              && dateInitialYear.getMonth() == this.monthBirth
-                              && (dateInitialYear.getDate()+9) == this.dayBirth ? 
+        var dayRange = dateInitialYear.getDate() < this.userModel.dayBirth 
+                              && dateInitialYear.getMonth() == this.userModel.monthBirth
+                              && (dateInitialYear.getDate()+9) == this.userModel.dayBirth ? 
                                 8:  7;
         if(dayRange == 8){
           dateLimit.setDate(dateLimit.getDate()+1);
