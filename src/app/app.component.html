@@ -3,7 +3,7 @@
 
 <div *ngIf="userVerified">
     <div *ngIf="userObj">
-        <app-header-navbar (tabSelector)="selectTab($event)"></app-header-navbar>
+        <app-header-navbar (logoutEmmiter)="logout()" (tabSelector)="selectTab($event)"></app-header-navbar>
 
         <app-weekly-list *ngIf="tabSelected?.id == 1" [firebaseUser]="userObj"> </app-weekly-list>
     </div>

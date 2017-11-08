@@ -10,6 +10,9 @@ export class HeaderNavbarComponent implements OnInit {
   constructor() { }
 
     @Output() tabSelector = new EventEmitter<{id:Number,name:string,selected:boolean}>() 
+    @Output() logoutEmmiter = new EventEmitter<{}>() 
+    @Output() settingsEmmiter = new EventEmitter<{id:Number,name:string,selected:boolean}>() 
+
     @Output() tabsOptions = [{id:1,name:"Weeks",selected:false}]
     indexDefaultItem=  0;
     
@@ -22,5 +25,8 @@ export class HeaderNavbarComponent implements OnInit {
         this.tabsOptions.forEach((item)=> {item.selected = false;});
         tab.selected = true;
         this.tabSelector.emit(tab);
+    }
+    logout(){
+        this.logoutEmmiter.emit();
     }
 }

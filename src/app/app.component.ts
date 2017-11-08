@@ -29,6 +29,9 @@ export class AppComponent  implements OnInit{
     });
     
   }
+  logout(){
+    this.afAuth.auth.signOut();
+  }
   selectTab(event){
     this.tabSelected = event;
   }
