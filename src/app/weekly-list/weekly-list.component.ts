@@ -2,7 +2,7 @@ import { Week } from '../shared/week.model';
 import { Year } from '../shared/year.model';
 import { Period } from '../shared/period.model';
 import { User } from '../shared/user.model';
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,EventEmitter,Output } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
@@ -36,7 +36,11 @@ export class WeeklyListComponent implements OnInit {
   
 
   periodList: FirebaseListObservable<Period[]>;
-  @Input('firebaseUser') user: firebase.User
+
+  @Input('firebaseUser') user: firebase.User;
+  
+  @Output() hideProgressEmitter =  new EventEmitter<{}>();
+  @Output() showProgressEmitter =new  EventEmitter<{}>();
 
   constructor(public db: AngularFireDatabase) { }
 
@@ -149,9 +153,11 @@ export class WeeklyListComponent implements OnInit {
       item.forEach((period) => {
         this.periods.push(period)
       });
+      
+      this.showProgressEmitter.emit();
 
       this.updatePeriods();
-
+      this.hideProgressEmitter.emit();
     });
   }
 

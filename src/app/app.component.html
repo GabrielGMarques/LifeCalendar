@@ -5,7 +5,7 @@
     <div *ngIf="userObj" class="content-wrapper">
         <app-header-navbar (logoutEmmiter)="logout()" (tabSelector)="selectTab($event)"></app-header-navbar>
 
-        <app-weekly-list *ngIf="tabSelected?.id == 1" [firebaseUser]="userObj"> </app-weekly-list>
+        <app-weekly-list  (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()" *ngIf="tabSelected?.id == 1" [firebaseUser]="userObj"> </app-weekly-list>
     </div>
     <app-login *ngIf="!userObj" (errorEmmiter)="showErrorMessage($event)" (successEmmiter)="showSuccessMessage($event)"></app-login>
     <app-warning-message #WarningMessageComponent></app-warning-message>

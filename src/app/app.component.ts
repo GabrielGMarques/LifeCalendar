@@ -27,7 +27,6 @@ export class AppComponent  implements OnInit{
     this.user.forEach(item=>{
       this.userObj = item;
       this.userVerified = true;
-      this.hideProgressIcon();
     });
     
   }
