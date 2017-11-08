@@ -32,12 +32,12 @@ export class WeeklyListComponent implements OnInit {
 
   periods: Period[] = [];
   years: Year[] = [];
-  userModel:User = new User();
   
 
   periodList: FirebaseListObservable<Period[]>;
 
   @Input('firebaseUser') user: firebase.User;
+  @Input() userDatabase:User;
   
   @Output() hideProgressEmitter =  new EventEmitter<{}>();
   @Output() showProgressEmitter =new  EventEmitter<{}>();
@@ -89,15 +89,15 @@ export class WeeklyListComponent implements OnInit {
   }
 
   buildWeeks() {
-    var dateBegin = new Date(this.userModel.yearBirth, this.userModel.monthBirth, this.userModel.dayBirth);
-    var dateEnd = new Date(this.userModel.yearBirth + this.userModel.ageOfDeath, this.userModel.monthBirth, this.userModel.dayBirth);
+    var dateBegin = new Date(this.userDatabase.yearBirth, this.userDatabase.monthBirth, this.userDatabase.dayBirth);
+    var dateEnd = new Date(this.userDatabase.yearBirth + this.userDatabase.ageOfDeath, this.userDatabase.monthBirth, this.userDatabase.dayBirth);
     this.years = [];
     var indexYear = 0;
 
     // while(dateBegin < dateEnd){
-    for (var i = 0; i <= this.userModel.ageOfDeath; i++) {
-      var dateFinalYear = new Date(this.userModel.yearBirth + (i + 1), this.userModel.monthBirth, this.userModel.dayBirth);
-      var dateInitialYear = new Date(this.userModel.yearBirth + i, this.userModel.monthBirth, this.userModel.dayBirth);
+    for (var i = 0; i <= this.userDatabase.ageOfDeath; i++) {
+      var dateFinalYear = new Date(this.userDatabase.yearBirth + (i + 1), this.userDatabase.monthBirth, this.userDatabase.dayBirth);
+      var dateInitialYear = new Date(this.userDatabase.yearBirth + i, this.userDatabase.monthBirth, this.userDatabase.dayBirth);
       var weeks: Week[] = [];
       var indexWeek = 1;
 
@@ -118,9 +118,9 @@ export class WeeklyListComponent implements OnInit {
 
         var dateLimit = new Date(dateInitialYear.getFullYear(), dateInitialYear.getMonth(), dateInitialYear.getDate() + 7, 0, 0, 0, 0);
       
-        var dayRange = dateInitialYear.getDate() < this.userModel.dayBirth 
-                              && dateInitialYear.getMonth() == this.userModel.monthBirth
-                              && (dateInitialYear.getDate()+9) == this.userModel.dayBirth ? 
+        var dayRange = dateInitialYear.getDate() < this.userDatabase.dayBirth 
+                              && dateInitialYear.getMonth() == this.userDatabase.monthBirth
+                              && (dateInitialYear.getDate()+9) == this.userDatabase.dayBirth ? 
                                 8:  7;
         if(dayRange == 8){
           dateLimit.setDate(dateLimit.getDate()+1);

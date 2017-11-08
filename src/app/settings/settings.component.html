@@ -10,7 +10,7 @@
       </div>
 
       <div class="modal-body">
-        <form>
+        <form action="#">
           <div class="form-inline">
             <div class="form-group input-group-custom">
               <div class="input-group-addon">
@@ -30,7 +30,7 @@
 
           <div style="height:10px;"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Ok</button>
+            <button type="button" class="btn btn-primary" (click)="saveData(dateFromInput.value,lastAgeInput.value,userNameInput.value)">Ok</button>
           </div>
         </form>
       </div>

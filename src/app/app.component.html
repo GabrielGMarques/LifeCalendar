@@ -5,7 +5,7 @@
     <div *ngIf="userVerified" class="content-wrapper">
         <app-header-navbar (logoutEmmiter)="logout()" (tabSelector)="selectTab($event)"></app-header-navbar>
 
-        <app-weekly-list  (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()" *ngIf="tabSelected?.id == 1" [firebaseUser]="userAuthObj"> </app-weekly-list>
+        <app-weekly-list  (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()" *ngIf="tabSelected?.id == 1" [firebaseUser]="userAuthObj" [userDatabase]="userDatabase"> </app-weekly-list>
     </div>
 </div>
     
@@ -13,4 +13,4 @@
 <app-warning-message #WarningMessageComponent></app-warning-message>
 
 <app-progress-icon *ngIf="progressIconShown"></app-progress-icon>
-<app-settings></app-settings>
+<app-settings (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()" ></app-settings>

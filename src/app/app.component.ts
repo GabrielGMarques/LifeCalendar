@@ -1,4 +1,4 @@
-import { Component,ViewChild,OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
@@ -12,19 +12,21 @@ declare var $: any;
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  implements OnInit{
+export class AppComponent implements OnInit {
   title = 'app';
-  tabSelected:{id:Number,name:string,selected:true};
-  
+  tabSelected: { id: Number, name: string, selected: true };
+
   @ViewChild('WarningMessageComponent') child;
 
-  constructor(public afAuth: AngularFireAuth,public db: AngularFireDatabase){
+  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
     this.userAuth = this.afAuth.authState
   }
+
+
   userDatabaseObservable: FirebaseListObservable<User[]>;
   userDatabase: User;
   userAuth: Observable<firebase.User>
-  userAuthObj:firebase.User = null;
+  userAuthObj: firebase.User = null;
   userVerified = false;
   progressIconShown = true;
 
@@ -32,60 +34,66 @@ export class AppComponent  implements OnInit{
     this.updateUserAuth();
   }
 
-  updateUserAuth(){
-    this.userAuth.forEach(item=>{
+  updateUserAuth() {
+    this.userAuth.forEach(item => {
+      
       this.userAuthObj = item;
       this.progressIconShown = false;
-      this.updateUserDatabase();
+
+      if (item) {
+        this.updateUserDatabase();
+
+      }
+      
     });
   }
-  updateUserDatabase(){
-    this.userDatabaseObservable = this.db.list('users_'+this.userAuthObj.uid+"/");
-    
+  updateUserDatabase() {
+    this.userDatabaseObservable = this.db.list('users_' + this.userAuthObj.uid + "/");
+
     this.userDatabaseObservable.forEach((item) => {
-      
+      this.showProgressIcon();
+
       this.userDatabase = null;
-      
+
       item.forEach((item) => {
         console.log(item);
         this.userDatabase = item;
-      
-        if(!item){
-          console.log('lalal');
-          this.userVerified = false;
-            $('settingsModal').show();
-        }else{
-          this.userVerified = true;  
-        }
+        this.verifyUserData(item);
+
       });
-      if(!this.userDatabase){
-        console.log('lalal');
-        this.userVerified = false;
-          $('settingsModal').show();
-      }else{
-        this.userVerified = true;  
-      }
+      this.verifyUserData(this.userDatabase);
+
+      this.hideProgressIcon();
     });
   }
+  verifyUserData(item) {
+    if (!item) {
+      this.userVerified = false;
+      $('#settingsModal').modal('toggle');
+    } else {
+      this.userVerified = true;
+    }
+  }
 
-  showProgressIcon(){
+
+  showProgressIcon() {
     this.progressIconShown = true;
-  } 
-  hideProgressIcon(){
+  }
+  hideProgressIcon() {
     this.progressIconShown = false;
   }
-  logout(){
+  logout() {
     this.afAuth.auth.signOut();
   }
-  selectTab(event){
+  selectTab(event) {
     this.tabSelected = event;
   }
-  
-  showErrorMessage(message:string){
+
+  showErrorMessage(message: string) {
     this.child.showErrorMessage(message);
   }
 
-  showSuccessMessage(message:string){
+  showSuccessMessage(message: string) {
     this.child.showSuccessMessage(message);
   }
 
