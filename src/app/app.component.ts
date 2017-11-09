@@ -56,7 +56,6 @@ export class AppComponent implements OnInit {
       this.userDatabase = null;
 
       item.forEach((item) => {
-        console.log(item);
         this.userDatabase = item;
         this.verifyUserData(item);
 
@@ -74,7 +73,7 @@ export class AppComponent implements OnInit {
       this.userVerified = true;
     }
   }
-
+  
 
   showProgressIcon() {
     this.progressIconShown = true;
@@ -84,6 +83,7 @@ export class AppComponent implements OnInit {
   }
   logout() {
     this.afAuth.auth.signOut();
+    location.reload();
   }
   selectTab(event) {
     this.tabSelected = event;

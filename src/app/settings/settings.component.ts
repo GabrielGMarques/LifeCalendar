@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output,ElementRef,ViewChild } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
@@ -14,17 +14,22 @@ declare var $: any;
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.userAuth = this.afAuth.authState
   }
+
   userDatabaseObservable: FirebaseListObservable<User[]>;
   userAuth: Observable<firebase.User>;
   userAuthObj: firebase.User = null;
   userDatabase: User;
+
   @Output() hideProgressEmitter = new EventEmitter<{}>();
   @Output() showProgressEmitter = new EventEmitter<{}>();
+  @ViewChild('dateFromInput') dateFromInput; 
+  @ViewChild('lastAgeInput') lastAgeInput; 
+  @ViewChild('userNameInput') userNameInput; 
   ngOnInit() {
-    this.updateUserAuth();
+    
   }
 
   updateUserAuth() {
@@ -50,13 +55,19 @@ export class SettingsComponent implements OnInit {
       item.forEach((item) => {
         this.userDatabase = item;
       });
+      
+      if(this.userDatabase){
+        this.dateFromInput.nativeElement.value = this.userDatabase.monthBirth+"/"+this.userDatabase.dayBirth+"/"+this.userDatabase.yearBirth;
+        this.lastAgeInput.nativeElement.value = this.userDatabase.ageOfDeath;
+        this.userNameInput.nativeElement.value = this.userDatabase.name;
+      }
       this.hideProgressEmitter.emit()
 
     });
   }
   ngAfterViewInit() {
     $('[data-toggle="datepicker"]').datepicker();
-
+    this.updateUserAuth();
   }
 
   saveData(birthDate: string, finalAge: number, name: string) {
@@ -69,11 +80,11 @@ export class SettingsComponent implements OnInit {
     user.ageOfDeath = finalAge;
 
     if (birthDate && finalAge && name) {
-      this.userDatabaseObservable.push(user);
-      $('#settingsModal').modal('toggle');
 
-    }else{
-      console.log(user);
+      this.userDatabaseObservable.push(user);
+      
+      $('#settingsModal').modal('toggle');
+      setInterval(()=>{location.reload();},500);
     }
   }
 

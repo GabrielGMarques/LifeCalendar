@@ -15,10 +15,22 @@ export class LoginComponent implements OnInit {
 
   @Output() errorEmmiter = new EventEmitter<string>();
   @Output() successEmmiter = new EventEmitter<string>();
-  
+  @Output() hideProgressEmitter = new EventEmitter<{}>();
+  @Output() showProgressEmitter = new EventEmitter<{}>();
+
+
+
 
   ngOnInit() {
   }
+
+  showProgressIcon() {
+    this.showProgressEmitter.emit();
+  }
+  hideProgressIcon() {
+    this.hideProgressEmitter.emit();
+  }
+
   loginGoogle() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .catch(function (error){

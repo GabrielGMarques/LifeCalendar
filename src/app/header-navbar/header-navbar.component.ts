@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+    import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header-navbar',
@@ -12,8 +12,11 @@ export class HeaderNavbarComponent implements OnInit {
     @Output() tabSelector = new EventEmitter<{id:Number,name:string,selected:boolean}>() 
     @Output() logoutEmmiter = new EventEmitter<{}>() 
     @Output() settingsEmmiter = new EventEmitter<{id:Number,name:string,selected:boolean}>() 
+    @Output() hideProgressEmitter = new EventEmitter<{}>(); 
+    @Output() showProgressEmitter = new EventEmitter<{}>();   
 
     @Output() tabsOptions = [{id:1,name:"Weeks",selected:false}]
+    
     indexDefaultItem=  0;
     
     ngOnInit(){
@@ -28,5 +31,11 @@ export class HeaderNavbarComponent implements OnInit {
     }
     logout(){
         this.logoutEmmiter.emit();
+    }
+    showProgressIcon() {
+         this.showProgressEmitter.emit();
+    }
+    hideProgressIcon() {
+        this.hideProgressEmitter.emit();
     }
 }
