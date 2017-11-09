@@ -16,7 +16,8 @@ export class AppComponent implements OnInit {
   title = 'app';
   tabSelected: { id: Number, name: string, selected: true };
 
-  @ViewChild('WarningMessageComponent') child;
+  @ViewChild('WarningMessageComponent') warningMessageComponent;
+  @ViewChild('AppWeeklyList') appWeeklyList;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
     this.userAuth = this.afAuth.authState
@@ -47,6 +48,13 @@ export class AppComponent implements OnInit {
       
     });
   }
+
+   updatePeriodFilter(level:number){
+
+     this.appWeeklyList.updatePeriodFilter(level);
+  }
+  
+
   updateUserDatabase() {
     this.userDatabaseObservable = this.db.list('users_' + this.userAuthObj.uid + "/");
 
@@ -90,11 +98,11 @@ export class AppComponent implements OnInit {
   }
 
   showErrorMessage(message: string) {
-    this.child.showErrorMessage(message);
+    this.warningMessageComponent.showErrorMessage(message);
   }
 
   showSuccessMessage(message: string) {
-    this.child.showSuccessMessage(message);
+    this.warningMessageComponent.showSuccessMessage(message);
   }
 
 }

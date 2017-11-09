@@ -3,9 +3,9 @@
 
 <div *ngIf="userVerified">
     <div *ngIf="userVerified" class="content-wrapper">
-        <app-header-navbar (logoutEmmiter)="logout()" (tabSelector)="selectTab($event)"></app-header-navbar>
+        <app-header-navbar (updatePeriodFilterEmitter)="updatePeriodFilter($event)" (logoutEmmiter)="logout()" (tabSelector)="selectTab($event)"></app-header-navbar>
 
-        <app-weekly-list  (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()" *ngIf="tabSelected?.id == 1" [firebaseUser]="userAuthObj" [userDatabase]="userDatabase"> </app-weekly-list>
+        <app-weekly-list  (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()" *ngIf="tabSelected?.id == 1" [firebaseUser]="userAuthObj" [userDatabase]="userDatabase" #AppWeeklyList> </app-weekly-list>
     </div>
 </div>
 <app-login *ngIf="!userVerified" (errorEmmiter)="showErrorMessage($event)" (successEmmiter)="showSuccessMessage($event)"  (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()" ></app-login>   

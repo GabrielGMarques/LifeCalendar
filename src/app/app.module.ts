@@ -17,8 +17,6 @@ import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { WarningMessageComponent } from './warning-message/warning-message.component';
 import { ProgressIconComponent } from './progress-icon/progress-icon.component';
-
-
 export const environment = {
   production: false,
   firebase: {
@@ -49,7 +47,8 @@ export const environment = {
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-	  AngularFireDatabaseModule
+	  AngularFireDatabaseModule,
+    // MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

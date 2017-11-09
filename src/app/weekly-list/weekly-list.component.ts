@@ -29,7 +29,7 @@ export class WeeklyListComponent implements OnInit {
   rangeDateEnd = "";
   rangeColor;
   rangeNivel;
-
+  currentPeriodLevel = 4;
   periods: Period[] = [];
   years: Year[] = [];
   
@@ -68,15 +68,16 @@ export class WeeklyListComponent implements OnInit {
         });       
     });
     this.periods.sort((period)=>period.dateToLong).forEach((period) => {
-
-      this.years.forEach((year) => {
-       
-        year.weeks.forEach((week) => {
-          if(period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()){
-              week.period= period;
-          }
+      if(period.level == this.currentPeriodLevel){
+        this.years.forEach((year) => {
+        
+          year.weeks.forEach((week) => {
+            if(period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()){
+                week.period= period;
+            }
+          });
         });
-      });
+      }
     });
   }
   formatDate(date: Date) {
@@ -86,6 +87,14 @@ export class WeeklyListComponent implements OnInit {
     var year = date.getFullYear();
 
     return (day >9?day:"0"+day)+ '/' +(month >9?month:"0"+month)+ '/' + year;
+  }
+
+  updatePeriodFilter(level:number){
+    this.currentPeriodLevel = level;
+    this.showProgressEmitter.emit();
+    this.updatePeriods();
+    this.hideProgressEmitter.emit();
+    
   }
 
   buildWeeks() {

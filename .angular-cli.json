@@ -20,6 +20,7 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/bootstrap-slider/dist/css/bootstrap-slider.min.css",
         "assets/jquery-ui-1.12.1.custom/jquery-ui.min.css",
         "assets/popper.js-1.12.5/docs/css/font-awesome.min.css",
         "styles.css"
@@ -27,6 +28,7 @@
       "scripts": [
         "app/scripts/main.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/bootstrap-slider/dist/bootstrap-slider.min.js",
         "assets/jquery-ui-1.12.1.custom/jquery-ui.min.js"
         
       ],

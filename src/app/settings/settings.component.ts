@@ -57,7 +57,7 @@ export class SettingsComponent implements OnInit {
       });
       
       if(this.userDatabase){
-        this.dateFromInput.nativeElement.value = this.userDatabase.monthBirth+"/"+this.userDatabase.dayBirth+"/"+this.userDatabase.yearBirth;
+        this.dateFromInput.nativeElement.value = (this.userDatabase.monthBirth+1)+"/"+this.userDatabase.dayBirth+"/"+this.userDatabase.yearBirth;
         this.lastAgeInput.nativeElement.value = this.userDatabase.ageOfDeath;
         this.userNameInput.nativeElement.value = this.userDatabase.name;
       }
