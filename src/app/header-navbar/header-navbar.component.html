@@ -1,15 +1,18 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">Life Calendar</a>
+            <a href="#" class="navbar-brand">Life Calendar 
+                <span class="version-representation">Pre-alpha</span>
+            </a>
         </div>
         <div class="navbar-default">
             <ul class="nav navbar-nav">
-                <li *ngFor="let tab of tabsOptions" [ngClass]="{'active':tab.selected}"><a href="#" (click)="onSelectMenu(tab)">{{tab.name}}</a></li>
+                <!--<li *ngFor="let tab of tabsOptions" [ngClass]="{'active':tab.selected}"><a href="#" (click)="onSelectMenu(tab)">{{tab.name}}</a></li>-->
                 <!--<mat-slider min="1" max="5" step="0.5" value="1.5"></mat-slider>-->
-                
-                <li class="slider-list-item"><input id="periodsFilter" #periodsFilter class="slider"  data-slider-id='periodsFilter' data-provide="slider"
-                      data-slider-ticks="[1, 2, 3, 4]" data-slider-ticks-labels='["One Week", "Several Weeks", "One Year", "Several Years"]' /></li>
+
+                <li class="slider-list-item col-sm-offset-3 "><input id="periodsFilter" #periodsFilter class="slider " data-slider-id='periodsFilter' data-provide="slider"
+                        data-slider-ticks="[1, 2, 3, 4]" data-slider-ticks-labels='["One Week", "Several Weeks", "One Year", "Several Years"]'
+                    /></li>
                 <!-- <li><a href="#">Shopping List</a></li> -->
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -38,4 +41,4 @@
     </div>
 </div>
 
-<app-settings  (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()"></app-settings>
+<app-settings (hideProgressEmitter)="hideProgressIcon()" (showProgressEmitter)="showProgressIcon()"></app-settings>

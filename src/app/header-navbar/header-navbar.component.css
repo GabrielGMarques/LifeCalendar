@@ -1,4 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Rajdhani');
+
 .slider-list-item {
-    margin-left: 64px;
+    left: 65%;
     margin-top: 6px;
+}
+.version-representation{
+    color: #ff6d00;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Rajdhani', sans-serif;
+    bottom: 0;
+    left: 82px;
+    position: absolute;
 }
