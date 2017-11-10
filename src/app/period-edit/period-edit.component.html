@@ -10,57 +10,78 @@
       </div>
 
       <div class="modal-body">
-        <form class="form-inline">
-          <div class="form-group">
-            <div class="col-xs-5">
-              <div class="input-group-custom">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
-                </div>
-                <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="initial date" #dateFromInput>
-              </div>
-            </div>
-            <div class="col-xs-5">
-              <div class="input-group-custom">
-                <div class="input-group-addon">
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
-                </div>
-                <input class="form-control" data-toggle="datepicker" placeholder="final date" #dateToInput name="dateToInput" id="dateToInput">
-              </div>
-            </div>
-            <div class="col-xs-2">
-              <div class="input-group-custom">
-                <div class="input-group-addon">
-                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                </div>
-                <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodLevel" #colorInput>
-                  <option class="color-item" style="background-color:#e91e63"  value="#e91e63"></option>
-                  <option class="color-item" style="background-color:#9c27b0"  value="#9c27b0"></option>
-                  <option class="color-item" style="background-color:#7e57c2"  value="#7e57c2"></option>
-                  <option class="color-item" style="background-color:#3f51b5"  value="#3f51b5"></option>
-                  <option class="color-item" style="background-color:#2196f3"  value="#2196f3"></option>
-                  <option class="color-item" style="background-color:#009688"  value="#009688"></option>
-                </select>
-              </div>
-            </div>
 
-            <!--<div style="height:10px;"></div>-->
-            <div class="col-xs-6">
-              <div class="input-group">
-                <label for="periodLevel">Periodo Name</label>
-                <input class="form-control" placeholder="Period Name" #namePeriod>
+
+        <div class="form-inline">
+          <div id="formWrapper">
+            <div id="periodListWrapper">
+              <div class="form-group">
+                <div class="input-group">
+                    <select class="form-control" id="periodLevelEditFilter" #levelInput>
+                      <option value="1">One Week</option>
+                      <option value="2">Several Weeks</option>
+                      <option value="3">One Year</option>
+                      <option value="4">Several Years</option>
+                    </select>
+                  </div>
+                  <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let period of periods | async">
+                      {{period.name}}
+                    </li>
+                  </ul>
               </div>
             </div>
-            <div class="col-xs-4">
-              <div class="input-group">
-                <label for="periodLevel">Period Time Level</label>
+            <div class="form-group" id="formEdit">
+              <div class="col-xs-5">
+                <div class="input-group-custom">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+                  <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="initial date" #dateFromInput>
+                </div>
+              </div>
+              <div class="col-xs-5">
+                <div class="input-group-custom">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+                  <input class="form-control" data-toggle="datepicker" placeholder="final date" #dateToInput name="dateToInput" id="dateToInput">
+                </div>
+              </div>
+              <div class="col-xs-2">
+                <div class="input-group-custom">
+                  <div class="input-group-addon">
+                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                  </div>
+                  <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodLevel" #colorInput>
+                    <option class="color-item" style="background-color:#e91e63" value="#e91e63"></option>
+                    <option class="color-item" style="background-color:#9c27b0" value="#9c27b0"></option>
+                    <option class="color-item" style="background-color:#7e57c2" value="#7e57c2"></option>
+                    <option class="color-item" style="background-color:#3f51b5" value="#3f51b5"></option>
+                    <option class="color-item" style="background-color:#2196f3" value="#2196f3"></option>
+                    <option class="color-item" style="background-color:#009688" value="#009688"></option>
+                  </select>
+                </div>
+              </div>
 
-                <select class="form-control" id="periodLevel" #levelInput>
-                  <option value="1">One Week</option>
-                  <option value="2">Several Weeks</option>
-                  <option value="3">One Year</option>
-                  <option value="4">Several Years</option>
-                </select>
+              <!--<div style="height:10px;"></div>-->
+              <div class="col-xs-6">
+                <div class="input-group">
+                  <label for="periodLevel">Periodo Name</label>
+                  <input class="form-control" placeholder="Period Name" #namePeriod>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="input-group">
+                  <label for="periodLevel">Period Time Level</label>
+
+                  <select class="form-control" id="periodLevel" #levelInput>
+                    <option value="1">One Week</option>
+                    <option value="2">Several Weeks</option>
+                    <option value="3">One Year</option>
+                    <option value="4">Several Years</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -69,7 +90,7 @@
             <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Save Period</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
-        </form>
+        </div>
       </div>
 
     </div>
