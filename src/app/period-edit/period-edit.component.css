@@ -37,7 +37,9 @@ select.list1 option.option2
 #periodListWrapper{
     width: 300px;
     max-height: 203px;
-    overflow-x: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
     padding: 10px; 
 }
 .list-group{
@@ -48,3 +50,22 @@ select.list1 option.option2
     width:600px;
     
 }
+.list-group-item{
+    display: inline-flex;
+    width: 100%;
+}
+.edit-period-opt{
+    right: 9px;
+    position: absolute;
+}
+.edit-period-opt > a{
+    margin: 1px;
+    color:#ff6d00;
+
+}
+
+.btn-save-period{
+    background-color:#ff6d00; 
+    border-color: #DDDDDD;   
+}
+

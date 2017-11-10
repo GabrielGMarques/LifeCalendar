@@ -17,18 +17,22 @@
             <div id="periodListWrapper">
               <div class="form-group">
                 <div class="input-group">
-                    <select class="form-control" id="periodLevelEditFilter" #levelInput>
+                  <select class="form-control" id="periodLevelEditFilter" #levelInput>
                       <option value="1">One Week</option>
                       <option value="2">Several Weeks</option>
                       <option value="3">One Year</option>
                       <option value="4">Several Years</option>
                     </select>
-                  </div>
-                  <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let period of periods | async">
-                      {{period.name}}
-                    </li>
-                  </ul>
+                </div>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let period of periods | async">
+                    <span>{{period.name}}</span>
+                    <div class="edit-period-opt">
+                      <a href="#"><i class="fa fa-pencil"></i></a>
+                      <a href="#"><i class="fa fa-trash"></i></a>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
             <div class="form-group" id="formEdit">
@@ -85,9 +89,8 @@
               </div>
             </div>
           </div>
-          <div style="height:10px;"></div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Save Period</button>
+            <button type="button" class="btn btn-primary btn-save-period" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Save Period</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </div>
