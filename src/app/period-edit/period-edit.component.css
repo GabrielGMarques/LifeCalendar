@@ -69,3 +69,15 @@ select.list1 option.option2
     border-color: #DDDDDD;   
 }
 
+.period-control-btn{
+    cursor: pointer;
+}
+.period-item-list-representation-wrapper{  
+    display: grid
+}
+.color-period-item{
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    margin-top: 5px;
+}

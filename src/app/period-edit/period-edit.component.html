@@ -17,19 +17,34 @@
             <div id="periodListWrapper">
               <div class="form-group">
                 <div class="input-group">
-                  <select class="form-control" id="periodLevelEditFilter" #levelInput>
-                      <option value="1">One Week</option>
-                      <option value="2">Several Weeks</option>
-                      <option value="3">One Year</option>
-                      <option value="4">Several Years</option>
-                    </select>
+                  <select class="form-control" id="periodLevelEditFilter" #levelInputFilter>
+                    <option value="1">One Week</option>
+                    <option value="2">Several Weeks</option>
+                    <option value="3">One Year</option>
+                    <option value="4" selected="selected">Several Years</option>
+                  </select>
                 </div>
                 <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let period of periods | async">
-                    <span>{{period.name}}</span>
+                  <li class="list-group-item" id="period_{{item.key}}" *ngFor="let item of periodsList">
+                      <div class="color-period-item" [ngStyle]="{'background-color':item.period.color}"></div>
+                      
+                    
+                    <div class="period-item-list-representation-wrapper">
+                      <span class="name-period-item-list">
+                        {{item.period.name}}
+                      </span>
+                      <span class="date-period-item-list">
+                        {{formatDate(item.period.dateFrom)}} to {{formatDate(item.period.dateTo)}}
+                      </span>
+                    </div>
+                    
                     <div class="edit-period-opt">
-                      <a href="#"><i class="fa fa-pencil"></i></a>
-                      <a href="#"><i class="fa fa-trash"></i></a>
+                      <a class="period-control-btn" (click)="editPeriod(item.key)">
+                        <i class="fa fa-pencil"></i>
+                      </a>
+                      <a class="period-control-btn" (click)="deletePeriod(item.key)">
+                        <i class="fa fa-trash"></i>
+                      </a>
                     </div>
                   </li>
                 </ul>
@@ -83,14 +98,15 @@
                     <option value="1">One Week</option>
                     <option value="2">Several Weeks</option>
                     <option value="3">One Year</option>
-                    <option value="4">Several Years</option>
+                    <option value="4" selected="selected">Several Years</option>
                   </select>
                 </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-save-period" data-dismiss="modal" (click)="savePeriod(namePeriod.value,dateFromInput.value,dateToInput.value,colorInput.value,levelInput.value)">Save Period</button>
+            <input type="hidden" name="idPeriodEdited" id="idPeriodEdited" #idPeriodEdited>
+            <button type="button" class="btn btn-primary btn-save-period" (click)="savePeriod()">Save Period</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           </div>
         </div>
