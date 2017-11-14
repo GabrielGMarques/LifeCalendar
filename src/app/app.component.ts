@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import { User } from './shared/user.model';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { ProgressService } from './services/progress.service';
+import { MessageAlertService } from './services/message-alert.service';
 
 declare var $: any;
 
@@ -13,7 +14,7 @@ declare var $: any;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[ProgressService]
+  providers: [ProgressService, MessageAlertService]
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
   @ViewChild('WarningMessageComponent') warningMessageComponent;
   @ViewChild('AppWeeklyList') appWeeklyList;
 
-  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase,private progressService:ProgressService) {
+  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase, private progressService: ProgressService, private messageAlertService: MessageAlertService) {
     this.userAuth = this.afAuth.authState
   }
 
@@ -36,27 +37,27 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.updateUserAuth();
-    this.progressService.getProgressEmitter().subscribe((event:boolean)=>this.progressIconShown = event);
+    this.progressService.getProgressEmitter().subscribe((event: boolean) => this.progressIconShown = event);
   }
 
   updateUserAuth() {
     this.userAuth.forEach(item => {
-      
+
       this.userAuthObj = item;
       this.progressIconShown = false;
 
       if (item) {
         this.updateUserDatabase();
       }
-      
+
     });
   }
 
-   updatePeriodFilter(level:number){
+  updatePeriodFilter(level: number) {
 
-     this.appWeeklyList.updatePeriodFilter(level);
+    this.appWeeklyList.updatePeriodFilter(level);
   }
-  
+
 
   updateUserDatabase() {
     this.userDatabaseObservable = this.db.list('users_' + this.userAuthObj.uid + "/");
@@ -84,7 +85,7 @@ export class AppComponent implements OnInit {
       this.userVerified = true;
     }
   }
-  
+
 
   logout() {
     this.afAuth.auth.signOut();
@@ -94,12 +95,5 @@ export class AppComponent implements OnInit {
     this.tabSelected = event;
   }
 
-  showErrorMessage(message: string) {
-    this.warningMessageComponent.showErrorMessage(message);
-  }
-
-  showSuccessMessage(message: string) {
-    this.warningMessageComponent.showSuccessMessage(message);
-  }
-
+  
 }

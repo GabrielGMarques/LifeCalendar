@@ -8,6 +8,6 @@
         <app-weekly-list  *ngIf="tabSelected?.id == 1" [firebaseUser]="userAuthObj" [userDatabase]="userDatabase" #AppWeeklyList> </app-weekly-list>
     </div>
 </div>
-<app-login *ngIf="!userVerified" (errorEmmiter)="showErrorMessage($event)" (successEmmiter)="showSuccessMessage($event)"></app-login>   
+<app-login *ngIf="!userVerified"></app-login>   
 <app-warning-message #WarningMessageComponent></app-warning-message>
 <app-progress-icon *ngIf="progressIconShown"></app-progress-icon>

@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit,EventEmitter,Output } from '@angular/core';
+import { Component, ElementRef, OnInit, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import {ProgressService} from '../services/progress.service'
+import { ProgressService } from '../services/progress.service'
+import { MessageAlertService } from '../services/message-alert.service'
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
@@ -11,45 +12,34 @@ import * as firebase from 'firebase/app';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth,private progressService:ProgressService){
+  constructor(public afAuth: AngularFireAuth, private progressService: ProgressService, private messageAlertService: MessageAlertService) {
   }
-
-  @Output() errorEmmiter = new EventEmitter<string>();
-  @Output() successEmmiter = new EventEmitter<string>();
 
   ngOnInit() {
-    
-  }
 
-  showProgressIcon() {
-    this.progressService.showProgress();
-  }
-  hideProgressIcon() {
-    this.progressService.hideProgress();
   }
 
   loginGoogle() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .catch(function (error){
-      alert( error.message + ' Please try again')
-    })
+      .catch(function (error) {
+        this.messageAlertService.showErrorMessage(error.message);
+      })
   }
-  registerEmail(email,password){
-     this.afAuth.auth.createUserWithEmailAndPassword(email,password).then((item)=>{
-       this.loginEmail(email,password);
-     }).catch((error)=>{
-       this.errorEmmiter.emit(error.message);
+  registerEmail(email, password) {
+    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((item) => {
+      this.loginEmail(email, password);
+    }).catch((error) => {
+      this.messageAlertService.showErrorMessage(error.message);
     });
   }
-  loginEmail(email,password){
-     this.afAuth.auth.signInWithEmailAndPassword(email,password).then((item)=>{
-     }).catch((error)=>{
-       this.errorEmmiter.emit(error.message);
+  loginEmail(email, password) {
+    this.afAuth.auth.signInWithEmailAndPassword(email, password).then((item) => {
+    }).catch((error) => {
+      this.messageAlertService.showErrorMessage(error.message);
     });
   }
-  
-  changeType(password:ElementRef){
-    // password.nativeElement.type = "text";
-     password['type'] = password['type'] == 'text'?'password':'text';
+
+  changeType(password: ElementRef) {
+    // password.nativeElement.type = "text";password['type'] = password['type'] == 'text' ? 'password' : 'text';
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {MessageAlertService} from '../services/message-alert.service'
 
 @Component({
   selector: 'app-warning-message',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WarningMessageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private messageAlertService:MessageAlertService) { }
 
   message: string = "";
   alertClass: string = "";
@@ -15,15 +16,10 @@ export class WarningMessageComponent implements OnInit {
 
 
   ngOnInit() {
+    this.messageAlertService.getErrorEmitter().subscribe((message:string)=>this.showErrorMessage(message));
+    this.messageAlertService.getSuccessEmitter().subscribe((message:string)=>this.showSuccessMessage(message));
   }
 
-  startDesapearInterval() {
-    this.shown = true;
-
-    setInterval(() => {
-      this.shown = false;
-    }, 5000);
-  }
 
   showErrorMessage(message: string) {
     this.message = message;
@@ -35,4 +31,13 @@ export class WarningMessageComponent implements OnInit {
     this.alertClass = "alert-success";
     this.startDesapearInterval();
   }
+
+  startDesapearInterval() {
+    this.shown = true;
+
+    setInterval(() => {
+      this.shown = false;
+    }, 5000);
+  }
+
 }
