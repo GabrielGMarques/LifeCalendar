@@ -2,9 +2,10 @@ import { Week } from '../shared/week.model';
 import { Year } from '../shared/year.model';
 import { Period } from '../shared/period.model';
 import { User } from '../shared/user.model';
-import { Component, OnInit,Input,EventEmitter,Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { ProgressService } from '../services/progress.service'
 import * as firebase from 'firebase/app';
 declare var $: any;
 // import { NgModule } from '@angular/core';
@@ -23,7 +24,7 @@ const now = new Date();
 // })
 
 export class WeeklyListComponent implements OnInit {
-  
+
   date: { year: number, month: number };
   rangeDateStart;
   rangeDateEnd = "";
@@ -32,48 +33,46 @@ export class WeeklyListComponent implements OnInit {
   currentPeriodLevel = 4;
   periods: Period[] = [];
   years: Year[] = [];
-  
+
 
   periodList: FirebaseListObservable<Period[]>;
 
   @Input('firebaseUser') user: firebase.User;
-  @Input() userDatabase:User;
-  
-  @Output() hideProgressEmitter =  new EventEmitter<{}>();
-  @Output() showProgressEmitter =new  EventEmitter<{}>();
+  @Input() userDatabase: User;
 
-  constructor(public db: AngularFireDatabase) { }
+
+  constructor(public db: AngularFireDatabase, private progressService: ProgressService) { }
 
   ngOnInit() {
     this.buildWeeks();
     this.getPeriodsData();
-  
+
   }
 
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     $('[data-toggle="datepicker"]').datepicker();
     ($('.currentWeek')[0]).scrollIntoView('100');
     var offset = ($('.currentWeek')).offset();
     offset.top -= 100;
     $('html, body').animate({
       scrollTop: offset.top,
-    },1000);
+    }, 1000);
 
   }
   updatePeriods() {
     this.years.forEach((year) => {
-        year.weeks.forEach((week) => {
-          week.period = null;
-        });       
+      year.weeks.forEach((week) => {
+        week.period = null;
+      });
     });
-    this.periods.sort((period)=>period.dateToLong).forEach((period) => {
-      if(period.level == this.currentPeriodLevel){
+    this.periods.sort((period) => period.dateToLong).forEach((period) => {
+      if (period.level == this.currentPeriodLevel) {
         this.years.forEach((year) => {
-        
+
           year.weeks.forEach((week) => {
-            if(period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()){
-                week.period= period;
+            if (period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()) {
+              week.period = period;
             }
           });
         });
@@ -86,15 +85,14 @@ export class WeeklyListComponent implements OnInit {
     month++;
     var year = date.getFullYear();
 
-    return (day >9?day:"0"+day)+ '/' +(month >9?month:"0"+month)+ '/' + year;
+    return (day > 9 ? day : "0" + day) + '/' + (month > 9 ? month : "0" + month) + '/' + year;
   }
 
-  updatePeriodFilter(level:number){
+  updatePeriodFilter(level: number) {
     this.currentPeriodLevel = level;
-    this.showProgressEmitter.emit();
+    this.progressService.showProgress();
     this.updatePeriods();
-    this.hideProgressEmitter.emit();
-    
+    this.progressService.hideProgress();
   }
 
   buildWeeks() {
@@ -111,12 +109,12 @@ export class WeeklyListComponent implements OnInit {
       var indexWeek = 1;
 
       while (dateInitialYear < dateFinalYear) {
-        
-        dateInitialYear.setDate(dateInitialYear.getDate()+1);
-        if(dateInitialYear >= dateFinalYear){
+
+        dateInitialYear.setDate(dateInitialYear.getDate() + 1);
+        if (dateInitialYear >= dateFinalYear) {
           break;
         }
-        dateInitialYear.setDate(dateInitialYear.getDate()-1);
+        dateInitialYear.setDate(dateInitialYear.getDate() - 1);
 
         var currentDate = new Date();
         currentDate.setHours(0);
@@ -126,20 +124,20 @@ export class WeeklyListComponent implements OnInit {
 
 
         var dateLimit = new Date(dateInitialYear.getFullYear(), dateInitialYear.getMonth(), dateInitialYear.getDate() + 7, 0, 0, 0, 0);
-      
-        var dayRange = dateInitialYear.getDate() < this.userDatabase.dayBirth 
-                              && dateInitialYear.getMonth() == this.userDatabase.monthBirth
-                              && (dateInitialYear.getDate()+9) == this.userDatabase.dayBirth ? 
-                                8:  7;
-        if(dayRange == 8){
-          dateLimit.setDate(dateLimit.getDate()+1);
+
+        var dayRange = dateInitialYear.getDate() < this.userDatabase.dayBirth
+          && dateInitialYear.getMonth() == this.userDatabase.monthBirth
+          && (dateInitialYear.getDate() + 9) == this.userDatabase.dayBirth ?
+          8 : 7;
+        if (dayRange == 8) {
+          dateLimit.setDate(dateLimit.getDate() + 1);
         }
         var isCurrentWeek = dateInitialYear <= currentDate && dateLimit > currentDate;
         var dateFrom = new Date(dateInitialYear.getTime());
         var dateTo = new Date(dateLimit.getTime());
 
-        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.formatDate(dateFrom), dateToSt: this.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek,period:null });
-        
+        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.formatDate(dateFrom), dateToSt: this.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek, period: null });
+
         dateInitialYear.setDate(dateInitialYear.getDate() + dayRange);
 
         indexWeek++;
@@ -153,24 +151,25 @@ export class WeeklyListComponent implements OnInit {
   }
 
   getPeriodsData() {
-    this.periodList = this.db.list('periods_user_'+this.user.uid+"/");
-    
+    this.periodList = this.db.list('periods_user_' + this.user.uid + "/");
+
     this.periodList.forEach((item) => {
-      
+
       this.periods = [];
-      
+
       item.forEach((period) => {
         this.periods.push(period)
       });
-      
-      this.showProgressEmitter.emit();
+
+      this.progressService.showProgress();
 
       this.updatePeriods();
-      this.hideProgressEmitter.emit();
+
+      this.progressService.hideProgress();
     });
   }
 
-  
+
   setValue(key, value) {
     this[key] = value;
   }

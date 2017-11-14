@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit,EventEmitter,Output } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import {ProgressService} from '../services/progress.service'
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
@@ -10,25 +11,21 @@ import * as firebase from 'firebase/app';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth){
+  constructor(public afAuth: AngularFireAuth,private progressService:ProgressService){
   }
 
   @Output() errorEmmiter = new EventEmitter<string>();
   @Output() successEmmiter = new EventEmitter<string>();
-  @Output() hideProgressEmitter = new EventEmitter<{}>();
-  @Output() showProgressEmitter = new EventEmitter<{}>();
-
-
-
 
   ngOnInit() {
+    
   }
 
   showProgressIcon() {
-    this.showProgressEmitter.emit();
+    this.progressService.showProgress();
   }
   hideProgressIcon() {
-    this.hideProgressEmitter.emit();
+    this.progressService.hideProgress();
   }
 
   loginGoogle() {

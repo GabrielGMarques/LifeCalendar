@@ -4,13 +4,16 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
 import { User } from './shared/user.model';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
+import { ProgressService } from './services/progress.service';
+
 declare var $: any;
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers:[ProgressService]
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -19,7 +22,7 @@ export class AppComponent implements OnInit {
   @ViewChild('WarningMessageComponent') warningMessageComponent;
   @ViewChild('AppWeeklyList') appWeeklyList;
 
-  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase) {
+  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase,private progressService:ProgressService) {
     this.userAuth = this.afAuth.authState
   }
 
@@ -33,6 +36,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.updateUserAuth();
+    this.progressService.getProgressEmitter().subscribe((event:boolean)=>this.progressIconShown = event);
   }
 
   updateUserAuth() {
@@ -43,7 +47,6 @@ export class AppComponent implements OnInit {
 
       if (item) {
         this.updateUserDatabase();
-
       }
       
     });
@@ -59,7 +62,7 @@ export class AppComponent implements OnInit {
     this.userDatabaseObservable = this.db.list('users_' + this.userAuthObj.uid + "/");
 
     this.userDatabaseObservable.forEach((item) => {
-      this.showProgressIcon();
+      this.progressService.showProgress();
 
       this.userDatabase = null;
 
@@ -70,7 +73,7 @@ export class AppComponent implements OnInit {
       });
       this.verifyUserData(this.userDatabase);
 
-      this.hideProgressIcon();
+      this.progressService.hideProgress();
     });
   }
   verifyUserData(item) {
@@ -83,12 +86,6 @@ export class AppComponent implements OnInit {
   }
   
 
-  showProgressIcon() {
-    this.progressIconShown = true;
-  }
-  hideProgressIcon() {
-    this.progressIconShown = false;
-  }
   logout() {
     this.afAuth.auth.signOut();
     location.reload();

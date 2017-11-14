@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { WarningMessageComponent } from './warning-message/warning-message.component';
 import { ProgressIconComponent } from './progress-icon/progress-icon.component';
+// import { ProgressService } from './services/progress.service';
 
 export const environment = {
   production: false,
@@ -41,6 +42,7 @@ export const environment = {
     SettingsComponent,
     WarningMessageComponent,
     ProgressIconComponent,
+    // ProgressService
   ],
   imports: [
     BrowserModule,

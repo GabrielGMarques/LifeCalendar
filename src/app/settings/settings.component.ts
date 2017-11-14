@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output,ElementRef,ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ElementRef, ViewChild } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
+import { ProgressService } from '../services/progress.service'
 
 import { User } from '../shared/user.model';
 declare var $: any;
@@ -14,7 +15,7 @@ declare var $: any;
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private progressService: ProgressService) {
     this.userAuth = this.afAuth.authState
   }
 
@@ -23,18 +24,15 @@ export class SettingsComponent implements OnInit {
   userAuthObj: firebase.User = null;
   userDatabase: User;
 
-  @Output() hideProgressEmitter = new EventEmitter<{}>();
-  @Output() showProgressEmitter = new EventEmitter<{}>();
-  @ViewChild('dateFromInput') dateFromInput; 
-  @ViewChild('lastAgeInput') lastAgeInput; 
-  @ViewChild('userNameInput') userNameInput; 
+  @ViewChild('dateFromInput') dateFromInput;
+  @ViewChild('lastAgeInput') lastAgeInput;
+  @ViewChild('userNameInput') userNameInput;
   ngOnInit() {
-    
+
   }
 
   updateUserAuth() {
 
-    // this.showProgressEmitter.emit()
     this.userAuth.forEach(item => {
       this.userAuthObj = item;
 
@@ -45,7 +43,7 @@ export class SettingsComponent implements OnInit {
   }
 
   updateUserDatabase() {
-    this.showProgressEmitter.emit()
+    this.progressService.showProgress();
     this.userDatabaseObservable = this.db.list('users_' + this.userAuthObj.uid + "/");
 
     this.userDatabaseObservable.forEach((item) => {
@@ -55,13 +53,13 @@ export class SettingsComponent implements OnInit {
       item.forEach((item) => {
         this.userDatabase = item;
       });
-      
-      if(this.userDatabase){
-        this.dateFromInput.nativeElement.value = (this.userDatabase.monthBirth+1)+"/"+this.userDatabase.dayBirth+"/"+this.userDatabase.yearBirth;
+
+      if (this.userDatabase) {
+        this.dateFromInput.nativeElement.value = (this.userDatabase.monthBirth + 1) + "/" + this.userDatabase.dayBirth + "/" + this.userDatabase.yearBirth;
         this.lastAgeInput.nativeElement.value = this.userDatabase.ageOfDeath;
         this.userNameInput.nativeElement.value = this.userDatabase.name;
       }
-      this.hideProgressEmitter.emit()
+      this.progressService.hideProgress();
 
     });
   }
@@ -82,9 +80,9 @@ export class SettingsComponent implements OnInit {
     if (birthDate && finalAge && name) {
 
       this.userDatabaseObservable.push(user);
-      
+
       $('#settingsModal').modal('toggle');
-      setInterval(()=>{location.reload();},500);
+      setInterval(() => { location.reload(); }, 500);
     }
   }
 

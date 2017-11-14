@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ElementRef } from '@angular/core';
+import {ProgressService} from '../services/progress.service'
 declare var $: any;
 
 @Component({
@@ -9,13 +10,11 @@ declare var $: any;
 })
 export class HeaderNavbarComponent implements OnInit {
 
-    constructor(private periodsFilter: ElementRef) { }
+    constructor(private periodsFilter: ElementRef,private progressService:ProgressService) { }
 
-    @Output() tabSelector = new EventEmitter<{ id: Number, name: string, selected: boolean }>()
-    @Output() logoutEmmiter = new EventEmitter<{}>()
-    @Output() settingsEmmiter = new EventEmitter<{ id: Number, name: string, selected: boolean }>()
-    @Output() hideProgressEmitter = new EventEmitter<{}>();
-    @Output() showProgressEmitter = new EventEmitter<{}>();
+    @Output() tabSelector = new EventEmitter<{ id: Number, name: string, selected: boolean }>();
+    @Output() logoutEmmiter = new EventEmitter<{}>();
+    @Output() settingsEmmiter = new EventEmitter<{ id: Number, name: string, selected: boolean }>();
     @Output() updatePeriodFilterEmitter = new EventEmitter<{}>();
 
     @Output() tabsOptions = [{ id: 1, name: "Weeks", selected: false }]
@@ -42,10 +41,10 @@ export class HeaderNavbarComponent implements OnInit {
         this.updatePeriodFilterEmitter.emit(level);
     }
     showProgressIcon() {
-        this.showProgressEmitter.emit();
+        this.progressService.showProgress();
     }
     hideProgressIcon() {
-        this.hideProgressEmitter.emit();
+        this.progressService.hideProgress();
     }
 
     ngAfterViewInit() {
