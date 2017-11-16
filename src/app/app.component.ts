@@ -1,3 +1,6 @@
+import { PeriodService } from './services/period.service';
+import { UserDatabaseService } from './services/user-database.service';
+import { PeriodFilterService } from './services/period-filter.service';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
@@ -14,69 +17,36 @@ declare var $: any;
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ProgressService, MessageAlertService]
+  providers: [ProgressService, MessageAlertService,PeriodFilterService,UserDatabaseService,PeriodService]
 })
 export class AppComponent implements OnInit {
   title = 'app';
   tabSelected: { id: Number, name: string, selected: true };
 
-  @ViewChild('WarningMessageComponent') warningMessageComponent;
-  @ViewChild('AppWeeklyList') appWeeklyList;
 
-  constructor(public afAuth: AngularFireAuth, public db: AngularFireDatabase, private progressService: ProgressService, private messageAlertService: MessageAlertService) {
-    this.userAuth = this.afAuth.authState
-  }
-
-
-  userDatabaseObservable: FirebaseListObservable<User[]>;
-  userDatabase: User;
-  userAuth: Observable<firebase.User>
-  userAuthObj: firebase.User = null;
+  constructor(
+    private progressService: ProgressService,
+    private messageAlertService: MessageAlertService,
+    private periodFilterService: PeriodFilterService,
+    private userDatabaseService: UserDatabaseService,
+    private periodService: PeriodService){}
+    
   userVerified = false;
-  progressIconShown = true;
+  progressIconShown = false;
 
   ngOnInit() {
-    this.updateUserAuth();
-    this.progressService.getProgressEmitter().subscribe((event: boolean) => this.progressIconShown = event);
-  }
 
-  updateUserAuth() {
-    this.userAuth.forEach(item => {
+    this.verifyUserData(this.userDatabaseService.getUserDatabase());
 
-      this.userAuthObj = item;
-      this.progressIconShown = false;
-
-      if (item) {
-        this.updateUserDatabase();
-      }
-
-    });
-  }
-
-  updatePeriodFilter(level: number) {
-
-    this.appWeeklyList.updatePeriodFilter(level);
-  }
-
-
-  updateUserDatabase() {
-    this.userDatabaseObservable = this.db.list('users_' + this.userAuthObj.uid + "/");
-
-    this.userDatabaseObservable.forEach((item) => {
-      this.progressService.showProgress();
-
-      this.userDatabase = null;
-
-      item.forEach((item) => {
-        this.userDatabase = item;
+    this.userDatabaseService.getUserDatabaseEmitter().subscribe((item:User)=>{
+      if(item)
         this.verifyUserData(item);
+    })
+    
+    this.progressService.getProgressEmitter().subscribe((event: boolean) => this.progressIconShown = event);
 
-      });
-      this.verifyUserData(this.userDatabase);
-
-      this.progressService.hideProgress();
-    });
   }
+
   verifyUserData(item) {
     if (!item) {
       this.userVerified = false;
@@ -85,15 +55,4 @@ export class AppComponent implements OnInit {
       this.userVerified = true;
     }
   }
-
-
-  logout() {
-    this.afAuth.auth.signOut();
-    location.reload();
-  }
-  selectTab(event) {
-    this.tabSelected = event;
-  }
-
-  
 }

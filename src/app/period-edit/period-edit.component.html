@@ -25,24 +25,24 @@
                   </select>
                 </div>
                 <ul class="list-group">
-                  <li class="list-group-item" id="period_{{item.key}}" *ngFor="let item of periodsList">
-                      <div class="color-period-item" [ngStyle]="{'background-color':item.period.color}"></div>
+                  <li class="list-group-item" id="period_{{period.$key}}" *ngFor="let period of periodsList">
+                      <div class="color-period-item" [ngStyle]="{'background-color':period.color}"></div>
                       
                     
                     <div class="period-item-list-representation-wrapper">
                       <span class="name-period-item-list">
-                        {{item.period.name}}
+                        {{period.name}}
                       </span>
                       <span class="date-period-item-list">
-                        {{formatDate(item.period.dateFrom)}} to {{formatDate(item.period.dateTo)}}
+                        {{formatDate(period.dateFrom)}} to {{formatDate(period.dateTo)}}
                       </span>
                     </div>
                     
                     <div class="edit-period-opt">
-                      <a class="period-control-btn" (click)="editPeriod(item.key)">
+                      <a class="period-control-btn" (click)="editPeriod(period.$key)">
                         <i class="fa fa-pencil"></i>
                       </a>
-                      <a class="period-control-btn" (click)="deletePeriod(item.key)">
+                      <a class="period-control-btn" (click)="deletePeriod(period.$key)">
                         <i class="fa fa-trash"></i>
                       </a>
                     </div>

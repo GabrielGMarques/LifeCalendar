@@ -9,6 +9,7 @@ export class Period {
    this.name=name;
     
     }
+    $key:string;
     dateFrom: Date;
     dateTo: Date;
     dateFromLong: number;

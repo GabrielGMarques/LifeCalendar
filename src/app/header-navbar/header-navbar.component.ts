@@ -1,5 +1,7 @@
+import { PeriodFilterService } from '../services/period-filter.service';
 import { Component, EventEmitter, OnInit, Output, ElementRef } from '@angular/core';
 import {ProgressService} from '../services/progress.service'
+import { AngularFireAuth } from 'angularfire2/auth';
 declare var $: any;
 
 @Component({
@@ -10,12 +12,10 @@ declare var $: any;
 })
 export class HeaderNavbarComponent implements OnInit {
 
-    constructor(private periodsFilter: ElementRef,private progressService:ProgressService) { }
-
-    @Output() tabSelector = new EventEmitter<{ id: Number, name: string, selected: boolean }>();
-    @Output() logoutEmmiter = new EventEmitter<{}>();
+    constructor(private afAuth: AngularFireAuth, private periodsFilter: ElementRef,private progressService:ProgressService,private periodFilterService:PeriodFilterService) { }
+t
     @Output() settingsEmmiter = new EventEmitter<{ id: Number, name: string, selected: boolean }>();
-    @Output() updatePeriodFilterEmitter = new EventEmitter<{}>();
+  
 
     @Output() tabsOptions = [{ id: 1, name: "Weeks", selected: false }]
 
@@ -24,7 +24,6 @@ export class HeaderNavbarComponent implements OnInit {
     ngOnInit() {
         this.tabsOptions.forEach((item) => { item.selected = false; });
         this.tabsOptions[this.indexDefaultItem].selected = true;
-        this.tabSelector.emit(this.tabsOptions[this.indexDefaultItem]);
 
     }
 
@@ -32,13 +31,13 @@ export class HeaderNavbarComponent implements OnInit {
     onSelectMenu(tab) {
         this.tabsOptions.forEach((item) => { item.selected = false; });
         tab.selected = true;
-        this.tabSelector.emit(tab);
     }
     logout() {
-        this.logoutEmmiter.emit();
+        this.afAuth.auth.signOut();
+        location.reload();
     }
     updatePeriodFilter(level: number) {
-        this.updatePeriodFilterEmitter.emit(level);
+        this.periodFilterService.updateLevel(level);
     }
     showProgressIcon() {
         this.progressService.showProgress();

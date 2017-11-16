@@ -1,3 +1,6 @@
+import { PeriodService } from '../services/period.service';
+import { UserDatabaseService } from '../services/user-database.service';
+import { PeriodFilterService } from '../services/period-filter.service';
 import { Week } from '../shared/week.model';
 import { Year } from '../shared/year.model';
 import { Period } from '../shared/period.model';
@@ -36,17 +39,48 @@ export class WeeklyListComponent implements OnInit {
 
 
   periodList: FirebaseListObservable<Period[]>;
+  weekBuilt = false;
+  // @Input('firebaseUser') user: firebase.User;
+  // private userDatabase: User;
 
-  @Input('firebaseUser') user: firebase.User;
-  @Input() userDatabase: User;
 
-
-  constructor(public db: AngularFireDatabase, private progressService: ProgressService) { }
+  constructor(public db: AngularFireDatabase,
+    private progressService: ProgressService,
+    private periodFilterService: PeriodFilterService,
+    private userDatabaseService: UserDatabaseService,
+    private periodService: PeriodService) { }
 
   ngOnInit() {
-    this.buildWeeks();
-    this.getPeriodsData();
 
+
+    var userDatabase = this.userDatabaseService.getUserDatabase();
+
+    if (userDatabase) {
+      this.buildWeeks(userDatabase);
+      this.weekBuilt = true;
+    }
+    this.periods = this.periodService.getPeriods();
+
+    if (this.periods) {
+      this.updatePeriods();
+    }
+    this.periodService.getPeriodEmitter().subscribe((periods: Period[]) => {
+
+      this.progressService.showProgress();
+      this.periods = periods;
+      this.updatePeriods();
+
+      this.progressService.hideProgress();
+    });
+
+    this.userDatabaseService.getUserDatabaseEmitter().subscribe((user) => {
+      this.buildWeeks(user);
+      this.weekBuilt = true;
+      // this.getPeriodsData();
+    });
+    this.periodFilterService.getFilterEmitter().subscribe((level: number) => {
+      this.updatePeriodFilter(level);
+    });
   }
 
 
@@ -95,16 +129,16 @@ export class WeeklyListComponent implements OnInit {
     this.progressService.hideProgress();
   }
 
-  buildWeeks() {
-    var dateBegin = new Date(this.userDatabase.yearBirth, this.userDatabase.monthBirth, this.userDatabase.dayBirth);
-    var dateEnd = new Date(this.userDatabase.yearBirth + this.userDatabase.ageOfDeath, this.userDatabase.monthBirth, this.userDatabase.dayBirth);
+  buildWeeks(userDatabase: User) {
+    var dateBegin = new Date(userDatabase.yearBirth, userDatabase.monthBirth, userDatabase.dayBirth);
+    var dateEnd = new Date(userDatabase.yearBirth + userDatabase.ageOfDeath, userDatabase.monthBirth, userDatabase.dayBirth);
     this.years = [];
     var indexYear = 0;
 
     // while(dateBegin < dateEnd){
-    for (var i = 0; i <= this.userDatabase.ageOfDeath; i++) {
-      var dateFinalYear = new Date(this.userDatabase.yearBirth + (i + 1), this.userDatabase.monthBirth, this.userDatabase.dayBirth);
-      var dateInitialYear = new Date(this.userDatabase.yearBirth + i, this.userDatabase.monthBirth, this.userDatabase.dayBirth);
+    for (var i = 0; i <= userDatabase.ageOfDeath; i++) {
+      var dateFinalYear = new Date(userDatabase.yearBirth + (i + 1), userDatabase.monthBirth, userDatabase.dayBirth);
+      var dateInitialYear = new Date(userDatabase.yearBirth + i, userDatabase.monthBirth, userDatabase.dayBirth);
       var weeks: Week[] = [];
       var indexWeek = 1;
 
@@ -125,9 +159,9 @@ export class WeeklyListComponent implements OnInit {
 
         var dateLimit = new Date(dateInitialYear.getFullYear(), dateInitialYear.getMonth(), dateInitialYear.getDate() + 7, 0, 0, 0, 0);
 
-        var dayRange = dateInitialYear.getDate() < this.userDatabase.dayBirth
-          && dateInitialYear.getMonth() == this.userDatabase.monthBirth
-          && (dateInitialYear.getDate() + 9) == this.userDatabase.dayBirth ?
+        var dayRange = dateInitialYear.getDate() < userDatabase.dayBirth
+          && dateInitialYear.getMonth() == userDatabase.monthBirth
+          && (dateInitialYear.getDate() + 9) == userDatabase.dayBirth ?
           8 : 7;
         if (dayRange == 8) {
           dateLimit.setDate(dateLimit.getDate() + 1);
@@ -150,24 +184,20 @@ export class WeeklyListComponent implements OnInit {
     }
   }
 
-  getPeriodsData() {
-    this.periodList = this.db.list('periods_user_' + this.user.uid + "/");
+  // getPeriodsData() {
+  //   this.periodList = this.db.list('periods_user_' + this.user.uid + "/");
 
-    this.periodList.forEach((item) => {
+  //   this.periodList.forEach((item) => {
 
-      this.periods = [];
+  //     this.periods = [];
 
-      item.forEach((period) => {
-        this.periods.push(period)
-      });
+  //     item.forEach((period) => {
+  //       this.periods.push(period)
+  //     });
 
-      this.progressService.showProgress();
 
-      this.updatePeriods();
-
-      this.progressService.hideProgress();
-    });
-  }
+  //   });
+  // }
 
 
   setValue(key, value) {
