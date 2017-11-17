@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Rajdhani');
 
 .slider-list-item {
-    left: 65%;
-    margin-top: 6px;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
 }
 .version-representation{
     color: #ff6d00;
