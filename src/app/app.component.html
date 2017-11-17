@@ -1,13 +1,4 @@
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>  -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.js"></script> -->
-
-<div *ngIf="userVerified">
-    <app-header-navbar></app-header-navbar>
-
-    <app-weekly-list> </app-weekly-list>
-</div>
-
-<app-login *ngIf="!userVerified"></app-login>   
+<router-outlet></router-outlet>
 
 <app-warning-message></app-warning-message>
 <app-progress-icon *ngIf="progressIconShown"></app-progress-icon>

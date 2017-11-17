@@ -17,6 +17,8 @@ import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { WarningMessageComponent } from './warning-message/warning-message.component';
 import { ProgressIconComponent } from './progress-icon/progress-icon.component';
+import { Routes,RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component'
 // import { ProgressService } from './services/progress.service';
 
 export const environment = {
@@ -31,6 +33,13 @@ export const environment = {
   }
 };
 
+const appRoutes:Routes =[
+  {path:'login',component:LoginComponent},
+  {path:'home',component:HomeComponent}
+]
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +51,7 @@ export const environment = {
     SettingsComponent,
     WarningMessageComponent,
     ProgressIconComponent,
+    HomeComponent,
     // ProgressService
   ],
   imports: [
@@ -51,6 +61,7 @@ export const environment = {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
 	  AngularFireDatabaseModule,
+    RouterModule.forRoot(appRoutes)
     // MatSliderModule
   ],
   providers: [],

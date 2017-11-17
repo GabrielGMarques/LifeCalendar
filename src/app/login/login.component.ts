@@ -2,8 +2,12 @@ import { Component, ElementRef, OnInit, EventEmitter, Output } from '@angular/co
 import { Observable } from 'rxjs/Observable';
 import { ProgressService } from '../services/progress.service'
 import { MessageAlertService } from '../services/message-alert.service'
+import { NavigationService } from '../services/navigation.service'
+
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+
 import * as firebase from 'firebase/app';
+
 
 @Component({
   selector: 'app-login',
@@ -12,16 +16,18 @@ import * as firebase from 'firebase/app';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth, private progressService: ProgressService, private messageAlertService: MessageAlertService) {
+  constructor(public afAuth: AngularFireAuth,
+  private progressService: ProgressService,
+  private messageAlertService: MessageAlertService,
+  private navigationService:NavigationService) {
   }
-
+  
   ngOnInit() {
-
   }
 
   loginGoogle() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .catch(function (error) {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((obj)=>{
+    }).catch(function (error) {
         this.messageAlertService.showErrorMessage(error.message);
       })
   }
