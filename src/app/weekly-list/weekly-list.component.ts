@@ -167,10 +167,13 @@ export class WeeklyListComponent implements OnInit {
           dateLimit.setDate(dateLimit.getDate() + 1);
         }
         var isCurrentWeek = dateInitialYear <= currentDate && dateLimit > currentDate;
+        
+        var isBeforeCurrent = dateInitialYear < currentDate && dateLimit < currentDate; 
+
         var dateFrom = new Date(dateInitialYear.getTime());
         var dateTo = new Date(dateLimit.getTime());
 
-        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.formatDate(dateFrom), dateToSt: this.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek, period: null });
+        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.formatDate(dateFrom), dateToSt: this.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek, isBeforeCurrent:isBeforeCurrent, period: null });
 
         dateInitialYear.setDate(dateInitialYear.getDate() + dayRange);
 

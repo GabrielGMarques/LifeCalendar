@@ -4,6 +4,7 @@ export class Week {
     periodColor: string;
     index: number;
     isCurrentWeek: boolean;
+    isBeforeCurrent:boolean;
     dateTo: Date;
     dateFrom: Date;
     dateToSt: string;

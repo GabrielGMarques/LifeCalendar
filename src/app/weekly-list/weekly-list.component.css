@@ -16,6 +16,9 @@
     /*border-radius: 100%;*/
 }
 
+.weekBeforeCurrent{
+    opacity: 0.9;
+}
 .week-list-row{
     display: table-row;
 }
