@@ -33,20 +33,12 @@ export class AppComponent implements OnInit {
     private periodService: PeriodService,
     private navigationService: NavigationService) { }
 
-  // userVerified = false;
   progressIconShown = true;
 
   ngOnInit() {
-
     this.verifyUserData(this.userDatabaseService.getUserDatabase());
-
-    this.userDatabaseService.getUserDatabaseEmitter().subscribe((item: User) => {
-      if (item)
-        this.verifyUserData(item);
-    })
-
+    this.userDatabaseService.getUserDatabaseEmitter().subscribe((item: User) => { if (item) this.verifyUserData(item); });
     this.progressService.getProgressEmitter().subscribe((event: boolean) => this.progressIconShown = event);
-
   }
 
   verifyUserData(item) {
