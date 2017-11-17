@@ -1,4 +1,5 @@
 .week-list-wrapper{
+    padding-top: 40px;
     margin: 40px;
     /* border:1px solid #bdbdbd; */
     display: table;
@@ -10,7 +11,7 @@
     padding: 10px;
     background-color: #ff6d00;
     color:#fff;
-    height: 50px;
+    height: 40px;
     text-shadow: 1px 1px #222;
     /*border-radius: 100%;*/
 }
@@ -20,17 +21,13 @@
 }
 .week-list-item{
     display: table-cell;
-    width: 40px;
-    height: 40px;
+    width: 22px;
     border: 1px solid #bdbdbd;
+    text-align: center;
     /*border-radius: 3px;*/
 }
 .currentWeek{
-     width: 32px;
-     height: 32px;
      border: 4px solid #ff6d00;
-    /* background-color: #ff6d00; */
-    /* color:#fff; */
 }
 .btn-add{
     width: 70px;
