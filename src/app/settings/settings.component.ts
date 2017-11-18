@@ -1,3 +1,5 @@
+import { UserDatabaseService } from '../services/user-database.service';
+import { UtilService } from '../services/util.service';
 import { Component, EventEmitter, OnInit, Output, ElementRef, ViewChild } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
@@ -15,76 +17,56 @@ declare var $: any;
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase, private progressService: ProgressService) {
-    this.userAuth = this.afAuth.authState
+  constructor(
+    private db: AngularFireDatabase,
+    private progressService: ProgressService,
+    private utilService: UtilService,
+    private userDatabaseService: UserDatabaseService) {
   }
 
-  userDatabaseObservable: FirebaseListObservable<User[]>;
-  userAuth: Observable<firebase.User>;
   userAuthObj: firebase.User = null;
   userDatabase: User;
 
   @ViewChild('dateFromInput') dateFromInput;
   @ViewChild('lastAgeInput') lastAgeInput;
   @ViewChild('userNameInput') userNameInput;
+
   ngOnInit() {
-
+    this.userAuthObj = this.userDatabaseService.getUserFirebase();
+    this.userDatabase = this.userDatabaseService.getUserDatabase();
   }
 
-  updateUserAuth() {
-
-    this.userAuth.forEach(item => {
-      this.userAuthObj = item;
-
-      if (item) {
-        this.updateUserDatabase();
-      }
-    });
-  }
-
-  updateUserDatabase() {
-    this.progressService.showProgress();
-    this.userDatabaseObservable = this.db.list('users_' + this.userAuthObj.uid + "/");
-
-    this.userDatabaseObservable.forEach((item) => {
-
-      this.userDatabase = null;
-
-      item.forEach((item) => {
-        this.userDatabase = item;
-      });
-
-      if (this.userDatabase) {
-        this.dateFromInput.nativeElement.value = (this.userDatabase.monthBirth + 1) + "/" + this.userDatabase.dayBirth + "/" + this.userDatabase.yearBirth;
-        this.lastAgeInput.nativeElement.value = this.userDatabase.ageOfDeath;
-        this.userNameInput.nativeElement.value = this.userDatabase.name;
-      }
-      this.progressService.hideProgress();
-
-    });
-  }
+  
   ngAfterViewInit() {
-    $('[data-toggle="datepicker"]').datepicker();
-    this.updateUserAuth();
-  }
-
-  saveData(birthDate: string, finalAge: number, name: string) {
-    var user = new User();
-    var birthDateParsed = new Date(birthDate);
-    user.yearBirth = birthDateParsed.getFullYear();
-    user.monthBirth = birthDateParsed.getMonth();
-    user.dayBirth = birthDateParsed.getDate();
-    user.name = name;
-    user.ageOfDeath = finalAge;
-
-    if (birthDate && finalAge && name) {
-
-      this.userDatabaseObservable.push(user);
-
-      $('#settingsModal').modal('toggle');
-      setInterval(() => { location.reload(); }, 500);
+    $('[data-toggle="datepicker"]').datepicker({ dateFormat: "dd/mm/yy" });
+    if (this.userDatabase) {
+    
+      this.dateFromInput.nativeElement.value = this.utilService.formatDate(new Date(this.userDatabase.yearBirth, this.userDatabase.monthBirth-1, this.userDatabase.dayBirth))
+      this.lastAgeInput.nativeElement.value = this.userDatabase.ageOfDeath;
+      this.userNameInput.nativeElement.value = this.userDatabase.name;
     }
   }
 
+  saveData(birthDate: string, finalAge: number, name: string) {
 
+    var birthDateParsed = this.utilService.parseDate(birthDate);
+
+    var user = {
+      yearBirth: birthDateParsed.getFullYear(),
+      monthBirth: birthDateParsed.getMonth(),
+      dayBirth: birthDateParsed.getDate(),
+      name: name,
+      ageOfDeath: finalAge,
+      isCreated:true
+    }
+
+    if (birthDate && finalAge && name) {
+      if (this.userDatabase) {
+        this.userDatabaseService.updateUser(this.userDatabase.$key,user);
+      }else{
+        this.userDatabaseService.saveUser(user)
+      }
+      $('#settingsModal').modal('toggle');
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import { UtilService } from '../services/util.service';
 import { PeriodService } from '../services/period.service';
 import { UserDatabaseService } from '../services/user-database.service';
 import { PeriodFilterService } from '../services/period-filter.service';
@@ -36,19 +37,15 @@ export class WeeklyListComponent implements OnInit {
   currentPeriodLevel = 4;
   periods: Period[] = [];
   years: Year[] = [];
-
-
-  periodList: FirebaseListObservable<Period[]>;
   weekBuilt = false;
-  // @Input('firebaseUser') user: firebase.User;
-  // private userDatabase: User;
 
 
   constructor(public db: AngularFireDatabase,
     private progressService: ProgressService,
     private periodFilterService: PeriodFilterService,
     private userDatabaseService: UserDatabaseService,
-    private periodService: PeriodService) { }
+    private periodService: PeriodService,
+    private utilService:UtilService) { }
 
   ngOnInit() {
 
@@ -75,6 +72,7 @@ export class WeeklyListComponent implements OnInit {
 
     this.userDatabaseService.getUserDatabaseEmitter().subscribe((user) => {
       this.buildWeeks(user);
+      this.updatePeriodFilter(this.currentPeriodLevel);      
       this.weekBuilt = true;
       // this.getPeriodsData();
     });
@@ -85,7 +83,7 @@ export class WeeklyListComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    $('[data-toggle="datepicker"]').datepicker();
+    // $('[data-toggle="datepicker"]').datepicker("dd/mm/yyyy");
     ($('.currentWeek')[0]).scrollIntoView('100');
     var offset = ($('.currentWeek')).offset();
     offset.top -= 100;
@@ -113,15 +111,7 @@ export class WeeklyListComponent implements OnInit {
       }
     });
   }
-  formatDate(date: Date) {
-    var day = date.getDate();
-    var month = date.getMonth();
-    month++;
-    var year = date.getFullYear();
-
-    return (day > 9 ? day : "0" + day) + '/' + (month > 9 ? month : "0" + month) + '/' + year;
-  }
-
+ 
   updatePeriodFilter(level: number) {
     this.currentPeriodLevel = level;
     this.progressService.showProgress();
@@ -130,15 +120,15 @@ export class WeeklyListComponent implements OnInit {
   }
 
   buildWeeks(userDatabase: User) {
-    var dateBegin = new Date(userDatabase.yearBirth, userDatabase.monthBirth, userDatabase.dayBirth);
-    var dateEnd = new Date(userDatabase.yearBirth + userDatabase.ageOfDeath, userDatabase.monthBirth, userDatabase.dayBirth);
+    var dateBegin = new Date(userDatabase.yearBirth, userDatabase.monthBirth-1, userDatabase.dayBirth);
+    var dateEnd = new Date(userDatabase.yearBirth + userDatabase.ageOfDeath-1, userDatabase.monthBirth, userDatabase.dayBirth);
     this.years = [];
     var indexYear = 0;
 
     // while(dateBegin < dateEnd){
     for (var i = 0; i <= userDatabase.ageOfDeath; i++) {
-      var dateFinalYear = new Date(userDatabase.yearBirth + (i + 1), userDatabase.monthBirth, userDatabase.dayBirth);
-      var dateInitialYear = new Date(userDatabase.yearBirth + i, userDatabase.monthBirth, userDatabase.dayBirth);
+      var dateFinalYear = new Date(userDatabase.yearBirth + (i + 1), userDatabase.monthBirth-1, userDatabase.dayBirth);
+      var dateInitialYear = new Date(userDatabase.yearBirth + i, userDatabase.monthBirth-1, userDatabase.dayBirth);
       var weeks: Week[] = [];
       var indexWeek = 1;
 
@@ -155,17 +145,18 @@ export class WeeklyListComponent implements OnInit {
         currentDate.setMinutes(0);
         currentDate.setSeconds(0);
         currentDate.setMilliseconds(0);
-
-
-        var dateLimit = new Date(dateInitialYear.getFullYear(), dateInitialYear.getMonth(), dateInitialYear.getDate() + 7, 0, 0, 0, 0);
-
+        
         var dayRange = dateInitialYear.getDate() < userDatabase.dayBirth
-          && dateInitialYear.getMonth() == userDatabase.monthBirth
-          && (dateInitialYear.getDate() + 9) == userDatabase.dayBirth ?
-          8 : 7;
-        if (dayRange == 8) {
-          dateLimit.setDate(dateLimit.getDate() + 1);
-        }
+        && dateInitialYear.getMonth() == userDatabase.monthBirth-1
+        && (dateInitialYear.getDate() + 9) == userDatabase.dayBirth ?
+        8 : 7;
+
+        var dateLimit = new Date(dateInitialYear.getFullYear(), dateInitialYear.getMonth(), dateInitialYear.getDate() + dayRange, 0, 0, 0, 0);
+
+      
+        // if (dayRange == 8) {
+        //   dateLimit.setDate(dateLimit.getDate() + 1);
+        // }
         var isCurrentWeek = dateInitialYear <= currentDate && dateLimit > currentDate;
         
         var isBeforeCurrent = dateInitialYear < currentDate && dateLimit < currentDate; 
@@ -173,7 +164,7 @@ export class WeeklyListComponent implements OnInit {
         var dateFrom = new Date(dateInitialYear.getTime());
         var dateTo = new Date(dateLimit.getTime());
 
-        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.formatDate(dateFrom), dateToSt: this.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek, isBeforeCurrent:isBeforeCurrent, period: null });
+        weeks.push({ dateFrom: dateFrom, dateTo: dateTo, dateFromSt: this.utilService.formatDate(dateFrom), dateToSt: this.utilService.formatDate(dateTo), periodColor: "", index: indexWeek, isCurrentWeek: isCurrentWeek, isBeforeCurrent:isBeforeCurrent, period: null });
 
         dateInitialYear.setDate(dateInitialYear.getDate() + dayRange);
 

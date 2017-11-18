@@ -62,8 +62,8 @@ export class PeriodEditComponent implements OnInit {
     this.namePeriod.nativeElement.value = period.name;
     var dateFrom = new Date(period.dateFromLong);
     var dateTo = new Date(period.dateToLong);
-    this.dateFromInput.nativeElement.value = (dateFrom.getMonth() + 1) + "/" + dateFrom.getDate() + "/" + dateFrom.getFullYear();
-    this.dateToInput.nativeElement.value = (dateTo.getMonth() + 1) + "/" + dateTo.getDate() + "/" + dateTo.getFullYear();
+    this.dateFromInput.nativeElement.value = this.formatDate(dateFrom);
+    this.dateToInput.nativeElement.value = this.formatDate(dateTo);
     this.colorInput.nativeElement.value = period.color;
     this.levelInput.nativeElement.value = period.level;
     this.idPeriodEdited.nativeElement.value = key;
@@ -83,10 +83,10 @@ export class PeriodEditComponent implements OnInit {
 
     var period = {
       name: name.value,
-      dateFrom: new Date(dateFrom.value),
-      dateTo: new Date(dateTo.value),
-      dateFromLong: new Date(dateFrom.value).getTime(),
-      dateToLong: new Date(dateTo.value).getTime(),
+      dateFrom: this.parseDate(dateFrom.value),
+      dateTo: this.parseDate(dateTo.value),
+      dateFromLong: this.parseDate(dateFrom.value).getTime(),
+      dateToLong: this.parseDate(dateTo.value).getTime(),
       color: color.value,
       level: level.value
     };
@@ -104,14 +104,30 @@ export class PeriodEditComponent implements OnInit {
     color.value = "#e91e63";
     level.value = 4;
   }
+  ngAfterViewInit() {
+    $('[data-toggle="datepicker"]').datepicker({ dateFormat: "dd/mm/yy" });
+  }
 
   formatDate(date) {
 
-
     var day = date.getDate();
-    var monthIndex = date.getMonth();
+    var monthIndex = date.getMonth() + 1;
     var year = date.getFullYear();
 
-    return (monthIndex + 1) + "/" + day + "/" + year;
+    day = day <= 9 ? `0${day}` : day;
+    monthIndex = monthIndex <= 9 ? `0${monthIndex}` : monthIndex;
+
+    return `${day}/${monthIndex}/${year}`;
+  }
+
+  parseDate(date){
+    
+    var dateArray = date.split('/');
+    var day = dateArray[0];
+    var month = dateArray[1];
+    var year = dateArray[2];
+
+    var dateParsed = new Date(year,month,day);
+    return dateParsed;
   }
 }

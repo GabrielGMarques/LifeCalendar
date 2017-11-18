@@ -22,6 +22,7 @@ export class WarningMessageComponent implements OnInit {
 
 
   showErrorMessage(message: string) {
+    console.log(message);
     this.message = message;
     this.alertClass = "alert-danger";
     this.startDesapearInterval();

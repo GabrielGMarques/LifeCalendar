@@ -10,6 +10,7 @@ export class UserDatabaseService {
     private userAuthEmitter = new EventEmitter<firebase.User>();
     private userDatabaseEmitter = new EventEmitter<User>();
     private userAuthObservableEmitter = new EventEmitter<Observable<firebase.User>>();
+    private userDatabaseObservable: FirebaseListObservable<User[]>;
     // private userAuthObservableEmitter = new EventEmitter< Period[]>();
 
     private userDatabase: User;
@@ -26,18 +27,23 @@ export class UserDatabaseService {
         });
     }
     updateUserDatabase(obj: firebase.User) {
-        this.db.list('users_' + obj.uid + "/").forEach((item) => {
-
+        
+        this.userDatabaseObservable = this.db.list('users_' + obj.uid + "/");
+        
+        this.userDatabaseObservable.forEach((item) => {
+            
             var userDatabase: User;
             item.forEach((user: User) => {
                 userDatabase = user;
             });
-            
             if (userDatabase) {
-                this.userDatabaseEmitter.emit(userDatabase);
                 this.userDatabase = userDatabase;
+                this.userDatabaseEmitter.emit(userDatabase);
             }
         });
+    }
+    getSingleObj(){
+        return this.db.object('users_' +  this.userFirebase.uid + "/");
     }
     getUserFirebase(){
         return this.userFirebase;
@@ -52,6 +58,15 @@ export class UserDatabaseService {
     getUserDatabaseEmitter() {
         return this.userDatabaseEmitter;
     }
+    saveUser(value:any){
+        this.userDatabaseObservable.push(value);
+    }
+    deleteUser(key:string){
+        this.userDatabaseObservable.remove(key);
+    }
 
+    updateUser(key:string,value:any){
+        this.userDatabaseObservable.update(key,value);
+    }
 
 }

@@ -22,9 +22,25 @@
 .week-list-row{
     display: table-row;
 }
+@media(width:1024px){
+    .week-list-item{
+        width: 22px!important;
+    }
+}
+@media(width:1440px){
+    .week-list-item{
+        width: 25.5px!important;
+    }
+}
+@media(width:2560px){
+    .week-list-item{
+        width: 48px!important;
+    }
+}
+
 .week-list-item{
     display: table-cell;
-    width: 22px;
+    width: 29px;
     border: 1px solid #bdbdbd;
     text-align: center;
     /*border-radius: 3px;*/
