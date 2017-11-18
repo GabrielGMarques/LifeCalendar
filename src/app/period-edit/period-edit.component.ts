@@ -1,3 +1,4 @@
+import { UtilService } from '../services/util.service';
 import { PeriodService } from '../services/period.service';
 import { observable } from 'rxjs/symbol/observable';
 
@@ -22,7 +23,7 @@ export class PeriodEditComponent implements OnInit {
 
   colors: string[] = ["#007700", "#e91e63", "#9c27b0", "#7e57c2", "#3f51b5", "#2196f3", "#009688"];
 
-  constructor(private db: AngularFireDatabase, private periodService: PeriodService) {
+  constructor(private db: AngularFireDatabase, private periodService: PeriodService,private utilService:UtilService) {
 
 
   }
@@ -62,8 +63,8 @@ export class PeriodEditComponent implements OnInit {
     this.namePeriod.nativeElement.value = period.name;
     var dateFrom = new Date(period.dateFromLong);
     var dateTo = new Date(period.dateToLong);
-    this.dateFromInput.nativeElement.value = this.formatDate(dateFrom);
-    this.dateToInput.nativeElement.value = this.formatDate(dateTo);
+    this.dateFromInput.nativeElement.value = this.utilService.formatDate(dateFrom);
+    this.dateToInput.nativeElement.value = this.utilService.formatDate(dateTo);
     this.colorInput.nativeElement.value = period.color;
     this.levelInput.nativeElement.value = period.level;
     this.idPeriodEdited.nativeElement.value = key;
@@ -83,10 +84,10 @@ export class PeriodEditComponent implements OnInit {
 
     var period = {
       name: name.value,
-      dateFrom: this.parseDate(dateFrom.value),
-      dateTo: this.parseDate(dateTo.value),
-      dateFromLong: this.parseDate(dateFrom.value).getTime(),
-      dateToLong: this.parseDate(dateTo.value).getTime(),
+      dateFrom: this.utilService.parseDate(dateFrom.value),
+      dateTo: this.utilService.parseDate(dateTo.value),
+      dateFromLong: this.utilService.parseDate(dateFrom.value).getTime(),
+      dateToLong: this.utilService.parseDate(dateTo.value).getTime(),
       color: color.value,
       level: level.value
     };
@@ -106,28 +107,5 @@ export class PeriodEditComponent implements OnInit {
   }
   ngAfterViewInit() {
     $('[data-toggle="datepicker"]').datepicker({ dateFormat: "dd/mm/yy" });
-  }
-
-  formatDate(date) {
-
-    var day = date.getDate();
-    var monthIndex = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    day = day <= 9 ? `0${day}` : day;
-    monthIndex = monthIndex <= 9 ? `0${monthIndex}` : monthIndex;
-
-    return `${day}/${monthIndex}/${year}`;
-  }
-
-  parseDate(date){
-    
-    var dateArray = date.split('/');
-    var day = dateArray[0];
-    var month = dateArray[1];
-    var year = dateArray[2];
-
-    var dateParsed = new Date(year,month,day);
-    return dateParsed;
   }
 }
