@@ -35,7 +35,8 @@ export const environment = {
 
 const appRoutes:Routes =[
   {path:'login',component:LoginComponent},
-  {path:'home',component:HomeComponent}
+  {path:'home',component:HomeComponent},
+  {path:'loading',component:ProgressIconComponent}
 ]
 
 

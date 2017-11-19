@@ -1,5 +1,5 @@
 import { UserDatabaseService } from '../services/user-database.service';
-import { Component, ElementRef, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, OnInit, EventEmitter, Output,ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ProgressService } from '../services/progress.service'
 import { MessageAlertService } from '../services/message-alert.service'
@@ -20,64 +20,63 @@ import * as firebase from 'firebase/app';
 export class LoginComponent implements OnInit {
 
   constructor(public afAuth: AngularFireAuth,
-  private progressService: ProgressService,
-  private messageAlertService: MessageAlertService,
-  private navigationService:NavigationService,
-  private userDatabaseService:UserDatabaseService) {
+    private progressService: ProgressService,
+    private messageAlertService: MessageAlertService,
+    private navigationService: NavigationService,
+    private userDatabaseService: UserDatabaseService) {
   }
-  
+  @ViewChild("password") passwordInput:ElementRef;
+  @ViewChild("email") emailInput:ElementRef;
+
   ngOnInit() {
-  
+
   }
 
   ngAfterViewInit() {
     this.verifyUserData();
-    this.userDatabaseService.getUserDatabaseEmitter().subscribe((item)=>this.verifyUserData());
-  } 
 
-  verifyUserData(){
-    console.log(this.userDatabaseService.getUserDatabase());
-    if(this.userDatabaseService.getUserDatabase() && !this.userDatabaseService.getUserDatabase().isCreated){
+    this.progressService.hideProgress();
+    this.userDatabaseService.getUserDatabaseEmitter().subscribe((item) => this.verifyUserData());
+  }
+
+  verifyUserData() {
+    if (this.userDatabaseService.getUserDatabase() && !this.userDatabaseService.getUserDatabase().isCreated) {
       $('#settingsModal').modal('toggle');
+      this.progressService.hideProgress();
     }
   }
 
   loginGoogle() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((obj)=>{
-      var observable = this.userDatabaseService.getSingleObj();
-      
-      observable.forEach(item=>{
-          if(!item.$exists()){
-            this.userDatabaseService.saveUser({isCreated:false});
-          }
-      });
+
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((obj) => {
+     
 
     }).catch(function (error) {
-        this.messageAlertService.showErrorMessage(error.message);
-      })
-  }
-  registerEmail(email, password) {
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((item) => {
-      this.loginEmail(email, password);
-    }).catch((error) => {
       this.messageAlertService.showErrorMessage(error.message);
     });
   }
-  loginEmail(email, password) {
-    this.afAuth.auth.signInWithEmailAndPassword(email, password).then((item) => {
-      var observable = this.userDatabaseService.getSingleObj();
-      
-      observable.forEach(item=>{
-          if(!item.$exists()){
-            this.userDatabaseService.saveUser({isCreated:false});
-          }
-      });
+  registerEmail() {
+    this.progressService.showProgress();
+
+    this.afAuth.auth.createUserWithEmailAndPassword(this.emailInput.nativeElement.value, this.passwordInput.nativeElement.value).then((item) => {
+      this.loginEmail();
     }).catch((error) => {
       this.messageAlertService.showErrorMessage(error.message);
+      this.progressService.hideProgress();
+    });
+  }
+  loginEmail() {
+    this.progressService.showProgress();
+
+    this.afAuth.auth.signInWithEmailAndPassword(this.emailInput.nativeElement.value, this.passwordInput.nativeElement.value).then((item) => {
+    
+    }).catch((error) => {
+      this.messageAlertService.showErrorMessage(error.message);
+      this.progressService.hideProgress();
     });
   }
 
   changeType(password: ElementRef) {
-    // password.nativeElement.type = "text";password['type'] = password['type'] == 'text' ? 'password' : 'text';
+    this.passwordInput.nativeElement.type = "text";password['type'] = password['type'] == 'text' ? 'password' : 'text';
   }
 }

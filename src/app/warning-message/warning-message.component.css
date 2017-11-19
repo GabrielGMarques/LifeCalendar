@@ -1,6 +1,7 @@
-.alert-message{
-    position: absolute;
-    min-width:430px;
-    margin-top:30px;
-    text-align: center;
+.alert-message-app{
+    min-width:430px!important;
+    text-align: center!important;
+    top:9%;
+    position: fixed;
+    z-index: 99999;
 }

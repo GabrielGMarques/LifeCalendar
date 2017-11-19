@@ -11,6 +11,7 @@ export class UserDatabaseService {
     private userDatabaseEmitter = new EventEmitter<User>();
     private userAuthObservableEmitter = new EventEmitter<Observable<firebase.User>>();
     private userDatabaseObservable: FirebaseListObservable<User[]>;
+    private existsDatabase = true;
     // private userAuthObservableEmitter = new EventEmitter< Period[]>();
 
     private userDatabase: User;
@@ -18,11 +19,15 @@ export class UserDatabaseService {
     userFirebase: firebase.User = null;
 
     constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase ) {
+        
         this.afAuth.authState.forEach(item => {
             if (item){
                 this.userFirebase = item;
                 this.userAuthEmitter.emit(item);
                 this.updateUserDatabase(item);
+            }else{
+                this.existsDatabase = false;
+                this.userDatabaseEmitter.emit(null);
             }
         });
     }
@@ -36,14 +41,29 @@ export class UserDatabaseService {
             item.forEach((user: User) => {
                 userDatabase = user;
             });
+
             if (userDatabase) {
                 this.userDatabase = userDatabase;
                 this.userDatabaseEmitter.emit(userDatabase);
             }
         });
+
+        var observable = this.db.object('users_' +  this.userFirebase.uid + "/");
+        
+        observable.forEach(item => {
+          if (!item.$exists()) {
+            this.saveUser({ isCreated: false });
+          }
+        });
+      
+
+        
+    }
+    isDatabaseCreated(){
+        return this.existsDatabase;
     }
     getSingleObj(){
-        return this.db.object('users_' +  this.userFirebase.uid + "/");
+        return this.userFirebase? this.db.object('users_' +  this.userFirebase.uid + "/"):null;
     }
     getUserFirebase(){
         return this.userFirebase;

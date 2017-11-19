@@ -24,7 +24,7 @@
                     <option value="4" selected="selected">Several Years</option>
                   </select>
                 </div>
-                <ul class="list-group">
+                <ul class="list-group list-group-period">
                   <li class="list-group-item" id="period_{{period.$key}}" *ngFor="let period of periodsList">
                       <div class="color-period-item" [ngStyle]="{'background-color':period.color}"></div>
                       
@@ -56,7 +56,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar" aria-hidden="true"></i>
                   </div>
-                  <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="initial date" #dateFromInput>
+                  <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="initial date" id="dateFromInput"  #dateFromInput>
                 </div>
               </div>
               <div class="col-xs-5">
@@ -72,7 +72,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-paint-brush" aria-hidden="true"></i>
                   </div>
-                  <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodLevel" #colorInput>
+                  <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodColorIput" #colorInput>
                     <option class="color-item" style="background-color:#e91e63" value="#e91e63"></option>
                     <option class="color-item" style="background-color:#9c27b0" value="#9c27b0"></option>
                     <option class="color-item" style="background-color:#7e57c2" value="#7e57c2"></option>
@@ -94,7 +94,7 @@
                 <div class="input-group">
                   <label for="periodLevel">Period Time Level</label>
 
-                  <select class="form-control" id="periodLevel" #levelInput>
+                  <select class="form-control" id="periodLevel" disabled="disabled" #levelInput>
                     <option value="1">One Week</option>
                     <option value="2">Several Weeks</option>
                     <option value="3">One Year</option>
@@ -107,7 +107,7 @@
           <div class="modal-footer">
             <input type="hidden" name="idPeriodEdited" id="idPeriodEdited" #idPeriodEdited>
             <button type="button" class="btn btn-primary btn-save-period" (click)="savePeriod()">Save Period</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearForm()">Cancel</button>
           </div>
         </div>
       </div>

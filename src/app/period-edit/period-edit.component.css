@@ -72,8 +72,14 @@ select.list1 option.option2
 .period-control-btn{
     cursor: pointer;
 }
+.list-group-period{
+    max-height: 120px;
+}
 .period-item-list-representation-wrapper{  
     display: grid
+}
+.name-period-item-list{
+    max-width: 200px;   
 }
 .color-period-item{
     width: 10px;

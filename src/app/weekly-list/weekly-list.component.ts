@@ -84,6 +84,8 @@ export class WeeklyListComponent implements OnInit {
 
   ngAfterViewInit() {
     // $('[data-toggle="datepicker"]').datepicker("dd/mm/yyyy");
+    this.progressService.hideProgress();    
+    
     ($('.currentWeek')[0]).scrollIntoView('100');
     var offset = ($('.currentWeek')).offset();
     offset.top -= 100;

@@ -1,3 +1,4 @@
+import { ProgressService } from '../services/progress.service';
 import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -8,9 +9,13 @@ import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 })
 export class ProgressIconComponent implements OnInit {
 
-  constructor() { }
+  constructor(private progressService:ProgressService) { }
+  
+  progressIconShown = true;
 
   ngOnInit() {
+    this.progressService.getProgressEmitter().subscribe((event: boolean) => this.progressIconShown = event);
+    
   }
 
 }

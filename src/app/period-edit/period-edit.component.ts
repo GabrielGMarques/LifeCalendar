@@ -1,3 +1,4 @@
+import { MessageAlertService } from '../services/message-alert.service';
 import { UtilService } from '../services/util.service';
 import { PeriodService } from '../services/period.service';
 import { observable } from 'rxjs/symbol/observable';
@@ -23,10 +24,11 @@ export class PeriodEditComponent implements OnInit {
 
   colors: string[] = ["#007700", "#e91e63", "#9c27b0", "#7e57c2", "#3f51b5", "#2196f3", "#009688"];
 
-  constructor(private db: AngularFireDatabase, private periodService: PeriodService,private utilService:UtilService) {
+  constructor(private db: AngularFireDatabase,
+    private messageAlertService:MessageAlertService,
+    private periodService: PeriodService,
+    private utilService: UtilService) {}
 
-
-  }
   @ViewChild("namePeriod") namePeriod: ElementRef;
   @ViewChild("dateFromInput") dateFromInput: ElementRef;
   @ViewChild("dateToInput") dateToInput: ElementRef;
@@ -41,8 +43,33 @@ export class PeriodEditComponent implements OnInit {
     this.periodService.getPeriodEmitter().subscribe(periods => {
       this.updatePeriodsList(periods);
     });
+  }
 
+  ngAfterViewInit() {
+    $('[data-toggle="datepicker"]').datepicker({ dateFormat: "dd/mm/yy" });
     $('#periodLevelEditFilter').on('change', () => this.updatePeriodsList(this.periodService.getPeriods()));
+    $('#periodColorIput').on('change', () => { this.colorInput.nativeElement.focus = false; });
+    $('#dateFromInput').on('change', () => { this.validateDates() });
+    $('#dateToInput').on('change', () => { this.validateDates() });
+  }
+
+  validateDates() {
+    var dateFromNativeElement = this.dateFromInput.nativeElement;
+    var dateToNativeElement = this.dateToInput.nativeElement;
+
+    if (dateFromNativeElement.value && dateToNativeElement.value) {
+
+      var dateFrom = this.utilService.parseDate(dateFromNativeElement.value);
+      var dateTo = this.utilService.parseDate(dateToNativeElement.value);
+      if(dateTo <= dateFrom){
+        dateToNativeElement.value = dateFromNativeElement.value;
+        this.messageAlertService.showErrorMessage('The final date of a period cannot be less then the initial date')
+      }
+      var timeDiff = dateTo.getTime() - dateFrom.getTime();
+      var periodDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+
+      this.levelInput.nativeElement.value = periodDays < 7 ? 1 : (periodDays < 365 ? 2 : (periodDays == 365 ? 3 : 4));
+    }
   }
 
   updatePeriodsList(periods: Period[]) {
@@ -73,6 +100,9 @@ export class PeriodEditComponent implements OnInit {
   deletePeriod(key: string) {
     this.periodService.deletePeriod(key);
   }
+  formatDate(date) {
+    return this.utilService.formatDate(date);
+  }
 
   savePeriod() {
     var name = this.namePeriod.nativeElement;
@@ -81,6 +111,10 @@ export class PeriodEditComponent implements OnInit {
     var color = this.colorInput.nativeElement
     var level = this.levelInput.nativeElement
     var idPeriodEdited = this.idPeriodEdited.nativeElement;
+
+    if(!this.validateForm()){
+      return;
+    }
 
     var period = {
       name: name.value,
@@ -100,12 +134,35 @@ export class PeriodEditComponent implements OnInit {
     }
 
     idPeriodEdited.value = "";
+    
+    this.clearForm();
+
+  }
+
+  validateForm(){
+    var name = this.namePeriod.nativeElement.value;
+    var dateFrom = this.dateFromInput.nativeElement.value;
+    var dateTo = this.dateToInput.nativeElement.value
+    var color = this.colorInput.nativeElement.value
+    var level = this.levelInput.nativeElement.value
+    if(!name || !dateFrom || !dateTo || !color || !level ){
+      this.messageAlertService.showErrorMessage('All the fields are required ');
+      return false;
+    }
+    return true;
+  }
+
+  clearForm(){
+    var name = this.namePeriod.nativeElement;
+    var dateFrom = this.dateFromInput.nativeElement;
+    var dateTo = this.dateToInput.nativeElement
+    var color = this.colorInput.nativeElement
+    var level = this.levelInput.nativeElement
+    var idPeriodEdited = this.idPeriodEdited.nativeElement;
 
     [name, dateFrom, dateTo, idPeriodEdited].forEach(item => item.value = "");
     color.value = "#e91e63";
     level.value = 4;
   }
-  ngAfterViewInit() {
-    $('[data-toggle="datepicker"]').datepicker({ dateFormat: "dd/mm/yy" });
-  }
+
 }

@@ -19,7 +19,15 @@ import { NavigationService } from './services/navigation.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ProgressService, MessageAlertService, PeriodFilterService, UserDatabaseService, PeriodService, NavigationService,UtilService]
+  providers: [
+    ProgressService,
+    MessageAlertService,
+    PeriodFilterService,
+    UserDatabaseService,
+    PeriodService,
+    NavigationService,
+    UtilService
+  ]
 })
 export class AppComponent implements OnInit {
   title = 'app';
@@ -33,26 +41,30 @@ export class AppComponent implements OnInit {
     private userDatabaseService: UserDatabaseService,
     private periodService: PeriodService,
     private navigationService: NavigationService,
-    private utilService:UtilService
+    private utilService: UtilService
   ) { }
 
-  progressIconShown = true;
 
   ngOnInit() {
     this.userDatabaseService.getUserDatabaseEmitter().subscribe((item: User) => { this.verifyUserData(item); });
-    this.progressService.getProgressEmitter().subscribe((event: boolean) => this.progressIconShown = event);
-    this.verifyUserData(this.userDatabaseService.getUserDatabase());        
+    this.verifyUserData(this.userDatabaseService.getUserDatabase());
   }
 
   ngAfterViewInit() {
-    
-  }    
-  verifyUserData(item:User) {
-    if (item && item.isCreated) {
+
+  }
+  verifyUserData(item: User) {
+    this.progressService.showProgress();
+    if (!item) {
+      if(this.userDatabaseService.isDatabaseCreated()){
+        this.navigationService.navigateToProgress();
+      }else{
+        this.navigationService.navigateToLogin();
+      }
+    } else if (item.isCreated) {
       this.navigationService.navigateToHome();
-    }else{      
-      this.navigationService.navigateToLogin()
+    } else {
+      this.navigationService.navigateToLogin();
     }
-    this.progressIconShown = false;
   }
 }

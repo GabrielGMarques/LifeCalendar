@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
   
   ngAfterViewInit() {
     $('[data-toggle="datepicker"]').datepicker({ dateFormat: "dd/mm/yy" });
-    if (this.userDatabase) {
+    if (this.userDatabase && this.userDatabase.isCreated) {
     
       this.dateFromInput.nativeElement.value = this.utilService.formatDate(new Date(this.userDatabase.yearBirth, this.userDatabase.monthBirth-1, this.userDatabase.dayBirth))
       this.lastAgeInput.nativeElement.value = this.userDatabase.ageOfDeath;
