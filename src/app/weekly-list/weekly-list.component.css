@@ -27,6 +27,11 @@
         width: 22px!important;
     }
 }
+@media(width:1280px){
+    .week-list-item{
+        width: 22px!important;
+    }
+}
 @media(width:1440px){
     .week-list-item{
         width: 25.5px!important;
