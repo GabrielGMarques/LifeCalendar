@@ -34,7 +34,7 @@ export class WeeklyListComponent implements OnInit {
   rangeDateEnd = "";
   rangeColor;
   rangeNivel;
-  currentPeriodLevel = 4;
+  currentPeriodLevel = 5;
   periods: Period[] = [];
   years: Year[] = [];
   weekBuilt = false;
@@ -101,7 +101,7 @@ export class WeeklyListComponent implements OnInit {
       });
     });
     this.periods.sort((period) => period.dateToLong).forEach((period) => {
-      if (period.level == this.currentPeriodLevel) {
+      if (period.level == this.currentPeriodLevel || this.currentPeriodLevel == 5) {
         this.years.forEach((year) => {
 
           year.weeks.forEach((week) => {

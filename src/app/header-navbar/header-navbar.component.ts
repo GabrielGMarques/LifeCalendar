@@ -64,9 +64,9 @@ t
     }
 
     updateSlideBarColors() {
-        $('#periodsFilter').css('width', '340px');
-        $('.slider-tick-label').css('width', '113.333px');
-        $('.slider-tick-label-container').css('marginLeft', '-56.6667px');
+        $('#periodsFilter').css('width', '400px');
+        $('.slider-tick-label').css('width', '100px');
+        $('.slider-tick-label-container').css('marginLeft', '-50px');
         $('.slider-handle').css('backgroundImage', 'none');
         $('.slider-handle').css('backgroundColor', '#ff6d00');
 
