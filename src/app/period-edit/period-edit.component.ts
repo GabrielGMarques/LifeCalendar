@@ -68,7 +68,7 @@ export class PeriodEditComponent implements OnInit {
       var timeDiff = dateTo.getTime() - dateFrom.getTime();
       var periodDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 
-      this.levelInput.nativeElement.value = periodDays < 7 ? 1 : (periodDays < 365 ? 2 : (periodDays == 365 ? 3 : 4));
+      this.levelInput.nativeElement.value = periodDays < 7 ? 1 : (periodDays < 365 ? 2 : (periodDays < 730 ? 3 : 4));
     }
   }
 
