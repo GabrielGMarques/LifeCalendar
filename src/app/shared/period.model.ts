@@ -9,12 +9,13 @@ export class Period {
    this.name=name;
     
     }
-    $key:string;
-    dateFrom: Date;
-    dateTo: Date;
-    dateFromLong: number;
-    dateToLong: number;
-    name:string;
-    color: string;
-    level: number;
+    $key?:string;
+    dateFrom?: Date;
+    dateTo?: Date;
+    dateFromLong?: number;
+    dateToLong?: number;
+    name?:string;
+    color?: string;
+    level?: number;
+    default?: boolean;
 }

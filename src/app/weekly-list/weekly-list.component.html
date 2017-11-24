@@ -1,15 +1,25 @@
   <div class="week-list-wrapper" *ngIf="weekBuilt">
     <div class="week-list-row" *ngFor="let year of years">
       <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
+  
       <div class="week-list-item" 
-        [ngClass]="{currentWeek:week.isCurrentWeek,weekWithPeriod:week.period != null,weekBeforeCurrent:week.isBeforeCurrent}" 
-        [ngStyle]="{'background-color': week.period?.color}" 
-        *ngFor="let week of year.weeks" data-toggle="tooltip"  title="{{week.dateFromSt}} - {{week.dateToSt}} {{week.period?.name}}" data-placement="right" >
+        [ngClass]="{currentWeek:week.isCurrentWeek,weekBeforeCurrent:week.isBeforeCurrent}" 
+        *ngFor="let week of year.weeks; let i = index"
+         data-placement="right" 
+
+         data-toggle="tooltip"  
+         data-html="true"
+         data-trigger="hover"
+          [ngbTooltip]="tipContent{i}" ngbTooltip="Tooltip on right" container="body">
+          <ng-template #tipContent{{i}}>Hello, <b>{{name}}</b>!</ng-template>
+        <!--<div class="period" *ngFor="let color of week.colors" [ngStyle]="{'background-color': color}"> </div>-->
         {{week.index}}
       </div>
     </div>
   </div>
+  
   <app-period-edit></app-period-edit>
-<hr class="great-divider" >  
+  
+  <hr class="great-divider" >  
   <a href="#" class=" btn-add" data-toggle="modal" data-target="#periodModal">+</a>
   <!--<a href="#" class=" btn-add" data-toggle="modal" data-target="#settingsdModal">+</a>-->

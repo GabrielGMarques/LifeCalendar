@@ -18,7 +18,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { WarningMessageComponent } from './warning-message/warning-message.component';
 import { ProgressIconComponent } from './progress-icon/progress-icon.component';
 import { Routes,RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import { WeekToltipDirective } from './week-toltip.directive'
 // import { ProgressService } from './services/progress.service';
 
 export const environment = {
@@ -53,6 +54,8 @@ const appRoutes:Routes =[
     WarningMessageComponent,
     ProgressIconComponent,
     HomeComponent,
+    WeekToltipDirective,
+    
     // ProgressService
   ],
   imports: [
