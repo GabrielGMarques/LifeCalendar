@@ -2,7 +2,7 @@
 import { Period } from '../shared/period.model';
 
 export class UtilService {
-    formatDate(date) {
+    formatDate(date):string {
 
         var day = date.getDate();
         var monthIndex = date.getMonth() + 1;

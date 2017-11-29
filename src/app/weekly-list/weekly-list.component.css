@@ -127,10 +127,32 @@ select.list1 option.option2
 .second-level{
     margin-top: 10px;
 }
+
+.period{
+    width:14.2857143%;
+    height: 100%;
+}
+.week-tooltip{
+    width: fit-content;
+    height: fit-content;
+    display: relative;
+}
 .weekWithPeriod{
     color:#DDDDDD;
 }
-.period{
-    width:auto;
-    height: 100%;
+.weekWithPeriodTooltip{
+    border-bottom: #ff6d00 solid;    
+}
+.week-tooltip-title{
+    display: relative;    
+    margin:5px;
+    
+}
+.week-tooltip-list{
+    display: table-row-group;
+    list-style: none;
+    text-align: left;
+}
+.tooltip-arrow:before{
+    border-right-color: #ff6d00!important;
 }

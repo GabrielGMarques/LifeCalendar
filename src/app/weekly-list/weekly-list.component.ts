@@ -92,7 +92,28 @@ export class WeeklyListComponent implements OnInit {
     $('html, body').animate({
       scrollTop: offset.top,
     }, 1000);
-    $('[rel="tooltip"]').tooltip({html:true});
+    //Arrow before
+    
+    // margin-top: -3px;
+    // content: "";
+    // border-width: 5px 5px 5px 0;
+    // /* border-right-color: #000; */
+    // border-right-color: #ff6d00;
+
+    // padding: 3px 8px;
+    // /* color: #fff; */
+    // border: #ff6d00 solid;
+    // text-align: center;
+    // background-color: #fff;
+    // border-radius: .25rem;
+  // }
+    $('.tooltip-inner').css("maxWidth","none");
+    // $('[data-toggle="tooltip"]').tooltip();
+  }
+  ngAfterViewChecked() {
+
+    $('.tooltip>.arrow').addClass("tooltip-arrow");
+    $('.tooltip-inner').css({"maxWidth":"none","padding":"3px 8px","border":"#ff6d00 solid","text-align":"center","backgroundColor":"#fff","color":"#222"});
     // $('[data-toggle="tooltip"]').tooltip();
   }
   updatePeriods() {
@@ -106,13 +127,17 @@ export class WeeklyListComponent implements OnInit {
 
         var dateFrom = new Date(week.dateFrom);
         var dateTo = new Date(week.dateTo);
-        var tooltip = `<div class='week-tooltip '> <div class="week-title-tooltip ">${week.dateFromSt} to ${week.dateToSt}</div>`
 
         var periodsWeek = this.periods.filter(period =>
           period.dateToLong >= dateFrom.getTime() &&
           period.dateFromLong <= dateTo.getTime() &&
           (period.level == this.currentPeriodLevel || this.currentPeriodLevel == 5))
-          .sort(period => period.dateFromLong - period.dateToLong);
+          .sort(period => period.dateFromLong - period.dateToLong)
+          .map(item=>{
+            item.dateFromSt = this.utilService.formatDate(new Date(item.dateFromLong));
+            item.dateToSt = this.utilService.formatDate(new Date(item.dateToLong));
+            return item;
+          });
 
         week.periods = periodsWeek;
 
@@ -124,16 +149,13 @@ export class WeeklyListComponent implements OnInit {
 
           if (periods.length) {
             week.colors.push(periods[0].color);
-            tooltip = tooltip.concat(`<div class="week-period-tooltip-item">${dateFrom.getDate()} - ${periods[0].name}</div>`)
           } else {
             week.colors.push("#ffffff");
           }
           dateFrom.setDate(dateFrom.getDate() + 1);
         }
 
-        tooltip = tooltip.concat("</div>");
 
-        week.labelTooltip = tooltip;
       });
     });
     // this.years.forEach((year) => {

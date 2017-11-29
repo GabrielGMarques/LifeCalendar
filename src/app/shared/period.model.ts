@@ -12,10 +12,13 @@ export class Period {
     $key?:string;
     dateFrom?: Date;
     dateTo?: Date;
+    dateFromSt?: string;
+    dateToSt?: string;
     dateFromLong?: number;
     dateToLong?: number;
     name?:string;
     color?: string;
     level?: number;
     default?: boolean;
+
 }
