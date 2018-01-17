@@ -3,15 +3,15 @@
     <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
 
     <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek,weekBeforeCurrent:week.isBeforeCurrent,weekWithPeriod:week.periods?.length}"
-      *ngFor="let week of year.weeks; let i = index" data-placement="{{i < 41 ? 'bottom':'left'}}" [ngStyle]="{'background-color': week.periods[0]?.color}"
-      data-toggle="tooltip" data-html="true" data-trigger="hover" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on {{i < 41 ? 'bottom':'left'}}"
+      *ngFor="let week of year.weeks; let i = index" data-placement="{{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}" [ngStyle]="{'background-color': week.periods[0]?.color}"
+      data-toggle="tooltip" data-html="true" data-trigger="hover" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on {{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}"
       container="body">
 
 
       <ng-template #weekTooltip>
         <div class="week-tooltip">
           <div class="week-tooltip-title" [ngClass]="{weekWithPeriodTooltip:week.periods?.length}">Week: {{week.dateFromSt}} to {{week.dateToSt}}</div>
-          <table class="week-tooltip-table">
+          <table class="week-tooltip-table" *ngIf="week.periods.length">
             <thead>
               <tr class="week-tooltip-table-row">
                 <th>Start</th>
