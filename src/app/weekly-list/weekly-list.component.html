@@ -2,19 +2,33 @@
   <div class="week-list-row" *ngFor="let year of years">
     <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
 
-    <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek,weekBeforeCurrent:week.isBeforeCurrent,weekWithPeriod:week.periods?.length}"  *ngFor="let week of year.weeks; let i = index"
-      data-placement="right" [ngStyle]="{'background-color': week.periods[0]?.color}" data-toggle="tooltip" data-html="true" data-trigger="hover" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on right"
+    <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek,weekBeforeCurrent:week.isBeforeCurrent,weekWithPeriod:week.periods?.length}"
+      *ngFor="let week of year.weeks; let i = index" data-placement="{{i < 41 ? 'bottom':'left'}}" [ngStyle]="{'background-color': week.periods[0]?.color}"
+      data-toggle="tooltip" data-html="true" data-trigger="hover" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on {{i < 41 ? 'bottom':'left'}}"
       container="body">
 
 
       <ng-template #weekTooltip>
         <div class="week-tooltip">
           <div class="week-tooltip-title" [ngClass]="{weekWithPeriodTooltip:week.periods?.length}">Week: {{week.dateFromSt}} to {{week.dateToSt}}</div>
-          <ul class="week-tooltip-list">
-            <li *ngFor="let period of week.periods" class="week-tooltip-list-item">
-              {{period.dateFromSt}} to {{period.dateToSt}} - {{period.name}}
-            </li>
-          </ul>
+          <table class="week-tooltip-table">
+            <thead>
+              <tr class="week-tooltip-table-row">
+                <th>Start</th>
+                <th></th>
+                <th>End</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let period of week.periods" class="week-tooltip-table-row">
+                <td>{{period.dateFromSt}}</td>
+                <td></td>
+                <td>{{period.dateToSt}}</td>
+                <td>{{period.name}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </ng-template>
 

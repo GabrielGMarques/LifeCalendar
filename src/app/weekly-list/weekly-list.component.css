@@ -136,23 +136,24 @@ select.list1 option.option2
     width: fit-content;
     height: fit-content;
     display: relative;
+    min-width: 450px;
 }
 .weekWithPeriod{
     color:#DDDDDD;
 }
 .weekWithPeriodTooltip{
-    border-bottom: #ff6d00 solid;    
+    border-bottom: #222 solid 1px;    
 }
 .week-tooltip-title{
     display: relative;    
     margin:5px;
     
 }
-.week-tooltip-list{
-    display: table-row-group;
-    list-style: none;
+.week-tooltip-table-row > td,th{
+    padding:3px 10px;
     text-align: left;
 }
-.tooltip-arrow:before{
+
+.tooltip-arrow-custom::before{
     border-right-color: #ff6d00!important;
 }

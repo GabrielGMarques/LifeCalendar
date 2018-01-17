@@ -113,7 +113,7 @@ export class WeeklyListComponent implements OnInit {
   ngAfterViewChecked() {
 
     $('.tooltip>.arrow').addClass("tooltip-arrow");
-    $('.tooltip-inner').css({"maxWidth":"none","padding":"3px 8px","border":"#ff6d00 solid","text-align":"center","backgroundColor":"#fff","color":"#222"});
+    $('.tooltip-inner').css({"maxWidth":"none","padding":"3px 8px","border":"#222 solid 1px","text-align":"center","backgroundColor":"#fff","color":"#222"});
     // $('[data-toggle="tooltip"]').tooltip();
   }
   updatePeriods() {

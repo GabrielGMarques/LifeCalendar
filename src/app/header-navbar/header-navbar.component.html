@@ -13,12 +13,12 @@
                 </div>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li ngbDropdown class="dropdown d-inline-block">
+                    <a id="dropdowNavbarMenu" class="dropdown-toggle" ngbDropdownToggle >
                         <i class="fa fa-bars"></i> 
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <ul class="dropdowNavbarMenu"  ngbDropdownMenu aria-labelledby="dropdowNavbarMenu">
                         <li>
                             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsModal">
                                 <i class="fa fa-cog" aria-hidden="true"></i>
