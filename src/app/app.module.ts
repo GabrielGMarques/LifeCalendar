@@ -24,7 +24,7 @@ import { HomeComponent } from './home/home.component'
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "{YOUR_APP_KEY}",
+    apiKey: "AIzaSyDFtLShrrQcxwaHVvodxU-rEaEm_Kshr_E",
     authDomain: "lifecalendar-8386b.firebaseapp.com",
     databaseURL: "https://lifecalendar-8386b.firebaseio.com",
     projectId: "lifecalendar-8386b",
