@@ -1,117 +1,87 @@
-<div class="modal fade" id="periodModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h5 class="modal-title" id="periodModalLabel">Manage Periods</h5>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <div class="input-group">
+          <select class="form-control" id="periodLevelEditFilter" #levelInputFilter>
+            <option value="1">One Week</option>
+            <option value="2">Several Weeks</option>
+            <option value="3">One Year</option>
+            <option value="4" selected="selected">Several Years</option>
+          </select>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item item-period" id="period_{{period.$key}}" *ngFor="let period of periodsList">
+            <div class="color-period-item" [ngStyle]="{'background-color':period.color}"></div>
 
+
+            <div class="period-item-list-representation-wrapper">
+              <span class="name-period-item-list">
+                {{period.name}}
+              </span>
+              <span class="date-period-item-list">
+                {{formatDate(period.dateFrom)}} to {{formatDate(period.dateTo)}}
+              </span>
+            </div>
+
+            <div class="edit-period-opt">
+              <a class="period-control-btn" (click)="editPeriod(period.$key)">
+                <i class="fa fa-pencil"></i>
+              </a>
+              <a class="period-control-btn" (click)="deletePeriod(period.$key)">
+                <i class="fa fa-trash"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
       </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label for="dateFromInput">Date from:</label>p
+          <input  class="form-control" data-toggle="datepicker" placeholder="dd/mm/yyyy" id="dateFromInput" #dateFromInput>
+        </div>
 
-      <div class="modal-body">
+        <div class="form-group col-sm-4">
+          <label for="dateToInput">Date to:</label>
+          <input class="form-control" data-toggle="datepicker" placeholder="dd/mm/yyyy" #dateToInput name="dateToInput" id="dateToInput">
+        </div>
+        <div class="form-group">
+          <label for="periodLevel col-sm-4">Period time level:</label>
 
-
-        <div class="form-inline">
-          <div id="formWrapper">
-            <div id="periodListWrapper">
-              <div class="form-group">
-                <div class="input-group">
-                  <select class="form-control" id="periodLevelEditFilter" #levelInputFilter>
-                    <option value="1">One Week</option>
-                    <option value="2">Several Weeks</option>
-                    <option value="3">One Year</option>
-                    <option value="4" selected="selected">Several Years</option>
-                  </select>
-                </div>
-                <ul class="list-group list-group-period">
-                  <li class="list-group-item" id="period_{{period.$key}}" *ngFor="let period of periodsList">
-                      <div class="color-period-item" [ngStyle]="{'background-color':period.color}"></div>
-                      
-                    
-                    <div class="period-item-list-representation-wrapper">
-                      <span class="name-period-item-list">
-                        {{period.name}}
-                      </span>
-                      <span class="date-period-item-list">
-                        {{formatDate(period.dateFrom)}} to {{formatDate(period.dateTo)}}
-                      </span>
-                    </div>
-                    
-                    <div class="edit-period-opt">
-                      <a class="period-control-btn" (click)="editPeriod(period.$key)">
-                        <i class="fa fa-pencil"></i>
-                      </a>
-                      <a class="period-control-btn" (click)="deletePeriod(period.$key)">
-                        <i class="fa fa-trash"></i>
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="form-group" id="formEdit">
-              <div class="col-xs-5">
-                <div class="input-group-custom">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control col-sm-2" data-toggle="datepicker" placeholder="initial date" id="dateFromInput"  #dateFromInput>
-                </div>
-              </div>
-              <div class="col-xs-5">
-                <div class="input-group-custom">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                  </div>
-                  <input class="form-control" data-toggle="datepicker" placeholder="final date" #dateToInput name="dateToInput" id="dateToInput">
-                </div>
-              </div>
-              <div class="col-xs-2">
-                <div class="input-group-custom">
-                  <div class="input-group-addon">
-                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                  </div>
-                  <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodColorIput" #colorInput>
-                    <option class="color-item" style="background-color:#e91e63" value="#e91e63"></option>
-                    <option class="color-item" style="background-color:#9c27b0" value="#9c27b0"></option>
-                    <option class="color-item" style="background-color:#7e57c2" value="#7e57c2"></option>
-                    <option class="color-item" style="background-color:#3f51b5" value="#3f51b5"></option>
-                    <option class="color-item" style="background-color:#2196f3" value="#2196f3"></option>
-                    <option class="color-item" style="background-color:#009688" value="#009688"></option>
-                  </select>
-                </div>
-              </div>
-
-              <!--<div style="height:10px;"></div>-->
-              <div class="col-xs-6">
-                <div class="input-group">
-                  <label for="periodLevel">Periodo Name</label>
-                  <input class="form-control" placeholder="Period Name" #namePeriod>
-                </div>
-              </div>
-              <div class="col-xs-4">
-                <div class="input-group">
-                  <label for="periodLevel">Period Time Level</label>
-
-                  <select class="form-control" id="periodLevel" disabled="disabled" #levelInput>
-                    <option value="1">One Week</option>
-                    <option value="2">Several Weeks</option>
-                    <option value="3">One Year</option>
-                    <option value="4" selected="selected">Several Years</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <input type="hidden" name="idPeriodEdited" id="idPeriodEdited" #idPeriodEdited>
-            <button type="button" class="btn btn-primary btn-save-period" (click)="savePeriod()">Save Period</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clearForm()">Cancel</button>
-          </div>
+          <select class="form-control" id="periodLevel" disabled="disabled" #levelInput>
+            <option value="1">One Week</option>
+            <option value="2">Several Weeks</option>
+            <option value="3">One Year</option>
+            <option value="4" selected="selected">Several Years</option>
+          </select>
         </div>
       </div>
 
+      <div class="row">
+        <div class="form-group col-sm-2">
+          <label for="periodColorIput">Period color:</label>
+          <select class="form-control" [ngStyle]="{'background-color':colorInput.value}" id="periodColorIput" #colorInput>
+            <option class="color-item" style="background-color:#e91e63" value="#e91e63"></option>
+            <option class="color-item" style="background-color:#9c27b0" value="#9c27b0"></option>
+            <option class="color-item" style="background-color:#7e57c2" value="#7e57c2"></option>
+            <option class="color-item" style="background-color:#3f51b5" value="#3f51b5"></option>
+            <option class="color-item" style="background-color:#2196f3" value="#2196f3"></option>
+            <option class="color-item" style="background-color:#009688" value="#009688"></option>
+          </select>
+        </div>
+
+        <div class="form-group col-sm-9">
+          <label for="periodLevel">Period Name:</label>
+          <input class="form-control" id="periodLevel" placeholder="Period Name" #namePeriod>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+<div class="modal-footer">
+  <input type="hidden" name="idPeriodEdited" id="idPeriodEdited" #idPeriodEdited>
+  <button type="button" class="btn btn-footer-modal btn-secondary btn-cancel-period" data-dismiss="modal" (click)="clearForm()">Clear</button>
+  <button type="button" class="btn btn-footer-modal btn-save-period" (click)="savePeriod()">Save Period</button>
 </div>

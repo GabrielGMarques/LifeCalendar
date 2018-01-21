@@ -20,7 +20,7 @@ export class UtilService {
         var month = dateArray[1];
         var year = dateArray[2];
 
-        var dateParsed = new Date(year, month, day);
+        var dateParsed = new Date(year, month -1, day);
         return dateParsed;
     }
     formatPeriodsToHashArray(periods: Period[]):{ color: string, dateHash: string }[] {

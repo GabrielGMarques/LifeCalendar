@@ -57,18 +57,17 @@
     width: 70px;
     height: 70px;
     border-radius: 100%;
-     text-align: center; 
+    text-align: center; 
     font-size: 50px;
-     box-shadow: 2px 2px 10px #222;
-     position: fixed;
-     right:20px;
-     bottom:20px;
-     color:white;
-     background-color: #ff6d00;
+    box-shadow: 2px 2px 10px #222;
+    position: fixed;
+    right:20px;
+    bottom:20px;
+    cursor: pointer;
+    color: #ffffff !important;
+    background-color: #ff6d00;
 }
-.btn-add:link{
- text-decoration: none;
-}
+
 .great-divider{
     margin-bottom: 60px;
 }
@@ -156,4 +155,7 @@ select.list1 option.option2
 
 .tooltip-arrow-custom::before{
     border-right-color: #ff6d00!important;
+}
+button.close{
+    cursor: pointer;
 }

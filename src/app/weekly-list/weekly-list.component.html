@@ -37,9 +37,18 @@
     </div>
   </div>
 </div>
+<ng-template #peridodeditmodal let-d="dismiss" let-c="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Manage Periods</h5>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 
-<app-period-edit></app-period-edit>
+  <app-period-edit></app-period-edit>
+
+</ng-template>
 
 <hr class="great-divider">
-<a href="#" class=" btn-add" data-toggle="modal" data-target="#periodModal">+</a>
+<a class="btn-add" (click)="openModal(peridodeditmodal);">+</a>
 <!--<a href="#" class=" btn-add" data-toggle="modal" data-target="#settingsdModal">+</a>-->

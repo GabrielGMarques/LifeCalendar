@@ -10,7 +10,9 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ProgressService } from '../services/progress.service'
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import * as firebase from 'firebase/app';
+
 declare var $: any;
 // import { NgModule } from '@angular/core';
 
@@ -45,7 +47,8 @@ export class WeeklyListComponent implements OnInit {
     private periodFilterService: PeriodFilterService,
     private userDatabaseService: UserDatabaseService,
     private periodService: PeriodService,
-    private utilService: UtilService) { }
+    private utilService: UtilService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
 
@@ -92,20 +95,7 @@ export class WeeklyListComponent implements OnInit {
     $('html, body').animate({
       scrollTop: offset.top,
     }, 1000);
-    //Arrow before
     
-    // margin-top: -3px;
-    // content: "";
-    // border-width: 5px 5px 5px 0;
-    // /* border-right-color: #000; */
-    // border-right-color: #ff6d00;
-
-    // padding: 3px 8px;
-    // /* color: #fff; */
-    // border: #ff6d00 solid;
-    // text-align: center;
-    // background-color: #fff;
-    // border-radius: .25rem;
   // }
     $('.tooltip-inner').css("maxWidth","none");
     // $('[data-toggle="tooltip"]').tooltip();
@@ -115,6 +105,10 @@ export class WeeklyListComponent implements OnInit {
     $('.tooltip>.arrow').addClass("tooltip-arrow");
     $('.tooltip-inner').css({"maxWidth":"none","padding":"3px 8px","border":"#222 solid 1px","text-align":"center","backgroundColor":"#fff","color":"#222"});
     // $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  openModal(content){
+    this.modalService.open(content, { windowClass: 'dark-modal' });
   }
   updatePeriods() {
 
