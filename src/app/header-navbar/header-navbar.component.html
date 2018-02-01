@@ -1,7 +1,7 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a href="#" class="navbar-brand">Life Calendar 
+            <a href="#" class="navbar-brand">Life Calendar
                 <span class="version-representation">Pre-alpha</span>
             </a>
         </div>
@@ -9,24 +9,25 @@
             <ul class="nav navbar-nav">
                 <div class="slider-list-item">
                     <input id="periodsFilter" #periodsFilter class="slider " data-slider-id='periodsFilter' data-provide="slider" data-slider-ticks="[1, 2, 3, 4, 5]"
-                        data-slider-ticks-labels='["One Week", "Several Weeks", "One Year", "Several Years", "All Periods"]' />
+                        data-slider-ticks-labels='["One Week", "Several Weeks", "One Year", "Several Years", "All Periods"]'
+                    />
                 </div>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li ngbDropdown class="dropdown d-inline-block">
-                    <a id="dropdowNavbarMenu" class="dropdown-toggle" ngbDropdownToggle >
-                        <i class="fa fa-bars"></i> 
+                    <a id="dropdowNavbarMenu" class="dropdown-toggle" ngbDropdownToggle>
+                        <i class="fa fa-bars"></i>
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdowNavbarMenu"  ngbDropdownMenu aria-labelledby="dropdowNavbarMenu">
+                    <ul class="dropdowNavbarMenu" ngbDropdownMenu aria-labelledby="dropdowNavbarMenu">
                         <li>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#settingsModal">
+                            <a class="dropdown-item" (click)="openModal(settings);">
                                 <i class="fa fa-cog" aria-hidden="true"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#" (click)="logout()">
+                            <a class="dropdown-item" (click)="logout()">
                                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -38,4 +39,13 @@
     </div>
 </div>
 
-<app-settings></app-settings>
+<ng-template #settings let-d="dismiss" let-c="close">
+    <div class="modal-header">
+        <h5 class="modal-title">Manage Periods</h5>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <app-settings (onCloseModal)="closeModal()"></app-settings>
+</ng-template>

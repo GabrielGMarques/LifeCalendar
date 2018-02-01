@@ -56,7 +56,6 @@ select.list1 option.option2
     background-color:#ff6d00; 
     border-color: #DDDDDD;   
     color:#FFFFFF !important;
-    ;
 }
 
 .period-control-btn{
@@ -82,21 +81,4 @@ select.list1 option.option2
 }
 .btn-footer-modal{
     cursor:pointer;
-}
-
-.ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all{
-    background-color: #ff6d00!important;
-    color: #FFFFFF;
-}
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
-    border: 1px solid #FFF;
-    background: #FFF;
-    font-weight: normal;
-    color: #ff6d00!important;
-    font-size: 0.9rem;
-}
-
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{
-    background-color: #ff6d00!important;
-    color: #FFF!important;
 }

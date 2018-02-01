@@ -30,6 +30,7 @@ export class SettingsComponent implements OnInit {
   @ViewChild('dateFromInput') dateFromInput;
   @ViewChild('lastAgeInput') lastAgeInput;
   @ViewChild('userNameInput') userNameInput;
+  @Output() onCloseModal: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {
     this.userAuthObj = this.userDatabaseService.getUserFirebase();
@@ -66,7 +67,8 @@ export class SettingsComponent implements OnInit {
       }else{
         this.userDatabaseService.saveUser(user)
       }
-      $('#settingsModal').modal('toggle');
+      this.onCloseModal.emit();
     }
+
   }
 }

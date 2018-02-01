@@ -36,3 +36,10 @@
   position: absolute;
   left: -123px!important;
 }
+.dropdown-item:active{
+  background-color: #DDDDDD;
+}
+
+.close{
+  cursor: pointer;
+}

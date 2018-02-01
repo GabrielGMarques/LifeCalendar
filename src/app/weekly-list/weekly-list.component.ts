@@ -25,10 +25,6 @@ const now = new Date();
 
 })
 
-// @NgModule({
-//   imports:[NgbModule]
-// })
-
 export class WeeklyListComponent implements OnInit {
 
   date: { year: number, month: number };
@@ -108,8 +104,9 @@ export class WeeklyListComponent implements OnInit {
   }
 
   openModal(content){
-    this.modalService.open(content, { windowClass: 'dark-modal' });
+    this.modalService.open(content);
   }
+
   updatePeriods() {
 
     this.progressService.showProgress();
