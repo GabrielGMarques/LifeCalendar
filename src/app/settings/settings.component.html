@@ -1,40 +1,23 @@
-<div class="modal fade" id="settingsModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
-
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="form-group col-sm-7">
+        <label for="dateFromInput">Birth date:</label>
+        <input class="form-control" id="dateFromInput" data-toggle="datepicker" placeholder="birth date" #dateFromInput>
       </div>
-
-      <div class="modal-body">
-        <form action="#">
-          <div class="form-inline">
-            <div class="form-group input-group-custom">
-              <div class="input-group-addon">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
-              </div>
-              <input class="form-control" data-toggle="datepicker" placeholder="birth date" #dateFromInput>
-            </div>
-
-            <div class="form-group ">
-              <input class="form-control" type="number" placeholder="final age" maxlength="3" #lastAgeInput name="lastAgeInput" id="lastAgeInput">
-            </div>
-          </div>
-          <div class="form-group ">
-            <span for="userNameInput">Name:</span>
-            <input class="form-control" type="text" placeholder="your name" #userNameInput name="userNameInput" id="userNameInput">
-          </div>
-
-          <div style="height:10px;"></div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="saveData(dateFromInput.value,lastAgeInput.value,userNameInput.value)">Ok</button>
-          </div>
-        </form>
+      <div class="form-group col-sm-5">
+          <label for="dateFromInput">Years of life estimated:</label>          
+        <input class="form-control" type="number" placeholder="final age" maxlength="3" #lastAgeInput name="lastAgeInput" id="lastAgeInput">
       </div>
-
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-12">
+        <label for="userNameInput">Name:</label>
+        <input class="form-control" type="text" placeholder="your name" #userNameInput name="userNameInput" id="userNameInput">
+      </div>
     </div>
   </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-save-settings" (click)="saveData(dateFromInput.value,lastAgeInput.value,userNameInput.value);">Ok</button>
 </div>

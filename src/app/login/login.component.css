@@ -1,31 +1,44 @@
-.g-signin2{
-    background-image: url('../../assets/btn_google_signin_light_normal_web.png');
-    background-repeat: 0;
-    background-size: 200px;
-    height: 50px;
-    width: 200px;
-    cursor:pointer;
-}
+@import url('https://fonts.googleapis.com/css?family=Rajdhani');
+
+/* body{
+    background-image: url('../../assets/pexels-photo-14676.png');
+    background-size: cover;
+} */
+
 .inline-block-btn{
     display: inline-block;
     vertical-align: top; 
+    cursor: pointer;
 }
-#loginByPassword{
-    /* width: 230px; */
-    height: 46px;
-    font-size: 17px;
-}
-#registerByPassword{
-    height: 46px;
-    font-size: 17px;
 
+#loginByPassword{
+    background-color:#ff6d00; 
+    border-color: #DDDDDD;   
+    color:#FFFFFF;
 }
+
+#loginByGoogle{
+    background-image: url('../../assets/btn_google_signin_light_normal_web.png');
+    background-repeat: 0;
+    background-size: 200px;
+    height: 2.4rem;
+    width: 12rem;
+    border-color: #DDDDDD;
+}
+
 .form-login{
-    display: fixed;
-    top:150px;
-    border:1px solid #DDDDDD;
-    padding: 50px;
-    border-radius: 10px;
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto auto;
+    height: 13rem;
+    width: 50rem;
+    border: 1px solid #DDDDDD;
+    padding: 1rem;
+    border-radius: 0.1rem;
 }
 .input-group-custom{
     display: inline-table;
@@ -35,3 +48,33 @@
 .btn-show-password{
     cursor:pointer;
 }
+
+.navbar{
+    background-color: #f8f8f8;
+    border: 1px solid #e7e7e7;
+    border-width: 0 0 1px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+.navbar-brand{
+    color:#777;
+}
+.version-representation{
+    color: #ff6d00;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Rajdhani', sans-serif;
+    bottom: 0;
+    left: 105px;
+    position: absolute;
+}
+.title-form{
+    font-size: 1.7rem;
+}
+/* .footer-btns{
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+} */

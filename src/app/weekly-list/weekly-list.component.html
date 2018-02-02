@@ -1,15 +1,54 @@
-  <div class="week-list-wrapper" *ngIf="weekBuilt">
-    <div class="week-list-row" *ngFor="let year of years">
-      <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
-      <div class="week-list-item" 
-        [ngClass]="{currentWeek:week.isCurrentWeek,weekWithPeriod:week.period != null,weekBeforeCurrent:week.isBeforeCurrent}" 
-        [ngStyle]="{'background-color': week.period?.color}" 
-        *ngFor="let week of year.weeks" data-toggle="tooltip"  title="{{week.dateFromSt}} - {{week.dateToSt}} {{week.period?.name}}" data-placement="right" >
-        {{week.index}}
-      </div>
+<div class="week-list-wrapper" *ngIf="weekBuilt">
+  <div class="week-list-row" *ngFor="let year of years">
+    <div class="year-index" [ngClass]="{currentYear:year.isTheCurrentYear}"> {{year.index}}</div>
+
+    <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek,weekBeforeCurrent:week.isBeforeCurrent,weekWithPeriod:week.periods?.length}"
+      *ngFor="let week of year.weeks; let i = index" data-placement="{{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}" [ngStyle]="{'background-color': week.periods[0]?.color}"
+      data-toggle="tooltip" data-html="true" data-trigger="hover" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on {{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}"
+      container="body">
+
+
+      <ng-template #weekTooltip>
+        <div class="week-tooltip">
+          <div class="week-tooltip-title" [ngClass]="{weekWithPeriodTooltip:week.periods?.length}">Week: {{week.dateFromSt}} to {{week.dateToSt}}</div>
+          <table class="week-tooltip-table" *ngIf="week.periods.length">
+            <thead>
+              <tr class="week-tooltip-table-row">
+                <th>Start</th>
+                <th></th>
+                <th>End</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let period of week.periods" class="week-tooltip-table-row">
+                <td>{{period.dateFromSt}}</td>
+                <td></td>
+                <td>{{period.dateToSt}}</td>
+                <td>{{period.name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+
+      <!-- <div class="period" *ngFor="let color of week.colors" > </div> -->
+      {{week.index}}
     </div>
   </div>
+</div>
+<ng-template #peridodeditmodal let-d="dismiss" let-c="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Manage Periods</h5>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
   <app-period-edit></app-period-edit>
-<hr class="great-divider" >  
-  <a href="#" class=" btn-add" data-toggle="modal" data-target="#periodModal">+</a>
-  <!--<a href="#" class=" btn-add" data-toggle="modal" data-target="#settingsdModal">+</a>-->
+
+</ng-template>
+
+<hr class="great-divider">
+<a class="btn-add" (click)="openModal(peridodeditmodal);">+</a>
+<!--<a href="#" class=" btn-add" data-toggle="modal" data-target="#settingsdModal">+</a>-->

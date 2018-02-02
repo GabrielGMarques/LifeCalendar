@@ -18,7 +18,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { WarningMessageComponent } from './warning-message/warning-message.component';
 import { ProgressIconComponent } from './progress-icon/progress-icon.component';
 import { Routes,RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import { WeekTooltipComponent } from './week-tooltip/week-tooltip.component'
 // import { ProgressService } from './services/progress.service';
 
 export const environment = {
@@ -53,7 +54,7 @@ const appRoutes:Routes =[
     WarningMessageComponent,
     ProgressIconComponent,
     HomeComponent,
-    // ProgressService
+    WeekTooltipComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +64,6 @@ const appRoutes:Routes =[
     AngularFireAuthModule,
 	  AngularFireDatabaseModule,
     RouterModule.forRoot(appRoutes)
-    // MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

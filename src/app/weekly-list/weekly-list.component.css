@@ -57,19 +57,17 @@
     width: 70px;
     height: 70px;
     border-radius: 100%;
-     text-align: center; 
+    text-align: center; 
     font-size: 50px;
-     /* padding: 11px;  */
-     box-shadow: 2px 2px 10px #222;
-     position: fixed;
-     right:20px;
-     bottom:20px;
-     color:white;
-     background-color: #ff6d00;
+    box-shadow: 2px 2px 10px #222;
+    position: fixed;
+    right:20px;
+    bottom:20px;
+    cursor: pointer;
+    color: #ffffff !important;
+    background-color: #ff6d00;
 }
-.btn-add:link{
- text-decoration: none;
-}
+
 .great-divider{
     margin-bottom: 60px;
 }
@@ -128,6 +126,36 @@ select.list1 option.option2
 .second-level{
     margin-top: 10px;
 }
+
+.period{
+    width:14.2857143%;
+    height: 100%;
+}
+.week-tooltip{
+    width: fit-content;
+    height: fit-content;
+    display: relative;
+    min-width: 450px;
+}
 .weekWithPeriod{
     color:#DDDDDD;
+}
+.weekWithPeriodTooltip{
+    border-bottom: #222 solid 1px;    
+}
+.week-tooltip-title{
+    display: relative;    
+    margin:5px;
+    
+}
+.week-tooltip-table-row > td,th{
+    padding:3px 10px;
+    text-align: left;
+}
+
+.tooltip-arrow-custom::before{
+    border-right-color: #ff6d00!important;
+}
+button.close{
+    cursor: pointer;
 }

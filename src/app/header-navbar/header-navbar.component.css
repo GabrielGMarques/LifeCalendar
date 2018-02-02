@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css?family=Rajdhani');
 
+.navbar{
+  background-color: #f8f8f8;
+  border: 1px solid #e7e7e7;
+  border-width: 0 0 1px 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.navbar-brand{
+  color:#777;
+}
 .slider-list-item {
   position: absolute;
   top: 50%;
@@ -12,6 +24,22 @@
     font-weight: bold;
     font-family: 'Rajdhani', sans-serif;
     bottom: 0;
-    left: 82px;
+    left: 105px;
     position: absolute;
+}
+.dropdown a{
+  color: #777;
+  cursor:pointer;
+  font-size: 18px;
+}
+.dropdowNavbarMenu{
+  position: absolute;
+  left: -123px!important;
+}
+.dropdown-item:active{
+  background-color: #DDDDDD;
+}
+
+.close{
+  cursor: pointer;
 }

@@ -9,6 +9,8 @@ export class Week {
     dateFrom: Date;
     dateToSt: string;
     dateFromSt: string;
-    period:Period;
+    colors?:string[];
+    periods?:Period[];
+    labelTooltip?:string;
 
 }

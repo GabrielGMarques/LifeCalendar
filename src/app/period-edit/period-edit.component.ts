@@ -2,9 +2,8 @@ import { MessageAlertService } from '../services/message-alert.service';
 import { UtilService } from '../services/util.service';
 import { PeriodService } from '../services/period.service';
 import { observable } from 'rxjs/symbol/observable';
-
 import { Period } from '../shared/period.model';
-import { Component, ElementRef, Input, OnInit, ViewChild, Pipe, Injectable, PipeTransform } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Pipe, Injectable, PipeTransform,ViewEncapsulation } from '@angular/core';
 import { NgModel, FormsModule } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 declare var $: any;
@@ -12,6 +11,7 @@ declare var $: any;
 @Component({
   selector: 'app-period-edit',
   templateUrl: './period-edit.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./period-edit.component.css']
 })
 
@@ -21,7 +21,7 @@ export class PeriodEditComponent implements OnInit {
 
   periodsList: Period[] = [];
 
-
+  dateFrom: {year: number, month: number}
   colors: string[] = ["#007700", "#e91e63", "#9c27b0", "#7e57c2", "#3f51b5", "#2196f3", "#009688"];
 
   constructor(private db: AngularFireDatabase,
@@ -61,7 +61,7 @@ export class PeriodEditComponent implements OnInit {
 
       var dateFrom = this.utilService.parseDate(dateFromNativeElement.value);
       var dateTo = this.utilService.parseDate(dateToNativeElement.value);
-      if(dateTo <= dateFrom){
+      if(dateTo < dateFrom){
         dateToNativeElement.value = dateFromNativeElement.value;
         this.messageAlertService.showErrorMessage('The final date of a period cannot be less then the initial date')
       }
@@ -97,6 +97,7 @@ export class PeriodEditComponent implements OnInit {
     this.idPeriodEdited.nativeElement.value = key;
 
   }
+
   deletePeriod(key: string) {
     this.periodService.deletePeriod(key);
   }
@@ -139,6 +140,8 @@ export class PeriodEditComponent implements OnInit {
 
   }
 
+  closeModal(){
+  }
   validateForm(){
     var name = this.namePeriod.nativeElement.value;
     var dateFrom = this.dateFromInput.nativeElement.value;

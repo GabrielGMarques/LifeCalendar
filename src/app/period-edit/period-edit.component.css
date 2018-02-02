@@ -23,36 +23,24 @@ select.list1 option.option2
 .input-group-addon{
     width: 50px;
 }
-.modal-dialog{
-    width:1000px;
-}
+
 #formWrapper{
     display: inline-flex;
     
 }
-#periodLevelEditFilter{
-    width: 265px;
-    margin-bottom: 10px;
-}
-#periodListWrapper{
-    width: 300px;
+
+.list-group{
     max-height: 203px;
     overflow-y: auto;
     overflow-x: hidden;
-    
-    padding: 10px; 
-}
-.list-group{
-    width: 265px;
 }
 #formEdit{
     border-left: 1px solid #DDDDDD;
     width:600px;
     
 }
-.list-group-item{
-    display: inline-flex;
-    width: 100%;
+.list-group-item.item-period{
+    display: -webkit-inline-box;
 }
 .edit-period-opt{
     right: 9px;
@@ -60,13 +48,14 @@ select.list1 option.option2
 }
 .edit-period-opt > a{
     margin: 1px;
-    color:#ff6d00;
+    color:#ff6d00!important;
 
 }
 
 .btn-save-period{
     background-color:#ff6d00; 
     border-color: #DDDDDD;   
+    color:#FFFFFF !important;
 }
 
 .period-control-btn{
@@ -86,4 +75,10 @@ select.list1 option.option2
     height: 10px;
     margin-right: 5px;
     margin-top: 5px;
+}
+.modal-dialog{
+    max-width: 1000px;
+}
+.btn-footer-modal{
+    cursor:pointer;
 }
