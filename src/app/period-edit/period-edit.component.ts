@@ -61,7 +61,7 @@ export class PeriodEditComponent implements OnInit {
 
       var dateFrom = this.utilService.parseDate(dateFromNativeElement.value);
       var dateTo = this.utilService.parseDate(dateToNativeElement.value);
-      if(dateTo <= dateFrom){
+      if(dateTo < dateFrom){
         dateToNativeElement.value = dateFromNativeElement.value;
         this.messageAlertService.showErrorMessage('The final date of a period cannot be less then the initial date')
       }

@@ -1,7 +1,14 @@
+
 .alert-message-app{
-    min-width:430px!important;
+    font-size: 1.1rem;
+    width:43rem!important;
     text-align: center!important;
-    top:9%;
     position: fixed;
+    top:4rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto auto;
     z-index: 99999;
+    cursor: not-allowed;
 }

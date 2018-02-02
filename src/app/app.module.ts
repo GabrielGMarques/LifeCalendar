@@ -19,7 +19,6 @@ import { WarningMessageComponent } from './warning-message/warning-message.compo
 import { ProgressIconComponent } from './progress-icon/progress-icon.component';
 import { Routes,RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { WeekToltipDirective } from './week-toltip.directive';
 import { WeekTooltipComponent } from './week-tooltip/week-tooltip.component'
 // import { ProgressService } from './services/progress.service';
 
@@ -55,10 +54,7 @@ const appRoutes:Routes =[
     WarningMessageComponent,
     ProgressIconComponent,
     HomeComponent,
-    WeekToltipDirective,
     WeekTooltipComponent,
-    
-    // ProgressService
   ],
   imports: [
     BrowserModule,
@@ -68,7 +64,6 @@ const appRoutes:Routes =[
     AngularFireAuthModule,
 	  AngularFireDatabaseModule,
     RouterModule.forRoot(appRoutes)
-    // MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -14,8 +14,12 @@ declare var $: any;
 })
 export class HeaderNavbarComponent implements OnInit {
 
-    constructor(private afAuth: AngularFireAuth, private periodsFilter: ElementRef, private progressService: ProgressService, private periodFilterService: PeriodFilterService, private modalService: NgbModal) { }
-    t
+    constructor(private afAuth: AngularFireAuth,
+        private periodsFilter: ElementRef,
+        private progressService: ProgressService,
+        private periodFilterService: PeriodFilterService,
+        private modalService: NgbModal) { }
+    
     @Output() settingsEmmiter = new EventEmitter<{ id: Number, name: string, selected: boolean }>();
 
 

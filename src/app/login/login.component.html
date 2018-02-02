@@ -1,26 +1,43 @@
-
-<form>
-  <div class="col-md-5 col-sm-offset-3 form-login">
-    <h2>Login</h2>
-    <div class="form-groupcol-sx-12">
-      <label for="email" class=" col-form-label">Email</label>
-      <input type="text" id="email" type="email" class="form-control" #email></div>
-     <div class="form-group col-sx-12">
-      <label for="password" class=" col-form-label">Password</label>
-        <div class="input-group-custom">
-          <div class="input-group-addon btn-show-password" (click)='changeType(password)'>
-          <i class="fa fa-eye" aria-hidden="true"></i>
-        </div>
-        <input type="text" class="form-control" type="password" id="password" #password>
-      </div>
-    </div>
-    <div class="col-xs-12">
-      <div class="btn btn-success inline-block-btn"   id="loginByPassword" (click)="loginEmail()">Sign In</div>
-      <div class="btn btn-primary inline-block-btn"   id="registerByPassword" (click)="registerEmail()">Register</div>
-      <div class="g-signin2 inline-block-btn"  id="loginByGoogle" (click)="loginGoogle()"></div>
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">Life Calendar
+        <span class="version-representation">Pre-alpha</span>
+      </a>
     </div>
   </div>
-    
-</form>
+</div>
 
-<app-settings ></app-settings>
+<div class="form-login">
+  <span class="title-form">Sign in</span>
+  <div class="row">
+    <div class="form-group  col-sm-7">
+      <label for="email" class="col-form-label">Email</label>
+      <input type="text" id="email" type="email" class="form-control" #email>
+    </div>
+    <div class="form-group col-sm-5">
+      <label for="password" class="col-form-label">Password</label>
+      <div class="row col-sm-12">
+        <div class="input-group-addon btn-show-password col-sm-2" (click)='changeType(password)'>
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </div>
+        <input type="text" class="form-control col-sm-10" type="password" id="password" #password>
+      </div>
+    </div>
+  </div>
+  <div class="footer-btns">
+    <button class="btn inline-block-btn" id="loginByPassword" (click)="loginEmail()">Sign In</button>
+    <button class="btn inline-block-btn" id="registerByPassword" (click)="registerEmail()">Register</button>
+    <button class="btn inline-block-btn" id="loginByGoogle" (click)="loginGoogle()"></button>
+  </div>
+
+  <ng-template #settings let-d="dismiss" let-c="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Initial Settings</h5>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <app-settings (onCloseModal)="closeModal()"></app-settings>
+  </ng-template>
