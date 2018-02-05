@@ -54,7 +54,7 @@ export class SettingsComponent implements OnInit {
 
     var user = {
       yearBirth: birthDateParsed.getFullYear(),
-      monthBirth: birthDateParsed.getMonth(),
+      monthBirth: birthDateParsed.getMonth()+1,
       dayBirth: birthDateParsed.getDate(),
       name: name,
       ageOfDeath: finalAge,

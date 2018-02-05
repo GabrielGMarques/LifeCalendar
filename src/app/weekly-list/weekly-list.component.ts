@@ -10,12 +10,10 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ProgressService } from '../services/progress.service'
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as firebase from 'firebase/app';
 
 declare var $: any;
-// import { NgModule } from '@angular/core';
-
 const now = new Date();
 
 @Component({
@@ -46,6 +44,8 @@ export class WeeklyListComponent implements OnInit {
     private utilService: UtilService,
     private modalService: NgbModal) { }
 
+  private ngbModalRef: NgbModalRef;
+
   ngOnInit() {
 
 
@@ -73,8 +73,8 @@ export class WeeklyListComponent implements OnInit {
       this.buildWeeks(user);
       this.updatePeriodFilter(this.currentPeriodLevel);
       this.weekBuilt = true;
-      // this.getPeriodsData();
     });
+
     this.periodFilterService.getFilterEmitter().subscribe((level: number) => {
       this.updatePeriodFilter(level);
     });
@@ -82,7 +82,6 @@ export class WeeklyListComponent implements OnInit {
 
 
   ngAfterViewInit() {
-    // $('[data-toggle="datepicker"]').datepicker("dd/mm/yyyy");
     this.progressService.hideProgress();
 
     ($('.currentWeek')[0]).scrollIntoView('100');
@@ -91,20 +90,21 @@ export class WeeklyListComponent implements OnInit {
     $('html, body').animate({
       scrollTop: offset.top,
     }, 1000);
-    
-  // }
-    $('.tooltip-inner').css("maxWidth","none");
-    // $('[data-toggle="tooltip"]').tooltip();
+
+    $('.tooltip-inner').css("maxWidth", "none");
   }
   ngAfterViewChecked() {
 
     $('.tooltip>.arrow').addClass("tooltip-arrow");
-    $('.tooltip-inner').css({"maxWidth":"none","padding":"3px 8px","border":"#222 solid 1px","text-align":"center","backgroundColor":"#fff","color":"#222"});
-    // $('[data-toggle="tooltip"]').tooltip();
+    $('.tooltip-inner').css({ "maxWidth": "none", "padding": "3px 8px", "border": "#222 solid 1px", "text-align": "center", "backgroundColor": "#fff", "color": "#222" });
   }
 
-  openModal(content){
-    this.modalService.open(content);
+  openModal(content) {
+    this.ngbModalRef = this.modalService.open(content);
+  }
+
+  closeModal() {
+    this.ngbModalRef.close();
   }
 
   updatePeriods() {
@@ -124,7 +124,7 @@ export class WeeklyListComponent implements OnInit {
           period.dateFromLong <= dateTo.getTime() &&
           (period.level == this.currentPeriodLevel || this.currentPeriodLevel == 5))
           .sort(period => period.dateFromLong - period.dateToLong)
-          .map(item=>{
+          .map(item => {
             item.dateFromSt = this.utilService.formatDate(new Date(item.dateFromLong));
             item.dateToSt = this.utilService.formatDate(new Date(item.dateToLong));
             return item;
@@ -149,28 +149,6 @@ export class WeeklyListComponent implements OnInit {
 
       });
     });
-    // this.years.forEach((year) => {
-    //   year.weeks.forEach((week) => {
-    //     var dateFrom = new Date(week.dateFrom);
-    //     var dateTo = new Date(week.dateTo);
-
-    //     week.colors = [];
-    //   });
-    // });
-    // this.periods.sort((period) => period.dateToLong).forEach((period) => {
-    //   if (period.level == this.currentPeriodLevel || this.currentPeriodLevel == 5) {
-    //     this.years.forEach((year) => {
-
-    //       year.weeks.forEach((week) => {
-    //         if (period.dateFromLong <= week.dateTo.getTime() && period.dateToLong >= week.dateFrom.getTime()) {
-    //           week.periods = week.periods.filter(item => !(new Date(item.dateFromLong).getDate() == week.dateFrom.getDate() && item.default == true));
-    //           week.periods.push(period);
-    //         }
-    //       });
-    //     });
-    //   }
-
-    // });
   }
 
   updatePeriodFilter(level: number) {
@@ -186,7 +164,6 @@ export class WeeklyListComponent implements OnInit {
     this.years = [];
     var indexYear = 0;
 
-    // while(dateBegin < dateEnd){
     for (var i = 0; i <= userDatabase.ageOfDeath; i++) {
       var dateFinalYear = new Date(userDatabase.yearBirth + (i + 1), userDatabase.monthBirth - 1, userDatabase.dayBirth);
       var dateInitialYear = new Date(userDatabase.yearBirth + i, userDatabase.monthBirth - 1, userDatabase.dayBirth);
@@ -214,10 +191,6 @@ export class WeeklyListComponent implements OnInit {
 
         var dateLimit = new Date(dateInitialYear.getFullYear(), dateInitialYear.getMonth(), dateInitialYear.getDate() + dayRange, 0, 0, 0, 0);
 
-
-        // if (dayRange == 8) {
-        //   dateLimit.setDate(dateLimit.getDate() + 1);
-        // }
         var isCurrentWeek = dateInitialYear <= currentDate && dateLimit > currentDate;
 
         var isBeforeCurrent = dateInitialYear < currentDate && dateLimit < currentDate;
@@ -238,22 +211,6 @@ export class WeeklyListComponent implements OnInit {
 
     }
   }
-
-  // getPeriodsData() {
-  //   this.periodList = this.db.list('periods_user_' + this.user.uid + "/");
-
-  //   this.periodList.forEach((item) => {
-
-  //     this.periods = [];
-
-  //     item.forEach((period) => {
-  //       this.periods.push(period)
-  //     });
-
-
-  //   });
-  // }
-
 
   setValue(key, value) {
     this[key] = value;

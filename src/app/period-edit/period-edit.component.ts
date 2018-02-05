@@ -3,7 +3,7 @@ import { UtilService } from '../services/util.service';
 import { PeriodService } from '../services/period.service';
 import { observable } from 'rxjs/symbol/observable';
 import { Period } from '../shared/period.model';
-import { Component, ElementRef, Input, OnInit, ViewChild, Pipe, Injectable, PipeTransform,ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Pipe, Injectable, PipeTransform, ViewEncapsulation, EventEmitter, Output } from '@angular/core';
 import { NgModel, FormsModule } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 declare var $: any;
@@ -21,13 +21,13 @@ export class PeriodEditComponent implements OnInit {
 
   periodsList: Period[] = [];
 
-  dateFrom: {year: number, month: number}
+  dateFrom: { year: number, month: number }
   colors: string[] = ["#007700", "#e91e63", "#9c27b0", "#7e57c2", "#3f51b5", "#2196f3", "#009688"];
 
   constructor(private db: AngularFireDatabase,
-    private messageAlertService:MessageAlertService,
+    private messageAlertService: MessageAlertService,
     private periodService: PeriodService,
-    private utilService: UtilService) {}
+    private utilService: UtilService) { }
 
   @ViewChild("namePeriod") namePeriod: ElementRef;
   @ViewChild("dateFromInput") dateFromInput: ElementRef;
@@ -36,6 +36,7 @@ export class PeriodEditComponent implements OnInit {
   @ViewChild("levelInput") levelInput: ElementRef;
   @ViewChild("idPeriodEdited") idPeriodEdited: ElementRef;
   @ViewChild("levelInputFilter") levelInputFilter: ElementRef;
+  @Output("onCloseModalEvent") private onCloseModalEvent: EventEmitter<any> = new EventEmitter<any>();
 
 
   ngOnInit() {
@@ -61,12 +62,12 @@ export class PeriodEditComponent implements OnInit {
 
       var dateFrom = this.utilService.parseDate(dateFromNativeElement.value);
       var dateTo = this.utilService.parseDate(dateToNativeElement.value);
-      if(dateTo < dateFrom){
+      if (dateTo < dateFrom) {
         dateToNativeElement.value = dateFromNativeElement.value;
         this.messageAlertService.showErrorMessage('The final date of a period cannot be less then the initial date')
       }
       var timeDiff = dateTo.getTime() - dateFrom.getTime();
-      var periodDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+      var periodDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
       this.levelInput.nativeElement.value = periodDays < 7 ? 1 : (periodDays < 365 ? 2 : (periodDays < 730 ? 3 : 4));
     }
@@ -113,7 +114,7 @@ export class PeriodEditComponent implements OnInit {
     var level = this.levelInput.nativeElement
     var idPeriodEdited = this.idPeriodEdited.nativeElement;
 
-    if(!this.validateForm()){
+    if (!this.validateForm()) {
       return;
     }
 
@@ -131,31 +132,31 @@ export class PeriodEditComponent implements OnInit {
       this.periodService.updatePeriod(idPeriodEdited.value, period);
     } else {
       this.periodService.savePeriod(period);
-      $('#periodModal').modal('toggle');
+      this.onCloseModalEvent.emit();
     }
 
     idPeriodEdited.value = "";
-    
-    this.clearForm();
+
+    this.cancelForm();
 
   }
 
-  closeModal(){
+  closeModal() {
   }
-  validateForm(){
+  validateForm() {
     var name = this.namePeriod.nativeElement.value;
     var dateFrom = this.dateFromInput.nativeElement.value;
     var dateTo = this.dateToInput.nativeElement.value
     var color = this.colorInput.nativeElement.value
     var level = this.levelInput.nativeElement.value
-    if(!name || !dateFrom || !dateTo || !color || !level ){
+    if (!name || !dateFrom || !dateTo || !color || !level) {
       this.messageAlertService.showErrorMessage('All the fields are required ');
       return false;
     }
     return true;
   }
 
-  clearForm(){
+  cancelForm() {
     var name = this.namePeriod.nativeElement;
     var dateFrom = this.dateFromInput.nativeElement;
     var dateTo = this.dateToInput.nativeElement
@@ -166,6 +167,11 @@ export class PeriodEditComponent implements OnInit {
     [name, dateFrom, dateTo, idPeriodEdited].forEach(item => item.value = "");
     color.value = "#e91e63";
     level.value = 4;
+
+    if (idPeriodEdited.value == "") {
+      this.onCloseModalEvent.emit();
+    }
+
   }
 
 }
