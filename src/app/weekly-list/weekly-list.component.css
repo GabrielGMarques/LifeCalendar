@@ -4,7 +4,8 @@
     /* border:1px solid #bdbdbd; */
     display: table;
     overflow-x: scroll;
-    
+    user-select: none;
+    cursor: pointer;
 }
 
 .year-index{
@@ -135,7 +136,7 @@ select.list1 option.option2
     width: fit-content;
     height: fit-content;
     display: relative;
-    min-width: 450px;
+    width: 450px;
 }
 .weekWithPeriod{
     color:#DDDDDD;

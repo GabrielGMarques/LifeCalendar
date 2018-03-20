@@ -6,8 +6,6 @@
       *ngFor="let week of year.weeks; let i = index" data-placement="{{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}" [ngStyle]="{'background-color': week.periods[0]?.color}"
       data-toggle="tooltip" data-html="true" data-trigger="hover" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on {{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}"
       container="body">
-
-
       <ng-template #weekTooltip>
         <div class="week-tooltip">
           <div class="week-tooltip-title" [ngClass]="{weekWithPeriodTooltip:week.periods?.length}">Week: {{week.dateFromSt}} to {{week.dateToSt}}</div>
@@ -31,8 +29,6 @@
           </table>
         </div>
       </ng-template>
-
-      <!-- <div class="period" *ngFor="let color of week.colors" > </div> -->
       {{week.index}}
     </div>
   </div>
