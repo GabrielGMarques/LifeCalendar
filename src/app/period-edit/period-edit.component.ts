@@ -128,21 +128,18 @@ export class PeriodEditComponent implements OnInit {
       level: level.value
     };
 
-    if (idPeriodEdited.value != "") {
+    if (idPeriodEdited.value) {
       this.periodService.updatePeriod(idPeriodEdited.value, period);
     } else {
       this.periodService.savePeriod(period);
-      this.onCloseModalEvent.emit();
     }
 
-    idPeriodEdited.value = "";
-
     this.cancelForm();
-
   }
 
   closeModal() {
   }
+
   validateForm() {
     var name = this.namePeriod.nativeElement.value;
     var dateFrom = this.dateFromInput.nativeElement.value;
@@ -164,14 +161,14 @@ export class PeriodEditComponent implements OnInit {
     var level = this.levelInput.nativeElement
     var idPeriodEdited = this.idPeriodEdited.nativeElement;
 
-    [name, dateFrom, dateTo, idPeriodEdited].forEach(item => item.value = "");
+    [name, dateFrom, dateTo].forEach(item => item.value = '');
     color.value = "#e91e63";
     level.value = 4;
 
-    if (idPeriodEdited.value == "") {
+    if (!idPeriodEdited.value) {
       this.onCloseModalEvent.emit();
+    }else{
+      idPeriodEdited.value = '';
     }
-
   }
-
 }
