@@ -102,6 +102,7 @@ export class PeriodEditComponent implements OnInit {
   deletePeriod(key: string) {
     this.periodService.deletePeriod(key);
   }
+  
   formatDate(date) {
     return this.utilService.formatDate(date);
   }

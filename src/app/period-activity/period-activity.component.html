@@ -1,0 +1,67 @@
+<div class="modal-period-activity">
+  <ngb-accordion [closeOthers]="true" activeIds="static-0">
+    <ngb-panel *ngFor="let timeLapse of timeLapses; let i = index" id="static-{{i}}" title="{{timeLapse.period.name}}">
+      <ng-template ngbPanelContent>
+        <div class="indicators">
+          <div class="progress-card period-card">
+            <div>
+                <circle-progress [percent]="timeLapse.period.progress" [renderOnClick]="false" subtitle="complete" [clockwise]="true" [radius]="55" [outerStrokeWidth]="10" [innerStrokeWidth]="2" [outerStrokeColor]="timeLapse.period.color"
+                [innerStrokeColor]="'#ff6d00'" [animation]="true" [animationDuration]="100">
+              </circle-progress>
+            </div>
+          </div>
+          <div class="left-time period-card">
+            <div>Time Left</div>
+            <span class="left-time-item">
+              {{timeLapse.date.days}}
+              <span class="subtitle">days</span>
+            </span>
+            <span class="left-time-item">
+              {{timeLapse.date.hours}}
+              <span class="subtitle">hours</span>
+            </span>
+            <span class="left-time-item">
+              {{timeLapse.date.minutes}}
+              <span class="subtitle">minutes</span>
+            </span>
+            <span class="left-time-item">
+              {{timeLapse.date.seconds}}
+              <span class="subtitle">seconds</span>
+            </span>
+          </div>
+
+        </div>
+        <div class="task period-card" [ngClass]="{ new: task.inEdition }" *ngFor="let task of timeLapse.period.tasks">
+          <div class="task-name-input-wrapper" *ngIf="task.inEdition">
+            <input type="text" class="form-control form-control-sm" value="{{task.description}}" #taskDescription>
+          </div>
+          <div class="task-name" title="{{task.description}}" *ngIf="!task.inEdition">{{task.description}}</div>
+
+          <div class="task-complexity">
+            <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 1)" title="Complexity" [ngClass]="{selected: task.complexity == 1}">1</a>
+            <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 2)" title="Complexity" [ngClass]="{selected: task.complexity == 2}">2</a>
+            <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 3)" title="Complexity" [ngClass]="{selected: task.complexity == 3}">3</a>
+            <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 5)" title="Complexity" [ngClass]="{selected: task.complexity == 5}">5</a>
+            <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 8)" title="Complexity" [ngClass]="{selected: task.complexity == 8}">8</a>
+            <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 13)" title="Complexity" [ngClass]="{selected: task.complexity == 13}">13</a>
+          </div>
+          <div class="task-situation">
+            <a class="btn-task" [ngClass]="{selected: task.completed}" title="{{task.inEdition? 'Save' : (task.completed? 'Task Completed': 'Complete Task')}}"
+              placement="top" (click)="saveTask(timeLapse.period, task)">
+              <i class="fa fa-check"></i>
+            </a>
+            <a class="btn-task" title="Edit Task" *ngIf="!task.inEdition" (click)="editTask(timeLapse.period, task)">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a class="btn-task" title="{{task.inEdition? 'Cancel' : 'Remove Task'}}" (click)="removeTask(timeLapse.period, task)">
+              <i class="fa fa-times"></i>
+            </a>
+          </div>
+        </div>
+        <a class="btn-add-task" title="Add Task" (click)="addTask(timeLapse.period)">
+          +
+        </a>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

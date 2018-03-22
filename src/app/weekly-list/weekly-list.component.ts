@@ -101,6 +101,7 @@ export class WeeklyListComponent implements OnInit {
 
   openModal(content) {
     this.ngbModalRef = this.modalService.open(content);
+    $('.tooltip.show').toggle();
   }
 
   closeModal() {
@@ -123,7 +124,7 @@ export class WeeklyListComponent implements OnInit {
           period.dateToLong >= dateFrom.getTime() &&
           period.dateFromLong <= dateTo.getTime() &&
           (period.level == this.currentPeriodLevel || this.currentPeriodLevel == 5))
-          .sort(period => period.dateFromLong - period.dateToLong)
+          .sort((period1, period2) => period1.dateToLong - period2.dateToLong)
           .map(item => {
             item.dateFromSt = this.utilService.formatDate(new Date(item.dateFromLong));
             item.dateToSt = this.utilService.formatDate(new Date(item.dateToLong));
@@ -136,7 +137,7 @@ export class WeeklyListComponent implements OnInit {
           var periods = periodsWeek.filter(period =>
             period.dateToLong >= dateFrom.getTime() &&
             period.dateFromLong <= dateTo.getTime())
-            .sort(period => period.dateFromLong - period.dateToLong);
+            .sort((period1, period2) => period1.dateToLong - period2.dateToLong);
 
           if (periods.length) {
             week.colors.push(periods[0].color);

@@ -1,0 +1,114 @@
+.modal-period-activity{
+    max-height: 30rem;
+    overflow-y: scroll; 
+}
+.progress-card{
+    background-color: #DDDDDD;
+    position: absolute;
+    right: 2.2rem;    
+}
+
+.progress-card > div{
+    margin: 0 1.7rem;
+}
+
+.left-time{
+    padding-top: 2.9rem!important;    
+    text-align: center;
+    background-color: #DDDDDD;
+}
+
+.period-card{
+    width: 13rem;
+    height: 9rem;
+    border-radius: 0.2rem;
+    padding: 0.3rem;
+    display: inline-block;
+    margin: 0.2rem;
+}
+
+.task.new{
+    height: 8rem;    
+}
+
+.task{
+    height: 7rem;    
+    background-color: #f2f2f2;
+    border: 0.1rem solid #DDDDDD;
+}
+
+.task div{
+    margin-bottom: 0.6rem;
+}
+
+.task-name-input-wrapper{
+    margin-bottom: 0.3rem;
+}
+
+.task > .task-name{
+    font-size: 1rem;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.complexity-option{
+    padding: 0.2rem 0.5rem;    
+    background-color: #fff;
+    border: 0.1rem solid #DDDDDD;
+    border-radius: 0.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.complexity-option.selected{
+    border: 0.1rem solid #ff6d00;    
+}
+
+.left-time > div{
+    font-size: 0.9rem;
+}
+
+.left-time-item{
+    display: inline-block;
+    text-align: center;
+}
+
+.left-time-item > .subtitle{
+    display: block;
+    font-size: 0.6rem;
+}
+
+.task-situation{
+    float: right;
+    display: flex;
+}
+
+.btn-task{
+    cursor: pointer;
+    border: 0.1rem solid #333;
+    opacity: 0.5;
+    padding: 0.2rem 0.4rem;
+    font-size: 1rem;
+    border-radius: 0.2rem;
+    right: 0;
+    margin-right: 0.2rem;
+}
+
+.btn-task.selected{
+    color: #fff!important;
+    border: 0.1rem solid #00961e;    
+    background-color: #00961e;    
+    opacity: 1;
+}
+
+.btn-add-task{
+    background-color: #ff6d00;
+    color: #fff!important;
+    cursor: pointer;
+    padding: 0.2rem 0.4rem;
+    font-size: 1rem;
+    border-radius: 0.2rem;
+}

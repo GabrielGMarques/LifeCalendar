@@ -4,8 +4,21 @@
 
     <div class="week-list-item" [ngClass]="{currentWeek:week.isCurrentWeek,weekBeforeCurrent:week.isBeforeCurrent,weekWithPeriod:week.periods?.length}"
       *ngFor="let week of year.weeks; let i = index" data-placement="{{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}" [ngStyle]="{'background-color': week.periods[0]?.color}"
-      data-toggle="tooltip" data-html="true" data-trigger="hover" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on {{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}"
+      data-toggle="tooltip" data-html="true" data-trigger="hover" (click)="openModal(peridodActivitymodal);" [ngbTooltip]="weekTooltip" ngbTooltip="Tooltip on {{i < 41 ?  (i >= 8? 'bottom':'right'):'left'}}"
       container="body">
+
+      <ng-template #peridodActivitymodal let-d="dismiss" let-c="close">
+        <div class="modal-header">
+          <h5 class="modal-title modal-period-activity-title">{{week.index}}º week - {{week.dateFromSt}} to {{week.dateToSt}}</h5>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span periods aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      
+        <app-period-activity [periods]="week.periods" (onCloseModalEvent)="closeModal();"></app-period-activity>
+      
+      </ng-template>
+      
       <ng-template #weekTooltip>
         <div class="week-tooltip">
           <div class="week-tooltip-title" [ngClass]="{weekWithPeriodTooltip:week.periods?.length}">Week: {{week.dateFromSt}} to {{week.dateToSt}}</div>

@@ -19,7 +19,9 @@ import { WarningMessageComponent } from './warning-message/warning-message.compo
 import { ProgressIconComponent } from './progress-icon/progress-icon.component';
 import { Routes,RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { WeekTooltipComponent } from './week-tooltip/week-tooltip.component'
+import { WeekTooltipComponent } from './week-tooltip/week-tooltip.component';
+import { PeriodActivityComponent } from './period-activity/period-activity.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 // import { ProgressService } from './services/progress.service';
 
 export const environment = {
@@ -55,10 +57,12 @@ const appRoutes:Routes =[
     ProgressIconComponent,
     HomeComponent,
     WeekTooltipComponent,
+    PeriodActivityComponent,
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
+    NgCircleProgressModule.forRoot(),
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

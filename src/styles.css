@@ -22,3 +22,22 @@ body{
     background-color: #ff6d00!important;
     color: #FFF!important;
 }
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #cccccc; 
+}
+ 
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+    background: #DDDDDD; 
+    -webkit-box-shadow: inset 0 0 6px #cccccc; 
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+	background: #DDDDDD; 
+}
