@@ -1,15 +1,13 @@
 import { EventEmitter } from '@angular/core';
 
-export class PeriodFilterService{
+export class PeriodFilterService {
     private periodFilterEmitter = new EventEmitter<number>();
-    
-    getFilterEmitter(){
+
+    getFilterEmitter() {
         return this.periodFilterEmitter;//.subscribe(func);
     }
 
-    updateLevel(level){
+    updateLevel(level) {
         this.periodFilterEmitter.emit(level);
     }
-
-
 }

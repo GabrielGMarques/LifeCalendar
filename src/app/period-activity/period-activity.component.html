@@ -5,8 +5,9 @@
         <div class="indicators">
           <div class="progress-card period-card">
             <div>
-                <circle-progress [percent]="timeLapse.period.progress" [renderOnClick]="false" subtitle="complete" [clockwise]="true" [radius]="55" [outerStrokeWidth]="10" [innerStrokeWidth]="2" [outerStrokeColor]="timeLapse.period.color"
-                [innerStrokeColor]="'#ff6d00'" [animation]="true" [animationDuration]="100">
+              <circle-progress [percent]="timeLapse.period.progress" [renderOnClick]="false" subtitle="complete" [clockwise]="true" [radius]="55"
+                [outerStrokeWidth]="10" [innerStrokeWidth]="2" [outerStrokeColor]="timeLapse.period.color" [innerStrokeColor]="'#ff6d00'"
+                [animation]="true" [animationDuration]="100">
               </circle-progress>
             </div>
           </div>
@@ -29,14 +30,12 @@
               <span class="subtitle">seconds</span>
             </span>
           </div>
-
         </div>
         <div class="task period-card" [ngClass]="{ new: task.inEdition }" *ngFor="let task of timeLapse.period.tasks">
           <div class="task-name-input-wrapper" *ngIf="task.inEdition">
             <input type="text" class="form-control form-control-sm" value="{{task.description}}" #taskDescription>
           </div>
           <div class="task-name" title="{{task.description}}" *ngIf="!task.inEdition">{{task.description}}</div>
-
           <div class="task-complexity">
             <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 1)" title="Complexity" [ngClass]="{selected: task.complexity == 1}">1</a>
             <a class="complexity-option" (click)="setTaskComplexity(timeLapse.period, task, 2)" title="Complexity" [ngClass]="{selected: task.complexity == 2}">2</a>

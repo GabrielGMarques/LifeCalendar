@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Rajdhani');
 
-/* body{
-    background-image: url('../../assets/pexels-photo-14676.png');
-    background-size: cover;
-} */
-
 .inline-block-btn{
     display: inline-block;
     vertical-align: top; 
@@ -73,8 +68,3 @@
 .title-form{
     font-size: 1.7rem;
 }
-/* .footer-btns{
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-} */

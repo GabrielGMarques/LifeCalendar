@@ -19,12 +19,12 @@ export class HeaderNavbarComponent implements OnInit {
         private progressService: ProgressService,
         private periodFilterService: PeriodFilterService,
         private modalService: NgbModal) { }
-    
+
     @Output() settingsEmmiter = new EventEmitter<{ id: Number, name: string, selected: boolean }>();
 
 
     @Output() tabsOptions = [{ id: 1, name: "Weeks", selected: false }]
-    
+
     private modalRef: NgbModalRef;
 
     indexDefaultItem = 0;
@@ -36,8 +36,8 @@ export class HeaderNavbarComponent implements OnInit {
 
     openModal(content) {
         this.modalRef = this.modalService.open(content);
-    }  
-    
+    }
+
     closeModal() {
         this.modalRef.close();
     }
@@ -46,16 +46,20 @@ export class HeaderNavbarComponent implements OnInit {
         this.tabsOptions.forEach((item) => { item.selected = false; });
         tab.selected = true;
     }
+
     logout() {
         this.afAuth.auth.signOut();
         location.reload();
     }
+
     updatePeriodFilter(level: number) {
         this.periodFilterService.updateLevel(level);
     }
+
     showProgressIcon() {
         this.progressService.showProgress();
     }
+
     hideProgressIcon() {
         this.progressService.hideProgress();
     }

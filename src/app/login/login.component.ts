@@ -1,5 +1,5 @@
 import { UserDatabaseService } from '../services/user-database.service';
-import { Component, ElementRef, OnInit, EventEmitter, Output,ViewChild,ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, OnInit, EventEmitter, Output, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ProgressService } from '../services/progress.service'
 import { MessageAlertService } from '../services/message-alert.service'
@@ -17,8 +17,6 @@ import * as firebase from 'firebase/app';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  // encapsulation: ViewEncapsulation.None,//for login background image
-  
 })
 export class LoginComponent implements OnInit {
 
@@ -29,12 +27,12 @@ export class LoginComponent implements OnInit {
     private userDatabaseService: UserDatabaseService,
     private modalService: NgbModal) {
   }
-  @ViewChild("password") passwordInput:ElementRef;
-  @ViewChild("email") emailInput:ElementRef;
-  @ViewChild("settings") modalSettings:ElementRef;
+
+  @ViewChild("password") passwordInput: ElementRef;
+  @ViewChild("email") emailInput: ElementRef;
+  @ViewChild("settings") modalSettings: ElementRef;
 
   private modalRef: NgbModalRef;
-  
 
   ngOnInit() {
 
@@ -62,6 +60,7 @@ export class LoginComponent implements OnInit {
       this.messageAlertService.showErrorMessage(error.message);
     });
   }
+
   registerEmail() {
     this.progressService.showProgress();
 
@@ -72,11 +71,12 @@ export class LoginComponent implements OnInit {
       this.progressService.hideProgress();
     });
   }
+
   loginEmail() {
     this.progressService.showProgress();
 
     this.afAuth.auth.signInWithEmailAndPassword(this.emailInput.nativeElement.value, this.passwordInput.nativeElement.value).then((item) => {
-    
+
     }).catch((error) => {
       this.messageAlertService.showErrorMessage(error.message);
       this.progressService.hideProgress();
@@ -89,9 +89,9 @@ export class LoginComponent implements OnInit {
 
   openModal(content) {
     this.modalRef = this.modalService.open(content);
-  }  
+  }
 
-closeModal() {
+  closeModal() {
     this.modalRef.close();
-}
+  }
 }

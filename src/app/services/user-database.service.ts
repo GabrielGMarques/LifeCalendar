@@ -12,31 +12,30 @@ export class UserDatabaseService {
     private userAuthObservableEmitter = new EventEmitter<Observable<firebase.User>>();
     private userDatabaseObservable: FirebaseListObservable<User[]>;
     private existsDatabase = true;
-    // private userAuthObservableEmitter = new EventEmitter< Period[]>();
 
     private userDatabase: User;
-    // userAuth: Observable<firebase.User>
     userFirebase: firebase.User = null;
 
-    constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase ) {
-        
+    constructor(private afAuth: AngularFireAuth, private db: AngularFireDatabase) {
+
         this.afAuth.authState.forEach(item => {
-            if (item){
+            if (item) {
                 this.userFirebase = item;
                 this.userAuthEmitter.emit(item);
                 this.updateUserDatabase(item);
-            }else{
+            } else {
                 this.existsDatabase = false;
                 this.userDatabaseEmitter.emit(null);
             }
         });
     }
+
     updateUserDatabase(obj: firebase.User) {
-        
+
         this.userDatabaseObservable = this.db.list('users_' + obj.uid + "/");
-        
+
         this.userDatabaseObservable.forEach((item) => {
-            
+
             var userDatabase: User;
             item.forEach((user: User) => {
                 userDatabase = user;
@@ -48,45 +47,48 @@ export class UserDatabaseService {
             }
         });
 
-        var observable = this.db.object('users_' +  this.userFirebase.uid + "/");
-        
-        observable.forEach(item => {
-          if (!item.$exists()) {
-            this.saveUser({ isCreated: false });
-          }
-        });
-      
+        var observable = this.db.object('users_' + this.userFirebase.uid + "/");
 
-        
+        observable.forEach(item => {
+            if (!item.$exists()) {
+                this.saveUser({ isCreated: false });
+            }
+        });
     }
-    isDatabaseCreated(){
+
+    isDatabaseCreated() {
         return this.existsDatabase;
     }
-    getSingleObj(){
-        return this.userFirebase? this.db.object('users_' +  this.userFirebase.uid + "/"):null;
+
+    getSingleObj() {
+        return this.userFirebase ? this.db.object('users_' + this.userFirebase.uid + "/") : null;
     }
-    getUserFirebase(){
+
+    getUserFirebase() {
         return this.userFirebase;
     }
-    getUserDatabase(){
+
+    getUserDatabase() {
         return this.userDatabase;
     }
 
     getUserAuthEmitter() {
         return this.userAuthEmitter;
     }
+
     getUserDatabaseEmitter() {
         return this.userDatabaseEmitter;
     }
-    saveUser(value:any){
+
+    saveUser(value: any) {
         this.userDatabaseObservable.push(value);
     }
-    deleteUser(key:string){
+
+    deleteUser(key: string) {
         this.userDatabaseObservable.remove(key);
     }
 
-    updateUser(key:string,value:any){
-        this.userDatabaseObservable.update(key,value);
+    updateUser(key: string, value: any) {
+        this.userDatabaseObservable.update(key, value);
     }
-
 }

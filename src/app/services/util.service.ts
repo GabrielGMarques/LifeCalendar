@@ -2,6 +2,7 @@
 import { Period } from '../shared/period.model';
 
 export class UtilService {
+
     formatDate(date): string {
 
         var day = date.getDate();
@@ -13,6 +14,7 @@ export class UtilService {
 
         return `${day}/${monthIndex}/${year}`;
     }
+
     parseDate(date) {
 
         var dateArray = date.split('/');
@@ -23,6 +25,7 @@ export class UtilService {
         var dateParsed = new Date(year, month - 1, day);
         return dateParsed;
     }
+
     formatPeriodsToHashArray(periods: Period[]): { color: string, dateHash: string }[] {
 
         var result: { color: string, dateHash: string }[] = [];
@@ -82,5 +85,4 @@ export class UtilService {
     formatDecimal(value) {
         return value < 10 ? `0${value}` : value;
     }
-
 }

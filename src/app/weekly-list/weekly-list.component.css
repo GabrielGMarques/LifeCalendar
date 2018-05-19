@@ -1,7 +1,30 @@
+@media(width:1024px){
+    .week-list-item{
+        width: 22px!important;
+    }
+}
+
+@media(width:1280px){
+    .week-list-item{
+        width: 22px!important;
+    }
+}
+
+@media(width:1440px){
+    .week-list-item{
+        width: 25.5px!important;
+    }
+}
+
+@media(width:2560px){
+    .week-list-item{
+        width: 48px!important;
+    }
+}
+
 .week-list-wrapper{
     padding-top: 40px;
     margin: 40px;
-    /* border:1px solid #bdbdbd; */
     display: table;
     overflow-x: scroll;
     user-select: none;
@@ -14,34 +37,14 @@
     color:#fff;
     height: 40px;
     text-shadow: 1px 1px #222;
-    /*border-radius: 100%;*/
 }
 
 .weekBeforeCurrent{
     opacity: 0.9;
 }
+
 .week-list-row{
     display: table-row;
-}
-@media(width:1024px){
-    .week-list-item{
-        width: 22px!important;
-    }
-}
-@media(width:1280px){
-    .week-list-item{
-        width: 22px!important;
-    }
-}
-@media(width:1440px){
-    .week-list-item{
-        width: 25.5px!important;
-    }
-}
-@media(width:2560px){
-    .week-list-item{
-        width: 48px!important;
-    }
 }
 
 .week-list-item{
@@ -49,11 +52,12 @@
     width: 29px;
     border: 1px solid #bdbdbd;
     text-align: center;
-    /*border-radius: 3px;*/
 }
+
 .currentWeek{
      border: 4px solid #ff6d00;
 }
+
 .btn-add{
     width: 70px;
     height: 70px;
@@ -127,9 +131,11 @@ select.list1 option.option2{
     border-radius: 100%;
     display: inline-block;
 }
+
 .color-item{
     display: inline-block;
 }
+
 .second-level{
     margin-top: 10px;
 }
@@ -138,23 +144,27 @@ select.list1 option.option2{
     width:14.2857143%;
     height: 100%;
 }
+
 .week-tooltip{
     width: fit-content;
     height: fit-content;
     display: relative;
     width: 450px;
 }
+
 .weekWithPeriod{
     color:#DDDDDD;
 }
+
 .weekWithPeriodTooltip{
     border-bottom: #222 solid 1px;    
 }
+
 .week-tooltip-title{
     display: relative;    
     margin:5px;
-    
 }
+
 .week-tooltip-table-row > td,th{
     padding:3px 10px;
     text-align: left;
@@ -163,6 +173,7 @@ select.list1 option.option2{
 .tooltip-arrow-custom::before{
     border-right-color: #ff6d00!important;
 }
+
 button.close{
     cursor: pointer;
 }

@@ -47,8 +47,6 @@ export class WeeklyListComponent implements OnInit {
   private ngbModalRef: NgbModalRef;
 
   ngOnInit() {
-
-
     var userDatabase = this.userDatabaseService.getUserDatabase();
 
     if (userDatabase) {
@@ -80,7 +78,6 @@ export class WeeklyListComponent implements OnInit {
     });
   }
 
-
   ngAfterViewInit() {
     this.progressService.hideProgress();
 
@@ -93,8 +90,8 @@ export class WeeklyListComponent implements OnInit {
 
     $('.tooltip-inner').css("maxWidth", "none");
   }
-  ngAfterViewChecked() {
 
+  ngAfterViewChecked() {
     $('.tooltip>.arrow').addClass("tooltip-arrow");
     $('.tooltip-inner').css({ "maxWidth": "none", "padding": "3px 8px", "border": "#222 solid 1px", "text-align": "center", "backgroundColor": "#fff", "color": "#222" });
   }
@@ -109,7 +106,6 @@ export class WeeklyListComponent implements OnInit {
   }
 
   updatePeriods() {
-
     this.progressService.showProgress();
     this.years.forEach((year) => {
       year.weeks.forEach((week) => {
@@ -146,8 +142,6 @@ export class WeeklyListComponent implements OnInit {
           }
           dateFrom.setDate(dateFrom.getDate() + 1);
         }
-
-
       });
     });
   }
@@ -206,10 +200,8 @@ export class WeeklyListComponent implements OnInit {
         indexWeek++;
       }
 
-
       this.years.push({ date: dateBegin, index: indexYear < 10 ? "0" + indexYear : indexYear.toString(), weeks: weeks, isTheCurrentYear: dateBegin.getFullYear() == (new Date().getFullYear() - 2) });
       indexYear++;
-
     }
   }
 
@@ -218,12 +210,9 @@ export class WeeklyListComponent implements OnInit {
   }
 
   createRange() {
-
-    console.log(this.rangeDateEnd);
     this.rangeDateStart = null;
     this.rangeDateEnd = null;
     this.rangeColor = null;
     this.rangeNivel = null;
   }
-
 }
