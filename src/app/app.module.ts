@@ -21,7 +21,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyDFtLShrrQcxwaHVvodxU-rEaEm_Kshr_E",
+    apiKey: "{{YOUR_APY_KEY}}",
     authDomain: "lifecalendar-8386b.firebaseapp.com",
     databaseURL: "https://lifecalendar-8386b.firebaseio.com",
     projectId: "lifecalendar-8386b",
