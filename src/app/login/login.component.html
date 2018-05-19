@@ -7,7 +7,6 @@
     </div>
   </div>
 </div>
-
 <div class="form-login">
   <span class="title-form">Sign in</span>
   <div class="row">
@@ -30,7 +29,6 @@
     <button class="btn inline-block-btn" id="registerByPassword" (click)="registerEmail()">Register</button>
     <button class="btn inline-block-btn" id="loginByGoogle" (click)="loginGoogle()"></button>
   </div>
-
   <ng-template #settings let-d="dismiss" let-c="close">
     <div class="modal-header">
       <h5 class="modal-title">Initial Settings</h5>
@@ -38,6 +36,5 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-
     <app-settings (onCloseModal)="closeModal()"></app-settings>
   </ng-template>

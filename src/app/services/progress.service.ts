@@ -1,16 +1,17 @@
-import { EventEmitter,Output } from '@angular/core';
+import { EventEmitter, Output } from '@angular/core';
 
-export class ProgressService{
-      private progressEmitter = new EventEmitter<{}>();
+export class ProgressService {
+    private progressEmitter = new EventEmitter<{}>();
 
-      getProgressEmitter(){
-          return this.progressEmitter;
-      }
-      showProgress(){
-          this.progressEmitter.emit(true);
-      }
+    getProgressEmitter() {
+        return this.progressEmitter;
+    }
 
-      hideProgress(){
-          this.progressEmitter.emit(false);
-      }
+    showProgress() {
+        this.progressEmitter.emit(true);
+    }
+
+    hideProgress() {
+        this.progressEmitter.emit(false);
+    }
 }

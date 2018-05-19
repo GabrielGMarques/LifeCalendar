@@ -19,15 +19,19 @@ export class PeriodService {
             this.getPeriodsData(item);
         });
     }
+
     getPeriodEmitter() {
         return this.periodEmitter;
     }
+
     getPeriods() {
         return this.periods;
     }
+
     savePeriod(value: any) {
         this.periodsObservable.push(value);
     }
+
     deletePeriod(key: string) {
         this.periodsObservable.remove(key);
     }

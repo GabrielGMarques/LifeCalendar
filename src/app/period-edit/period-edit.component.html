@@ -13,8 +13,6 @@
         <ul class="list-group">
           <li class="list-group-item item-period" id="period_{{period.$key}}" *ngFor="let period of periodsList">
             <div class="color-period-item" [ngStyle]="{'background-color':period.color}"></div>
-
-
             <div class="period-item-list-representation-wrapper">
               <span class="name-period-item-list">
                 {{period.name}}
@@ -23,7 +21,6 @@
                 {{formatDate(period.dateFrom)}} to {{formatDate(period.dateTo)}}
               </span>
             </div>
-
             <div class="edit-period-opt">
               <a class="period-control-btn" (click)="editPeriod(period.$key)">
                 <i class="fa fa-pencil"></i>
@@ -39,17 +36,15 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="form-group col-sm-4">
-          <label for="dateFromInput">Date from:</label>p
-          <input  class="form-control" data-toggle="datepicker" placeholder="dd/mm/yyyy" id="dateFromInput" #dateFromInput>
+          <label for="dateFromInput">Date from:</label>
+          <input class="form-control" data-toggle="datepicker" placeholder="dd/mm/yyyy" id="dateFromInput" #dateFromInput>
         </div>
-
         <div class="form-group col-sm-4">
           <label for="dateToInput">Date to:</label>
           <input class="form-control" data-toggle="datepicker" placeholder="dd/mm/yyyy" #dateToInput name="dateToInput" id="dateToInput">
         </div>
         <div class="form-group">
           <label for="periodLevel col-sm-4">Period time level:</label>
-
           <select class="form-control" id="periodLevel" disabled="disabled" #levelInput>
             <option value="1">One Week</option>
             <option value="2">Several Weeks</option>
@@ -58,7 +53,6 @@
           </select>
         </div>
       </div>
-
       <div class="row">
         <div class="form-group col-sm-2">
           <label for="periodColorIput">Period color:</label>
@@ -71,7 +65,6 @@
             <option class="color-item" style="background-color:#009688" value="#009688"></option>
           </select>
         </div>
-
         <div class="form-group col-sm-9">
           <label for="periodLevel">Period Name:</label>
           <input class="form-control" id="periodLevel" placeholder="Period Name" #namePeriod>

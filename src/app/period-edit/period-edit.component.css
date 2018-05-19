@@ -70,15 +70,18 @@ select.list1 option.option2
 .name-period-item-list{
     max-width: 200px;   
 }
+
 .color-period-item{
     width: 10px;
     height: 10px;
     margin-right: 5px;
     margin-top: 5px;
 }
+
 .modal-dialog{
     max-width: 1000px;
 }
+
 .btn-footer-modal{
     cursor:pointer;
 }

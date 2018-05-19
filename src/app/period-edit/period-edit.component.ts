@@ -8,6 +8,8 @@ import { NgModel, FormsModule } from '@angular/forms';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 declare var $: any;
 
+const colors: string[] = ["#007700", "#e91e63", "#9c27b0", "#7e57c2", "#3f51b5", "#2196f3", "#009688"];
+
 @Component({
   selector: 'app-period-edit',
   templateUrl: './period-edit.component.html',
@@ -22,7 +24,6 @@ export class PeriodEditComponent implements OnInit {
   periodsList: Period[] = [];
 
   dateFrom: { year: number, month: number }
-  colors: string[] = ["#007700", "#e91e63", "#9c27b0", "#7e57c2", "#3f51b5", "#2196f3", "#009688"];
 
   constructor(private db: AngularFireDatabase,
     private messageAlertService: MessageAlertService,
@@ -37,7 +38,6 @@ export class PeriodEditComponent implements OnInit {
   @ViewChild("idPeriodEdited") idPeriodEdited: ElementRef;
   @ViewChild("levelInputFilter") levelInputFilter: ElementRef;
   @Output("onCloseModalEvent") private onCloseModalEvent: EventEmitter<any> = new EventEmitter<any>();
-
 
   ngOnInit() {
     this.updatePeriodsList(this.periodService.getPeriods());
@@ -86,6 +86,7 @@ export class PeriodEditComponent implements OnInit {
 
     });
   }
+
   editPeriod(key) {
     var period: Period = this.periodsList.find((period) => period.$key == key);
     this.namePeriod.nativeElement.value = period.name;
@@ -102,7 +103,7 @@ export class PeriodEditComponent implements OnInit {
   deletePeriod(key: string) {
     this.periodService.deletePeriod(key);
   }
-  
+
   formatDate(date) {
     return this.utilService.formatDate(date);
   }
@@ -168,7 +169,7 @@ export class PeriodEditComponent implements OnInit {
 
     if (!idPeriodEdited.value) {
       this.onCloseModalEvent.emit();
-    }else{
+    } else {
       idPeriodEdited.value = '';
     }
   }

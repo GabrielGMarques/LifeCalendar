@@ -12,9 +12,6 @@ import { ProgressService } from './services/progress.service';
 import { MessageAlertService } from './services/message-alert.service';
 import { NavigationService } from './services/navigation.service';
 
-
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -30,9 +27,6 @@ import { NavigationService } from './services/navigation.service';
   ]
 })
 export class AppComponent implements OnInit {
-  title = 'app';
-  tabSelected: { id: Number, name: string, selected: true };
-
 
   constructor(
     private progressService: ProgressService,
@@ -44,21 +38,17 @@ export class AppComponent implements OnInit {
     private utilService: UtilService
   ) { }
 
-
   ngOnInit() {
     this.userDatabaseService.getUserDatabaseEmitter().subscribe((item: User) => { this.verifyUserData(item); });
     this.verifyUserData(this.userDatabaseService.getUserDatabase());
   }
 
-  ngAfterViewInit() {
-
-  }
   verifyUserData(item: User) {
     this.progressService.showProgress();
     if (!item) {
-      if(this.userDatabaseService.isDatabaseCreated()){
+      if (this.userDatabaseService.isDatabaseCreated()) {
         this.navigationService.navigateToProgress();
-      }else{
+      } else {
         this.navigationService.navigateToLogin();
       }
     } else if (item.isCreated) {

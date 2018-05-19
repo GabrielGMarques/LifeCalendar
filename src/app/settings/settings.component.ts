@@ -37,38 +37,35 @@ export class SettingsComponent implements OnInit {
     this.userDatabase = this.userDatabaseService.getUserDatabase();
   }
 
-  
   ngAfterViewInit() {
     $('[data-toggle="datepicker"]').datepicker({ dateFormat: "dd/mm/yy" });
     if (this.userDatabase && this.userDatabase.isCreated) {
-    
-      this.dateFromInput.nativeElement.value = this.utilService.formatDate(new Date(this.userDatabase.yearBirth, this.userDatabase.monthBirth-1, this.userDatabase.dayBirth))
+
+      this.dateFromInput.nativeElement.value = this.utilService.formatDate(new Date(this.userDatabase.yearBirth, this.userDatabase.monthBirth - 1, this.userDatabase.dayBirth))
       this.lastAgeInput.nativeElement.value = this.userDatabase.ageOfDeath;
       this.userNameInput.nativeElement.value = this.userDatabase.name;
     }
   }
 
   saveData(birthDate: string, finalAge: number, name: string) {
-
     var birthDateParsed = this.utilService.parseDate(birthDate);
 
     var user = {
       yearBirth: birthDateParsed.getFullYear(),
-      monthBirth: birthDateParsed.getMonth()+1,
+      monthBirth: birthDateParsed.getMonth() + 1,
       dayBirth: birthDateParsed.getDate(),
       name: name,
       ageOfDeath: finalAge,
-      isCreated:true
+      isCreated: true
     }
 
     if (birthDate && finalAge && name) {
       if (this.userDatabase) {
-        this.userDatabaseService.updateUser(this.userDatabase.$key,user);
-      }else{
+        this.userDatabaseService.updateUser(this.userDatabase.$key, user);
+      } else {
         this.userDatabaseService.saveUser(user)
       }
       this.onCloseModal.emit();
     }
-
   }
 }

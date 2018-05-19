@@ -9,15 +9,18 @@
   width: 100%;
   z-index: 1;
 }
+
 .navbar-brand{
   color:#777;
 }
+
 .slider-list-item {
   position: absolute;
   top: 50%;
   left:50%;
   transform: translate(-50%,-50%);
 }
+
 .version-representation{
     color: #ff6d00;
     font-size: 14px;
@@ -27,15 +30,18 @@
     left: 105px;
     position: absolute;
 }
+
 .dropdown a{
   color: #777;
   cursor:pointer;
   font-size: 18px;
 }
+
 .dropdowNavbarMenu{
   position: absolute;
   left: -123px!important;
 }
+
 .dropdown-item:active{
   background-color: #DDDDDD;
 }

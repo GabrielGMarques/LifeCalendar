@@ -5,5 +5,4 @@ export class Year {
     index: string;
     weeks: Week[];
     isTheCurrentYear: boolean;
-
 }

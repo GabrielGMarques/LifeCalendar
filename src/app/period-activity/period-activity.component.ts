@@ -37,50 +37,47 @@ export class PeriodActivityComponent implements OnInit {
   }
 
   @ViewChild("taskDescription") taskDescription: ElementRef;
-  
+
   saveTask(period: Period, task: Task) {
-    
-    
-    if(task.inEdition){ 
+    if (task.inEdition) {
       task.inEdition = false;
       task.description = this.taskDescription.nativeElement.value;
-    }else{
+    } else {
       task.completed = !task.completed;
-    } 
+    }
 
-    this.utilService.calcPeriodProgress(period);    
-    this.periodService.updatePeriod(period.$key, period);      
+    this.utilService.calcPeriodProgress(period);
+    this.periodService.updatePeriod(period.$key, period);
   }
-  
-  setTaskComplexity(period: Period, task: Task, complexity: number){
+
+  setTaskComplexity(period: Period, task: Task, complexity: number) {
     task.complexity = complexity;
     this.utilService.calcPeriodProgress(period);
-    this.periodService.updatePeriod(period.$key, period);          
+    this.periodService.updatePeriod(period.$key, period);
   }
 
-  editTask(period: Period, task: Task){
+  editTask(period: Period, task: Task) {
     task.inEdition = true;
     task.hadBeenEditedOnce = true;
-    this.periodService.updatePeriod(period.$key, period);      
+    this.periodService.updatePeriod(period.$key, period);
   }
 
   removeTask(period: Period, task: Task) {
-    if(task.hadBeenEditedOnce && task.inEdition){
+    if (task.hadBeenEditedOnce && task.inEdition) {
       task.inEdition = false;
-    }else{
+    } else {
       period.tasks = period.tasks.filter(x => x != task);
     }
-    
-    this.utilService.calcPeriodProgress(period);    
-    this.periodService.updatePeriod(period.$key, period);        
+
+    this.utilService.calcPeriodProgress(period);
+    this.periodService.updatePeriod(period.$key, period);
   }
 
   addTask(period: Period) {
-    if(!period.tasks)
+    if (!period.tasks)
       period.tasks = [];
 
     period.tasks.push({ inEdition: true });
-    this.periodService.updatePeriod(period.$key, period);    
+    this.periodService.updatePeriod(period.$key, period);
   }
-
 }
